@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { DefaultTypes } from '~/types';
+import { socialLinks } from '~/site.config';
+import Button from '../ui/Button.astro';
+
+interface Props extends DefaultTypes, HTMLAttributes<'div'> {};
+
+const { class: className, ...rest }: Partial<Props> = Astro.props;
+---
+
+<div class:list={['inline-flex items-center gap-2', className]} {...rest} >
+  {(
+    socialLinks
+    .filter(link => link.show)
+    .map((link) =>
+      <Button
+        buttonStyle="icon"
+        icon={link.icon}
+        iconSize={21}
+        href={link.href}
+        aria-label={link.label}
+        openNewTab={true}
+      />
+    )
+  )}
+</div>

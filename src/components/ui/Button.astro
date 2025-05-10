@@ -1,0 +1,46 @@
+---
+import type { ButtonOptions } from '~/types';
+import { Icon } from 'astro-icon/components';
+
+const { buttonStyle, buttonText, buttonTextClass, buttonTextWrap, icon, iconAnimate, iconReverse, iconSize = 21, openNewTab, ariaLabel, href, class: className, ...rest }: Partial<ButtonOptions> = Astro.props;
+
+let buttonCSS;
+switch (buttonStyle) {
+  case 'primary':
+    buttonCSS = 'gap-2 px-4 border-2 border-neutral-900 rounded-md bg-neutral-900 hover:bg-neutral-50/75 hover:border-neutral-900 text-neutral-50 hover:text-neutral-900';
+    break;
+  case 'secondary':
+    buttonCSS = 'gap-2 px-4 border-2 border-neutral-900 rounded-md text-black bg-neutral-50/75 hover:bg-neutral-900 hover:text-neutral-50';
+    break;
+  case 'link':
+    buttonCSS = 'w-fit gap-2 border-b-2 border-transparent hover:border-neutral-50 focus:rounded-md';
+    break;
+  case 'icon':
+    buttonCSS = 'border-b-2 border-transparent rounded-md hover:backdrop-invert hover:text-neutral-900'
+    break;
+  case 'disabled':
+    buttonCSS = 'gap-2 border-b-2 border-transparent rounded-md text-neutral-600 cursor-not-allowed';
+    break;
+  default:    
+    break;
+}
+
+const newTabAttributes = openNewTab ? { target: "_blank", rel: "noreferrer noopener" } : {};
+---
+
+<a href={href} class:list={['group/btn flex justify-center items-center p-2 focus:bg-pink-300 focus:text-black focus:border-black transition duration-300 ease-in-out', buttonCSS, iconReverse ? 'flex-row-reverse' : '', className]} aria-label={ariaLabel} {...newTabAttributes} {...rest} >
+
+  <span class:list={['font-medium', buttonTextClass ? buttonTextClass : '', buttonTextWrap ? '' : 'text-nowrap']}>
+    {buttonText}
+  </span>
+
+  { icon && (
+    <Icon
+      name={icon}
+      height={iconSize}
+      width={iconSize}
+      class:list={['self-center', iconAnimate ? 'group-hover/btn:-rotate-45 transition-transform duration-300 ease-in-out' : '']}
+    />
+  )}
+
+</a>
