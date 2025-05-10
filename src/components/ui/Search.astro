@@ -1,0 +1,143 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<div
+  data-search-modal
+  tabindex="-1"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  class="hidden"
+>
+  
+  <div class="z-45 fixed bg-black/50 h-full w-full transition duration-300" data-search-overlay></div>
+
+  <div class="z-50 relative w-screen md:max-w-[640px] flex flex-col gap-4 p-4 md:p-8 mx-4 rounded-xl bg-neutral-900">
+
+    <div class="flex justify-between items-center">
+      <span class="text-lg font-medium">Search this site</span>
+
+      <button
+        class="border-b-2 border-transparent rounded-md p-2 focus:bg-pink-300 focus:text-black focus:border-black hover:backdrop-invert hover:text-neutral-900 cursor-pointer transition duration-300"
+        aria-label="close search"
+        aria-pressed="false"
+        data-close-button
+      >
+        <Icon name="ri:close-line" height={24} width={24} />
+      </button>
+    </div>
+
+    <div id="search" class="w-full ring-pink-400"></div>
+
+  </div>
+</div>
+
+<script>
+  // @ts-nocheck
+  window.addEventListener('DOMContentLoaded', () => {
+
+    new PagefindUI({
+      element: "#search",
+      debounceTimeoutMs: 500,
+      showEmptyFilters: false,
+      excerptLength: 15,
+      showImages: false,
+      addStyles: false,
+      processResult: function (result) {
+        result.url = result.url.replace(/\/$/, "");
+        return result;
+      }
+    });
+
+    const modal = document.querySelector('[data-search-modal]');
+    const toggleBtn = document.querySelector('[data-search-toggle]');
+    const closeBtn = modal?.querySelector('[data-close-button]');
+    const overlay = modal?.querySelector('[data-search-overlay]');
+    let searchOpen = false;
+  
+    function updateModal() {
+      if (searchOpen) {
+        modal?.classList.remove('hidden');
+        modal?.classList.add('z-50', 'fixed', 'md:inset-0', 'top-0', 'left-0', 'right-0', 'h-full', 'w-full', 'flex', 'justify-center', 'items-center', 'bg-black/50');
+        modal?.setAttribute('aria-hidden', 'false');
+        toggleBtn?.setAttribute('aria-pressed', 'true');
+      } else {
+        modal?.classList.add('hidden');
+        modal?.classList.remove('z-50', 'fixed', 'md:inset-0', 'top-0', 'left-0', 'right-0', 'h-full', 'w-full', 'flex', 'justify-center', 'items-center', 'bg-black/50');
+        modal?.setAttribute('aria-hidden', 'true');
+        toggleBtn?.setAttribute('aria-pressed', 'false');
+      }
+    }
+  
+    toggleBtn?.addEventListener('click', () => {
+      searchOpen = !searchOpen;
+      updateModal();
+    });
+  
+    closeBtn?.addEventListener('click', () => {
+      searchOpen = false;
+      updateModal();
+    });
+  
+    overlay?.addEventListener('click', () => {
+      searchOpen = false;
+      updateModal();
+    });
+  
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchOpen = false;
+        updateModal();
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  @reference "~/styles/global.css";
+
+  .pagefind-ui__form {
+    @apply flex flex-col gap-y-2;
+  }
+
+  .pagefind-ui__search-input {
+    @apply border-2 border-neutral-900 focus:border-black rounded-md text-black placeholder:italic;
+  }
+
+  .pagefind-ui__search-clear {
+    @apply w-fit ml-2 border-b-2 border-transparent hover:border-neutral-50 focus:border-black focus:bg-pink-300 focus:text-black text-sm cursor-pointer;
+  }
+
+  .pagefind-ui__message {
+    @apply font-semibold;
+  }
+
+  .pagefind-ui__drawer {
+    @apply max-h-96 overflow-y-auto;
+  }
+
+  .pagefind-ui__result {
+    @apply border-t-2 border-neutral-300 my-4;
+  }
+
+  .pagefind-ui__result mark {
+    @apply bg-pink-300;
+  }
+
+  .pagefind-ui__result-link {
+    @apply font-semibold hover:underline underline-offset-4;
+  }
+
+  .pagefind-ui__result-title {
+    @apply mb-2;
+  }
+
+  .pagefind-ui__result-inner {
+    @apply my-2;
+  }
+
+  .pagefind-ui__button {
+    @apply flex justify-center items-center p-2 px-4 mr-auto border-2 border-transparent rounded-md focus:bg-pink-300 focus:text-black focus:border-black bg-black hover:bg-transparent hover:border-neutral-50 text-neutral-50 transition duration-300 cursor-pointer;
+  }
+</style>
