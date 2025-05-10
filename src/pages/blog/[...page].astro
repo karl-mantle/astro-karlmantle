@@ -1,0 +1,55 @@
+---
+import type { GetStaticPathsOptions, Page } from 'astro';
+import { type CollectionEntry } from 'astro:content';
+import { collectionSettings } from '~/site.config';
+import { getEntries } from '~/utils/collections';
+import Base from '~/layouts/Base.astro';
+import PostCard from '~/components/collections/PostCard.astro';
+import PostArchive from '~/components/collections/PostArchive.astro';
+import Pagination from '~/components/ui/Pagination.astro';
+
+interface Props { 
+  page: Page<CollectionEntry<'posts'>>
+};
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+    const posts = await getEntries('posts');
+    return paginate(posts, {
+      pageSize: 9
+    });
+};
+
+const { page }: Partial<Props> = Astro.props;
+---
+
+<Base
+  title="All Posts"
+  description="An archive of all posts"
+>
+  <section class="container flex flex-col min-h-screen">
+
+    <PostArchive
+      description={`Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.`}
+      heading="Viewing all posts"
+    />
+
+    <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85% mb-4" />
+
+    <ol class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {page.data.map((post) =>
+        <PostCard
+          date={post.data.pubDate}
+          description={post.data.description}
+          heading={post.data.title}
+          image={post.data.image}
+          href={`${Astro.site}blog/${post.data.slug}`}
+        />
+      )}
+    </ol>
+
+    <Pagination
+      page={page}
+    />
+
+  </section>
+</Base>

@@ -1,0 +1,46 @@
+---
+import type { DataEntryMap } from 'astro:content';
+import type { HTMLAttributes } from 'astro/types';
+import type { DefaultTypes } from '~/types';
+import { getEntriesByCategory } from '~/utils/collections';
+import PostCard from '~/components/collections/PostCard.astro';
+import ProjectCard from '~/components/collections/PostCard.astro';
+
+interface Props extends DefaultTypes, HTMLAttributes<'section'> {
+  category: string,
+  contentCollection: keyof DataEntryMap,
+  maxEntries?: number
+};
+
+const { contentCollection, category, maxEntries = 3, class: className, ...rest }: Partial<Props> = Astro.props;
+
+const entries = await getEntriesByCategory(contentCollection, category, maxEntries);
+---
+
+<ul class="grid grid-cols-1 md:grid-cols-3 gap-4" {...rest} >
+
+  { contentCollection === 'posts' && (
+    entries.map((post) =>
+      <PostCard
+        date={post.data.pubDate}
+        description={post.data.description}
+        heading={post.data.title}
+        image={post.data.image}
+        href={`${Astro.site}blog/${post.data.slug}`}
+      />
+    )
+  )}
+
+  { contentCollection === 'projects' && (
+    entries.map((project) =>
+      <ProjectCard
+        date={project.data.pubDate}
+        description={project.data.description}
+        heading={project.data.title}
+        image={project.data.image}
+        href={`${Astro.site}code/${project.data.slug}`}
+      />
+    )
+  )}
+
+</ul>

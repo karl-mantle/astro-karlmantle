@@ -1,0 +1,34 @@
+---
+import { shareLinks, createShareUrl } from '~/utils/share';
+import Button from '~/components/ui/Button.astro';
+
+interface Props {
+  class?: string,
+  display: string[],
+  title: string,
+  url: string
+};
+
+const { display = ['email', 'facebook', 'linkedin', 'whatsapp'], title, url, class: className, ...rest }: Props = Astro.props;
+---
+
+<div class:list={['flex justify-between items-center gap-2', className]} {...rest} >
+  <span class="font-medium mr-2">Share this post:</span>
+
+  <div class="flex gap-1">
+    {(
+      shareLinks
+      .filter(link => display.includes(link.name))
+      .map((link) =>
+        <Button
+          buttonStyle="icon"
+          icon={link.icon}
+          iconSize={24}
+          href={createShareUrl(link.name, title, url)}
+          ariaLabel={link.label}
+          openNewTab={true}
+        />
+      )
+    )}
+  </div>
+</div>

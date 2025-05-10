@@ -1,0 +1,66 @@
+---
+import Button from '~/components/ui/Button.astro';
+
+const iconSize = 21;
+const { page, class: className, ...rest } = Astro.props;
+---
+
+<nav class:list={['flex justify-center m-8', className]} aria-label="page controls" {...rest} >
+  <ul class="flex items-center">
+    <li class="w-1/4 flex justify-end">
+      {page.url.prev ?
+        <Button
+          buttonStyle="link"
+          href={page.url.prev}
+          buttonText="Previous"
+          icon="ri:arrow-left-line"
+          iconSize={iconSize}
+          iconReverse={true}
+          iconAnimate={false}
+          aria-label="go to previous page"
+        />
+        :
+        <Button
+          buttonStyle="disabled"
+          href=""
+          buttonText="Previous"
+          icon="ri:arrow-left-line"
+          iconSize={iconSize}
+          iconReverse={true}
+          iconAnimate={false}
+          aria-disabled="true"
+        />
+      }
+    </li>
+
+    <li class="w-1/2 flex justify-center">
+      <span class="px-4 border-x-2 border-neutral-500" aria-label={`current page is ${page.currentPage} out of ${page.lastPage} pages`}>
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+    </li>
+
+    <li class="w-1/4 flex justify-end">
+      {page.url.next ?
+        <Button
+          buttonStyle="link"
+          href={page.url.next}
+          buttonText="Next"
+          icon="ri:arrow-right-line"
+          iconSize={iconSize}
+          iconAnimate={false}
+          aria-label="go to next page"
+        />
+        :
+        <Button
+          buttonStyle="disabled"
+          href=""
+          buttonText="Next"
+          icon="ri:arrow-right-line"
+          iconSize={iconSize}
+          iconAnimate={false}
+          aria-disabled="true"
+        />
+      }
+    </li>
+  </ul>
+</nav>

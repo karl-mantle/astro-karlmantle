@@ -1,0 +1,43 @@
+---
+import type { DateOptions } from '~/types';
+import { Icon } from 'astro-icon/components';
+
+interface Props extends DateOptions {
+  date: Date
+};
+
+const { date, description, hideDescription, class: className, ...rest }: Partial<Props> = Astro.props;
+
+const ordinal = (day: number) => {
+  const suffixSet = ['th', 'st', 'nd', 'rd'];
+  if (day > 3 && day < 21) return suffixSet[0];
+  switch (day % 10) {
+    case 1: return suffixSet[1];
+    case 2: return suffixSet[2];
+    case 3: return suffixSet[3];
+    default: return suffixSet[0];
+  }
+};
+
+const day = date.getDate();
+const month = date.toLocaleString('en-GB', { month: 'long' });
+const year = date.getFullYear();
+
+const formattedDate = `${day}${ordinal(day)} ${month} ${year}`;
+---
+
+<div class:list={['flex flex-col gap-2', className]} {...rest} >
+
+  { !hideDescription && (
+    <span class="font-medium">{description}</span>
+  )}
+
+  <div class="inline-flex gap-2">
+    <Icon name="ri:calendar-line" height={21} width={21} class="self-center"/>
+    { hideDescription && (
+      <span class="sr-only">{description}</span>
+    )}
+    <time datetime={date.toISOString()}>{formattedDate}</time>
+  </div>
+
+</div>
