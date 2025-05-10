@@ -1,0 +1,35 @@
+---
+import Button from '~/components/ui/Button.astro';
+import SocialLinks from '~/components/ui/SocialLinks.astro';
+---
+
+<footer class="container relative grid grid-cols-1 md:grid-cols-2 items-center gap-2 gap-y-4 p-4 md:px-8 bg-neutral-800 rounded-t-xl">
+
+  <hr class="absolute top-0 w-full h-[2px] border-none bg-neutral-600 mask-x-from-75%" />
+
+  <nav class="flex justify-center md:justify-start text-sm" aria-label="footer navigation">
+    <ul class="inline-flex gap-4" aria-label="footer navigation links">
+      <li>
+        <Button
+          buttonStyle="link"
+          buttonText="Contact"
+          class="!p-1"
+          href={`${Astro.site}contact`}
+        />
+      </li>
+      <li>
+        <Button
+          buttonStyle="link"
+          buttonText="Sitemap"
+          class="!p-1"
+          href={`${Astro.site}sitemap.xml`}
+        />
+      </li>
+    </ul>
+  </nav>
+
+  <SocialLinks
+    class="mx-auto md:ml-auto md:mr-4"
+  />
+  
+</footer>

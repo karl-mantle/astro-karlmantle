@@ -1,0 +1,203 @@
+---
+import { Icon } from 'astro-icon/components';
+import { headerNavigation } from '~/site.config';
+
+type MenuItem = { 
+  id: string,
+  parentId: string | null,
+  url: string,
+  label: string,
+  children: MenuItem[]
+};
+
+function createMenuTree(menuItems: MenuItem[], parentId: string | null = null): MenuItem[] {
+  return menuItems
+    .filter(item => item.parentId === parentId)
+    .map(item => ({
+      ...item,
+      children: createMenuTree(menuItems, item.id)
+    }));
+};
+
+const menuTree = createMenuTree(headerNavigation as MenuItem[]);
+---
+
+<nav
+  class="hidden absolute md:static top-15 md:top-auto left-0 z-20 h-[calc(100vh-62px)] w-full md:w-auto md:h-auto md:flex md:flex-row bg-black md:bg-transparent text-lg md:text-base font-medium overflow-scroll md:overflow-visible"
+  aria-label="site navigation"
+  data-site-nav
+  aria-expanded="false"
+>
+  { /* menu */ }
+  <ul class="md:flex md:flex-row md:gap-2 md:items-center">
+    {menuTree.map((item: MenuItem, i) => (
+      <li class="relative flex flex-col md:static" data-menu-item>
+        <div class="flex flex-row items-center justify-between p-2 md:py-0 hover:bg-neutral-900 border-b-2 border-neutral-600 md:border-none md:rounded-md transition duration-300">
+          { /* menu item text */ }
+          {item.url ? (
+            <a
+              class="flex flex-grow justify-between items-center border-b-2 border-transparent focus:border-black focus:bg-pink-300 focus:text-black focus:rounded-md transition duration-300"
+              href={item.url}
+              aria-label={`open link to ${item.label}`}
+            >
+              <span class="p-2">{item.label}</span>
+              {item.children.length === 0 && (
+                <Icon name="ri:arrow-right-line" height={26} width={26} class="w-8 md:hidden" />
+              )}
+            </a>
+          ) : ( 
+            <span class="flex p-2" aria-label={item.label}>
+              {item.label}
+            </span>
+          )}
+          { /* submenu toggle (chevron) */ }
+          {item.children.length > 0 && (
+            <button
+              class="flex items-center justify-center md:p-1 cursor-pointer border-b-2 border-transparent focus:border-black focus:bg-pink-300 focus:text-black focus:rounded-md transition duration-300"
+              aria-label={`Open ${item.label} submenu`}
+              aria-expanded="false"
+              data-submenu-toggle
+            >
+              <Icon
+                name="ri:arrow-down-s-line"
+                height={32}
+                width={32}
+                class="w-8 md:w-4 transition duration-300"
+              />
+            </button>
+          )}
+        </div>
+
+        { /* submenu wrapper */ }
+        {item.children.length > 0 && (
+          <div class="hidden md:absolute md:left-0 md:top-full w-full flex flex-col md:flex-row md:gap-4 md:p-4 md:shadow-sm md:rounded-b-xl bg-black md:bg-black" data-submenu>
+            <div class="flex flex-col md:gap-4">
+              <span class="p-4 text-xl font-medium md:p-0">Posts by category</span>
+              { /* actual submenu */ }
+              <ul aria-label={`${item.label} submenu`} class="flex flex-col md:flex-row md:gap-2">
+                {item.children.map((child: MenuItem) => (
+                  <li class="flex flex-rowitems-center justify-between p-4 md:p-0 border-b-2 border-neutral-600 md:border-transparent md:bg-neutral-900 md:rounded-md md:p-1 md:px-2 md:w-fit">
+                      {child.url ? (
+                        <a
+                          class="flex flex-grow justify-between items-center"
+                          href={child.url}
+                          aria-label={`open link to ${item.label}`}
+                        >
+                          <span>{child.label}</span>
+                          <Icon name="ri:arrow-right-line" height={26} width={26} class="w-8 md:hidden" />
+                        </a>
+                      ) : (
+                        <span>{child.label}</span>
+                      )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+
+
+            { /* tag cloud for blog */ }
+
+            { /* recent projects for code */ }
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<script>
+  // @ts-nocheck
+  window.addEventListener('DOMContentLoaded', () => {
+    const nav = document.querySelector('[data-site-nav]');
+    const toggleButton = document.querySelector('[data-menu-toggle]');
+    const iconOpen = toggleButton?.querySelector('[data-menu-icon-open]');
+    const iconClose = toggleButton?.querySelector('[data-menu-icon-close]');
+    const header = document.querySelector('[data-site-header]');
+  
+    let siteNavigationOpen = false;
+    let lastScrollY = window.scrollY;
+  
+    const updateBodyScrollLock = () => {
+      document.body.classList.toggle('h-full', siteNavigationOpen);
+      document.body.classList.toggle('overflow-hidden', siteNavigationOpen);
+    };
+  
+    const updateNavUI = () => {
+      if (!nav || !toggleButton) return;
+      nav.classList.toggle('hidden', !siteNavigationOpen);
+      nav.setAttribute('aria-expanded', String(siteNavigationOpen));
+      toggleButton.setAttribute('aria-pressed', String(siteNavigationOpen));
+      iconOpen?.classList.toggle('hidden', siteNavigationOpen);
+      iconClose?.classList.toggle('hidden', !siteNavigationOpen);
+      updateBodyScrollLock();
+    };
+  
+    toggleButton?.addEventListener('click', () => {
+      siteNavigationOpen = !siteNavigationOpen;
+      updateNavUI();
+    });
+  
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        siteNavigationOpen = false;
+        updateNavUI();
+        document.querySelectorAll('[data-submenu]').forEach(menu => {
+          menu.classList.add('hidden');
+          menu.previousElementSibling?.setAttribute('aria-expanded', 'false');
+          header?.classList.add('md:rounded-xl'); // this works too
+        });
+      }
+    });
+  
+    document.querySelectorAll('[data-submenu-toggle]').forEach((btn) => {
+      const submenu = btn.closest('[data-menu-item]')?.querySelector('[data-submenu]');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = !submenu.classList.contains('hidden');
+        document.querySelectorAll('[data-submenu]').forEach(menu => {
+          menu.classList.add('hidden');
+          menu.previousElementSibling?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          submenu.classList.remove('hidden');
+          btn.setAttribute('aria-expanded', 'true');
+          header?.classList.remove('md:rounded-xl');
+          header?.classList.add('bg-black', 'shadow-sm', 'md:rounded-t-xl');
+        } else {
+          submenu.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
+          header?.classList.remove('bg-black', 'shadow-sm', 'md:rounded-t-xl');
+          header?.classList.add('md:rounded-xl'); // not sure it's working
+        }
+      });
+    });
+  
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('[data-menu-item]')) {
+        document.querySelectorAll('[data-submenu]').forEach(menu => {
+          menu.classList.add('hidden');
+          menu.previousElementSibling?.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    function closeMenuOnScroll() {
+      const openSubmenus = document.querySelectorAll('[data-submenu]:not(.hidden)');
+      if (openSubmenus.length > 0) {
+        if (window.scrollY > lastScrollY && window.scrollY > 50) {
+          openSubmenus.forEach(submenu => {
+            submenu.classList.add('hidden');
+            submenu.previousElementSibling?.setAttribute('aria-expanded', 'false');
+          });
+          header?.classList.add('md:rounded-xl'); // this works
+        }
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      closeMenuOnScroll();
+      lastScrollY = window.scrollY;
+    });
+  });
+</script>

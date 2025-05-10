@@ -1,0 +1,43 @@
+---
+import { Icon } from 'astro-icon/components';
+import Button from '~/components/ui/Button.astro';
+
+const iconSize = 28;
+const buttonClasses = "border-b-2 border-transparent rounded-md p-2 focus:bg-pink-300 focus:text-black focus:border-black hover:backdrop-invert hover:text-neutral-900 cursor-pointer transition duration-300";
+---
+<ul class="inline-flex gap-2" aria-label="toolbar">
+
+  <li>
+    <button
+      class={buttonClasses}
+      aria-label="open search"
+      data-search-toggle
+      aria-pressed="false"
+    >
+      <Icon name="ri:search-line" height={iconSize} width={iconSize} />
+    </button>
+  </li>
+
+  <li>
+    <Button
+      buttonStyle="icon"
+      aria-label="subscribe to RSS feed (opens in new tab)"
+      href={`${Astro.site}rss.xml`}
+      icon="ri:rss-line"
+      iconSize={iconSize}
+      openNewTab={true}
+    />
+  </li>
+
+  <li class="md:hidden">
+    <button
+      class={buttonClasses}
+      aria-label="toggle mobile site navigation"
+      data-menu-toggle
+      aria-pressed="false"
+    >
+      <Icon name="ri:menu-line" height={iconSize} width={iconSize} data-menu-icon-open />
+      <Icon name="ri:close-line" height={iconSize} width={iconSize} data-menu-icon-close class="hidden" />
+    </button>
+  </li>
+</ul>

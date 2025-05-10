@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import HeaderNavigation from '~/components/partials/HeaderNavigation.astro';
+import HeaderToolbar from '~/components/partials/HeaderToolbar.astro';
+---
+
+<header data-site-header class="sticky top-0 md:top-4 z-50 relative container flex justify-between p-2 md:pr-4 md:mt-4 bg-black/75 hover:bg-black md:rounded-xl transition duration-600">
+  <a class="group/logo flex flex-row items-center gap-4 px-2 font-medium text-xl focus:bg-pink-300 border-b-2 border-transparent focus:border-black rounded-md transition duration-300" href={Astro.site} aria-label="link to homepage">
+    <Image src="/favicon.svg" alt="" format="svg" width={32} height={32} />
+    <span class="border-b-2 border-transparent group-hover/logo:border-neutral-50 group-focus/logo:border-black group-focus/logo:text-black transition duration-300">karlmantle</span>
+  </a>
+  <HeaderNavigation />
+  <HeaderToolbar />
+</header>
+
+<script>
+  // @ts-nocheck
+  const header = document.querySelector('[data-site-header]');
+  let lastScrollY = window.scrollY;
+  let isScrolling = false;
+
+  window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+      window.requestAnimationFrame(() => {
+        const currentScrollY = window.scrollY;
+
+        if (currentScrollY > lastScrollY) {
+          header.classList.add('-translate-y-[150%]');
+        } else {
+          header.classList.remove('-translate-y-[150%]');
+          header.classList.add('hover:shadow-sm');
+        }
+
+        if (currentScrollY === 0) {
+          header.classList.remove('hover:shadow-sm', 'shadow-sm');
+        }
+
+        lastScrollY = currentScrollY;
+        isScrolling = false;
+      });
+
+      isScrolling = true;
+    }
+  });
+</script>
