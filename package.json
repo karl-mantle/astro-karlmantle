@@ -36,12 +36,12 @@
   },
   "scripts": {
     "astro": "astro",
-    "build": "astro build && npx pagefind --site dist --output-path dist/pagefind",
+    "build": "astro build && npx pagefind",
     "cf-typegen": "wrangler types",
-    "check": "astro build && tsc && wrangler deploy --dry-run",
-    "deploy": "astro build && wrangler deploy",
+    "check": "npm run build && tsc && wrangler deploy --dry-run",
+    "deploy": "npm run build && wrangler deploy",
     "dev": "npx pagefind && npx shx cp -r dist/pagefind public/ && astro dev",
-    "preview": "astro build && wrangler dev"
+    "preview": "npm run build && wrangler dev"
   },
   "type": "module"
 }
