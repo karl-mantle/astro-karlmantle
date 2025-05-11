@@ -1,0 +1,39 @@
+---
+import { createSchema } from '~/utils/schema';
+import BaseHead from './BaseHead.astro';
+import SkipToMain from '~/components/ui/SkipToMain.astro';
+import Header from '~/components/partials/Header.astro';
+import ScrollToTop from '~/components/ui/ScrollToTop.astro';
+import Search from '~/components/ui/Search.astro';
+import Footer from '~/components/partials/Footer.astro';
+
+const { authorData, description, loadingOptions, postData, schemaType, title } = Astro.props;
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+
+const schema = createSchema(authorData, description, pageUrl, postData, schemaType, title);
+---
+
+<!doctype html>
+<html lang="en-GB" class="dark">
+  <head>
+    <BaseHead 
+      description={description}
+      loadingOptions={loadingOptions}
+      title={title}
+    />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+
+  <body class="text-base text-neutral-50 bg-black">
+    <SkipToMain />
+    <Header />
+    <main id="main" data-pagefind-body>
+      <slot />
+    </main>
+    <ScrollToTop />
+    <Search />
+    <Footer />
+  </body>
+
+</html>

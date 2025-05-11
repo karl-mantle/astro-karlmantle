@@ -1,0 +1,66 @@
+---
+import type { LoadingOptions } from '~/types';
+import { getImage } from 'astro:assets';
+import faviconSrc from '../../public/favicon.png';
+import '~/styles/global.css';
+
+interface Props {
+  description: string,
+  image?: any,
+  loadingOptions?: LoadingOptions,
+  title: string
+};
+
+const { description, image = '/opengraph.webp', loadingOptions, title } = Astro.props;
+
+const metaTitle = `${title} ~ karlmantle.com`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const favicon = await getImage({ src: faviconSrc, format: 'png' });
+const appleTouchIcon = await getImage({
+  src: faviconSrc,
+  width: 180,
+  height: 180,
+  format: 'png'
+});
+---
+
+<meta charset="utf-8" />
+<title data-pagefind-meta="title">{metaTitle}</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="title" content={metaTitle} />
+<meta name="description" content={description} />
+<meta name="generator" content={Astro.generator} />
+<link rel="canonical" href={canonicalURL} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={metaTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image, Astro.url)} />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={metaTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="icon" sizes="32x32, 16x16" href="/favicon.ico" />
+<link rel="icon" type="image/png" href={favicon.src} />
+<link rel="apple-touch-icon" href={appleTouchIcon.src} />
+<meta name="apple-mobile-web-app-title" content="karlmantle.com">
+<link rel="manifest" href="/manifest.json" />
+<link rel="alternate" type="application/rss+xml" title="karlmantle.com" href={new URL("rss.xml", Astro.site)} />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<script type="module" src="/pagefind/pagefind-ui.js"></script>
+
+{ loadingOptions?.loadLeaflet && (
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+)}
