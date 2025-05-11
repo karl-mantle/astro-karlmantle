@@ -1,50 +1,65 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { Icon } from 'astro-icon/components';
+import Base from '~/layouts/Base.astro';
+import Button from '~/components/ui/Button.astro';
+import RecentEntriesList from '~/components/collections/RecentEntriesList.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<Base
+  title="Home"
+  description="A fast, accessible, SEO-friendly and easy-to-use boilerplate for building static sites with Astro."
+>
+
+<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[1fr_376px_376px_1fr] gap-4 md:gap-8 mt-4 mb-8 md:min-h-[calc(100vh-126px)]">
+
+  {/* 1st Card */}
+  <div class="bg-card bg-neutral-800 col-span-1 md:col-span-4 lg:col-span-3 flex flex-col justify-center items-start lg:items-end p-4 lg:p-0 lg:py-8 mr-4 lg:mr-0 gap-4 rounded-r-xl hover:shadow-sm transition duration-600">
+    
+    <section class="flex flex-col gap-8 lg:min-w-3xl">
+      <h1 class="flex md:mb-4 text-4xl md:text-7xl font-mono font-semibold">
+        <span class="animate-typing">Hello, World!</span>
+        <span class="animate-blink" aria-hidden="true">|</span>
+      </h1>
+    </section>
+  </div>
+
+  {/* Dummy */}
+  <div class="hidden lg:block"></div>
+
+  {/* Dummy */}
+  <div class="hidden lg:block"></div>
+
+  {/* 2nd Card */}
+  <div class="group/card bg-card bg-neutral-800 md:bg-transparent md:col-span-2 lg:col-span-1 md:row-span-2 flex flex-col gap-4 p-4 md:p-0 md:pl-6 ml-4 lg:ml-0 rounded-l-xl md:rounded-xl">
+    <h2 class="text-2xl font-semibold">Latest posts</h2>
+    <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85%" />
+    <RecentEntriesList contentCollection='posts' maxEntries={9} />
+  </div>
+
+  {/* 3rd Card */}
+  <a href={`${Astro.site}code/react-pokedex`} class="group/card bg-neutral-800 md:col-span-2 flex flex-col justify-end ml-auto mr-4 sm:ml-0 md:mr-auto rounded-r-xl md:rounded-xl">
+    <div class="md:max-w-[376px] flex justify-between gap-2 p-4 bg-neutral-50/25 rounded-r-xl md:rounded-none md:rounded-b-xl group-hover/card:backdrop-blur-xs group-focus/card:bg-pink-300 group-focus/card:outline-2 group-focus/card:text-black transition duration-600">
+      <div class="flex flex-col gap-2">
+        <h2 class="mr-auto text-2xl font-semibold leading-none border-b-2 border-transparent group-hover/card:border-neutral-900 group-focus/card:border-neutral-900 transition duration-600">Featured project</h2>
+        <p class="md:text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius</p>
+      </div>
+      <Icon name="ri:arrow-right-line" height={24} width={24} class="min-w-8 md:self-center"/>
+    </div>
+  </a>
+
+  {/* 4th Card */}
+  <a href={`${Astro.site}code`} class="group/card bg-neutral-800 md:col-span-2 flex flex-col justify-end ml-4 md:ml-0 rounded-l-xl transition duration-600">
+    <div class="md:max-w-[376px] flex justify-between gap-2 p-4 bg-neutral-50/25 rounded-l-xl md:rounded-tr-xl md:rounded-tl-none group-hover/card:backdrop-blur-xs group-focus/card:bg-pink-300 group-focus/card:outline-2 group-focus/card:text-blacktransition duration-600">
+      <div class="flex flex-col gap-2">
+        <h2 class="mr-auto text-2xl font-semibold leading-none border-b-2 border-transparent group-hover/card:border-neutral-900 group-focus/card:border-neutral-900 transition duration-600">View all projects</h2>
+        <p class="md:text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, dolor sit sed do eius</p>
+      </div>
+      <Icon name="ri:arrow-right-line" height={24} width={24} class="min-w-8 md:self-center"/>
+    </div>
+  </a>
+
+</div>
+
+
+</Base>
+
