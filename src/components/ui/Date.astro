@@ -6,7 +6,7 @@ interface Props extends DateOptions {
   date: Date
 };
 
-const { date, description, hideDescription, class: className, ...rest }: Partial<Props> = Astro.props;
+const { date, description, hideDescription, hideIcon, class: className, ...rest }: Partial<Props> = Astro.props;
 
 const ordinal = (day: number) => {
   const suffixSet = ['th', 'st', 'nd', 'rd'];
@@ -26,18 +26,21 @@ const year = date.getFullYear();
 const formattedDate = `${day}${ordinal(day)} ${month} ${year}`;
 ---
 
-<div class:list={['flex flex-col gap-2', className]} {...rest} >
+<div class:list={['flex flex-col', hideIcon ? 'gap-0' : '', className]} {...rest} >
 
   { !hideDescription && (
     <span class="font-medium">{description}</span>
   )}
 
+  { (!hideIcon || !hideDescription) && (
   <div class="inline-flex gap-2">
-    <Icon name="ri:calendar-line" height={21} width={21} class="self-center"/>
+    { !hideIcon && (
+      <Icon name="ri:calendar-line" height={21} width={21} class="self-center"/>
+    )}
     { hideDescription && (
       <span class="sr-only">{description}</span>
     )}
     <time datetime={date.toISOString()}>{formattedDate}</time>
   </div>
-
+  )}
 </div>

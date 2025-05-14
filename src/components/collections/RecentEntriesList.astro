@@ -3,9 +3,7 @@ import type { DataEntryMap } from 'astro:content';
 import type { DefaultTypes } from '~/types';
 import type { HTMLAttributes } from 'astro/types';
 import { getEntries } from '~/utils/collections';
-import PostCard from '~/components/collections/PostCard.astro';
-import ProjectCard from '~/components/collections/PostCard.astro';
-import { Icon } from 'astro-icon/components';
+import PostListItem from './PostListItem.astro';
 
 interface Props extends DefaultTypes, HTMLAttributes<'section'> {
   contentCollection: keyof DataEntryMap,
@@ -21,24 +19,23 @@ const entries = await getEntries(contentCollection, maxEntries);
 
   { contentCollection === 'posts' && (
     entries.map((post) =>
-      <li>
-        <a href={`${Astro.site}/blog/${post.data.slug}`} class="flex justify-between gap-2 pb-2 border-neutral-600 border-b-2 hover:border-neutral-50 focus:bg-pink-300 focus:text-black focus:p-1 focus:border-black transition duration-300">
-          <span>{post.data.title}</span>
-          <Icon name="ri:arrow-right-line" height={24} width={24} class="w-8"/>
-        </a>
-      </li>
-    )
-  )}
-
-  { contentCollection === 'projects' && (
-    entries.map((project) =>
-      <ProjectCard
-        description={project.data.description}
-        heading={project.data.title}
-        href={`${Astro.site}/code/${project.data.slug}`}
-        image={project.data.image}
+      <PostListItem
+        date={post.data.updatedDate ?? post.data.pubDate}
+        description={post.data.description}
+        heading={post.data.title}
+        href={`${Astro.site}blog/${post.data.slug}`}
       />
     )
   )}
+
+  <!-- { contentCollection === 'projects' && (
+    entries.map((project) =>
+      <ProjectListItem
+        tags={project.data.tags}
+        heading={project.data.title}
+        href={`${Astro.site}code/${project.data.slug}`}
+      />
+    )
+  )} -->
 
 </ol>

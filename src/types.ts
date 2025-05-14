@@ -9,7 +9,7 @@ export interface DefaultTypes {
   dateOptions?: DateOptions,
   description?: string,
   heading?: string,
-  image?: any, // fix
+  image?: any // ImageOptions
 };
 
 export interface ButtonOptions extends HTMLAttributes<'a'> {
@@ -25,9 +25,15 @@ export interface ButtonOptions extends HTMLAttributes<'a'> {
   ariaLabel?: string
 };
 
+export interface ImageOptions {
+  src: ImageMetadata,
+  alt?: string
+};
+
 export interface DateOptions extends HTMLAttributes<'div'> {
   description?: DefaultTypes['description'],
   hideDescription?: boolean,
+  hideIcon?: boolean,
   showTime?: boolean
 };
 

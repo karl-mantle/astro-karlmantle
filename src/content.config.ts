@@ -15,6 +15,7 @@ const author = defineCollection({
       })
     .optional(),
     pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
     category: z.string().default('Uncategorised'),
     tags: z.array(z.string()).default([])
   }),
@@ -59,6 +60,7 @@ const projects = defineCollection({
     slug: z.string().optional(),
     author: reference('author').default('default'),
     pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
     image: z
       .object({
         src: image(),

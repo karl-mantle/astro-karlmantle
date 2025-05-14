@@ -6,7 +6,7 @@ import HeaderToolbar from '~/components/partials/HeaderToolbar.astro';
 
 <header data-site-header class="sticky top-0 md:top-4 z-50 relative container flex justify-between p-2 md:pr-4 md:mt-4 bg-black/75 hover:bg-black md:rounded-xl transition duration-600">
   <a class="group/logo flex flex-row items-center gap-4 px-2 font-medium text-xl focus:bg-pink-300 border-b-2 border-transparent focus:border-black rounded-md transition duration-300" href={Astro.site} aria-label="link to homepage">
-    <Image src="/favicon.svg" alt="" format="svg" width={32} height={32} />
+    <Image src="/favicon.svg" alt="" format="svg" width={32} height={32} loading="eager" />
     <span class="border-b-2 border-transparent group-hover/logo:border-neutral-50 group-focus/logo:border-black group-focus/logo:text-black transition duration-300">karlmantle</span>
   </a>
   <HeaderNavigation />

@@ -1,56 +1,35 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import type { DefaultTypes } from '~/types';
-import { Image } from 'astro:assets';
-import Button from '~/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+import Date from '../ui/Date.astro';
 
 interface Props extends DefaultTypes, HTMLAttributes<'li'> {
-  href: string
+  href: string,
+  date: Date
 };
 
-const { description, heading, href, image, class: className, ...rest }: Partial<Props> = Astro.props;
-
-const uniqueId = Math.random().toString(36).slice(2, 11);
+const { date, description, heading, href, image, class: className, ...rest }: Partial<Props> = Astro.props;
 ---
 
 <li
   aria-label={heading}
-  class:list={['group/card h-full flex flex-col-reverse rounded-xl border-transparent border-2 focus-within:border-white', className]}
+  class:list={['group/card border-transparent border-2 rounded-xl focus-within:p-1 focus-within:border-white', className]}
   data-post-card
   {...rest}
 >
-  <article class="flex flex-col flex-grow gap-2 p-4 mb-auto">
-    <h3
-      id={uniqueId}
-      class="text-lg md:text-xl font-serif font-medium"
-    >
-      {heading}
-    </h3>
+  <article class="flex flex-col gap-2 pb-2 text-sm border-neutral-600 border-b-2 hover:border-neutral-50 transition duration-300">
+    <a href={href} class="flex justify-between gap-2 focus:bg-pink-300 focus:rounded-md focus:text-black focus:p-1 focus:border-black transition duration-300">
+      <h3 class="text-lg font-medium leading-5 underline underline-offset-4 decoration-transparent hover:decoration-neutral-50 transition duration-300">{heading}</h3>
+      <Icon name="ri:arrow-right-line" height={24} width={24} class="w-8"/>
+    </a>
+    
+    <Date date={date} hideIcon={true}/>
 
-    <p class="text-sm">{description}</p>
+    <p>{description}</p>
 
-    <Button
-      aria-describedby={uniqueId}
-      buttonStyle='link'
-      buttonText='Read more'
-      class="mt-auto mr-auto ml-0 pl-0 focus:pl-2"
-      data-link
-      href={href}
-      icon='ri:arrow-right-line'
-      iconAnimate={true}
-      iconSize={21}
-    />
   </article>
 
-  { image && (
-    <Image
-      alt={image.alt}
-      class="object-cover aspect-video rounded-t-xl opacity-75 group-hover/card:opacity-100 group-focus-within/card:opacity-100 transition duration-300"
-      format="webp"
-      width={412}
-      src={image.src}
-    />
-  )}
 </li>
 
 <script>
