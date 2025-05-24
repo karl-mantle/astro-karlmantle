@@ -9,7 +9,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://www.karlmantle.com",
+  site: "https://astro-karlmantle.karlmantle.workers.dev/",
+  //"http://127.0.0.1:4321/",
+  //"https://www.karlmantle.com",
   integrations: [
     icon({
       iconDir: "src/assets/icons",
