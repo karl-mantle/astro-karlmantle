@@ -42,6 +42,30 @@ export const getTags = async (entryType: keyof DataEntryMap): Promise<Terms[]> =
   return tagsArray.sort((a, b) => a.name.localeCompare(b.name));
 };
 
+export const getTagsCount = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
+  const entries = await getCollection(entryType);
+  const tagList: { name: string; count: number }[] = [];
+
+  entries.forEach((entry) => {
+    entry.data.tags.forEach((tag: string) => {
+      const existing = tagList.find(t => t.name === tag);
+      if (existing) {
+        existing.count += 1;
+      } else {
+        tagList.push({ name: tag, count: 1 });
+      }
+    });
+  });
+
+  const tagsArray = tagList.map(tag => ({
+    name: tag.name,
+    slug: slugify(tag.name),
+    count: tag.count
+  }));
+
+  return tagsArray.sort((a, b) => a.name.localeCompare(b.name));
+};
+
 export const getTerms = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
   const categories = await getCategories(entryType);
   const tags = await getTags(entryType);

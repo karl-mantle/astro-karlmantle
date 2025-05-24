@@ -53,5 +53,6 @@ export interface MapOptions {
 export type Terms = {
   name: string,
   slug: string,
-  type: string
+  type?: string,
+  count?: number
 };
