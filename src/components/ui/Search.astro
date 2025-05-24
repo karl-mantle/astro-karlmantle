@@ -55,18 +55,71 @@ import { Icon } from 'astro-icon/components';
     const closeBtn = modal?.querySelector('[data-close-button]');
     const overlay = modal?.querySelector('[data-search-overlay]');
     let searchOpen = false;
-  
-    function updateModal() {
+
+    const trapFocus = (element) => {
+      const handleKeyDown = (e) => {
+        if (e.key !== 'Tab') return;
+        // check this list
+        const focusableSelectors = [
+          'a[href]',
+          'area[href]',
+          'input:not([disabled]):not([type="hidden"])',
+          'select:not([disabled])',
+          'textarea:not([disabled])',
+          'button:not([disabled])',
+          'iframe',
+          'object',
+          'embed',
+          '[contenteditable]',
+          '[tabindex]:not([tabindex="-1"])'
+        ];
+
+        const focusableElements = Array.from(element.querySelectorAll(focusableSelectors.join(',')));
+        if (focusableElements.length === 0) return;
+
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstFocusable) {
+            e.preventDefault();
+            lastFocusable.focus();
+          }
+        } else {
+          if (document.activeElement === lastFocusable) {
+            e.preventDefault();
+            firstFocusable.focus();
+          }
+        }
+      };
+      element.addEventListener('keydown', handleKeyDown);
+
+      return () => element.removeEventListener('keydown', handleKeyDown);
+    };
+
+    const updateModal = () => {
       if (searchOpen) {
         modal?.classList.remove('hidden');
         modal?.classList.add('z-50', 'fixed', 'md:inset-0', 'top-0', 'left-0', 'right-0', 'h-full', 'w-full', 'flex', 'justify-center', 'items-center', 'bg-black/50');
         modal?.setAttribute('aria-hidden', 'false');
         toggleBtn?.setAttribute('aria-pressed', 'true');
+        trapFocus(modal);
+
+        setTimeout(() => {
+          const searchInput = modal.querySelector('.pagefind-ui__search-input');
+          if (searchInput) {
+            searchInput.focus();
+          } else {
+            modal.focus();
+          }
+        }, 0);
+
       } else {
         modal?.classList.add('hidden');
         modal?.classList.remove('z-50', 'fixed', 'md:inset-0', 'top-0', 'left-0', 'right-0', 'h-full', 'w-full', 'flex', 'justify-center', 'items-center', 'bg-black/50');
         modal?.setAttribute('aria-hidden', 'true');
         toggleBtn?.setAttribute('aria-pressed', 'false');
+        toggleBtn?.focus();
       }
     }
   
@@ -114,11 +167,11 @@ import { Icon } from 'astro-icon/components';
   }
 
   .pagefind-ui__drawer {
-    @apply max-h-96 overflow-y-auto;
+    @apply max-h-96 overflow-y-auto px-2;
   }
 
   .pagefind-ui__result {
-    @apply border-t-2 border-neutral-300 my-4;
+    @apply border-b-2 border-neutral-600 my-4;
   }
 
   .pagefind-ui__result mark {
@@ -126,7 +179,7 @@ import { Icon } from 'astro-icon/components';
   }
 
   .pagefind-ui__result-link {
-    @apply font-semibold hover:underline underline-offset-4;
+    @apply font-semibold hover:underline underline-offset-4 focus:p-1 focus:bg-pink-300 focus:text-black;
   }
 
   .pagefind-ui__result-title {
