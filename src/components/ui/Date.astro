@@ -26,7 +26,7 @@ const year = date.getFullYear();
 const formattedDate = `${day}${ordinal(day)} ${month} ${year}`;
 ---
 
-<div class:list={['flex flex-col', hideIcon ? 'gap-0' : '', className]} {...rest} >
+<div class:list={['flex flex-col', !hideIcon ? 'gap-2' : '', className]} {...rest} >
 
   { !hideDescription && (
     <span class="font-medium">{description}</span>
@@ -37,10 +37,12 @@ const formattedDate = `${day}${ordinal(day)} ${month} ${year}`;
     { !hideIcon && (
       <Icon name="ri:calendar-line" height={21} width={21} class="self-center"/>
     )}
-    { hideDescription && (
-      <span class="sr-only">{description}</span>
-    )}
-    <time datetime={date.toISOString()}>{formattedDate}</time>
+    <time datetime={date.toISOString()} lang="en-GB">
+      { hideDescription && (
+        <span class="sr-only">{description}</span>
+      )}
+      {formattedDate}
+    </time>
   </div>
   )}
 </div>

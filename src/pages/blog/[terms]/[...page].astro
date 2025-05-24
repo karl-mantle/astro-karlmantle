@@ -60,7 +60,10 @@ const entryCount = page.end + 1;
 
     <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85% mb-4" />
 
-    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <ol
+      class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+      aria-label={`list of posts in ${term.name} ${term.type === 'tag' ? 'tag' : 'category'}`}
+    >
       {page.data.map((post) =>
         <PostCard
           description={post.data.description}
@@ -69,7 +72,7 @@ const entryCount = page.end + 1;
           href={`${Astro.site}blog/${post.data.slug}`}
         />
       )}
-    </div>
+    </ol>
 
     <Pagination
       page={page}

@@ -31,7 +31,7 @@ const entries = await getEntriesByCategory(contentCollection, category, maxEntri
     )
   )}
 
-  { contentCollection === 'projects' && (
+  <!-- { contentCollection === 'projects' && (
     entries.map((project) =>
       <ProjectCard
         date={project.data.pubDate}
@@ -41,6 +41,6 @@ const entries = await getEntriesByCategory(contentCollection, category, maxEntri
         href={`${Astro.site}code/${project.data.slug}`}
       />
     )
-  )}
+  )} -->
 
 </ul>

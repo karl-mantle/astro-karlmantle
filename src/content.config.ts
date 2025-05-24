@@ -6,7 +6,7 @@ const author = defineCollection({
   loader: glob({ base: './src/content/author', pattern: '**/*.yaml' }),
   schema: ({ image }) => z.object({
     title: z.string(),
-    description: z.string().optional(),
+    description: z.string(),
     slug: z.string().optional(),
     image: z
       .object({
@@ -25,7 +25,7 @@ const posts = defineCollection({
   loader: glob({ base: './src/content/posts', pattern: '**/*.{md,mdx}' }),
   schema: ({ image }) => z.object({
     title: z.string(),
-    description: z.string().optional(),
+    description: z.string(),
     slug: z.string().optional(),
     author: reference('author').default('default'),
     pubDate: z.coerce.date(),
@@ -56,7 +56,7 @@ const projects = defineCollection({
   loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
   schema: ({ image }) => z.object({
     title: z.string(),
-    description: z.string().optional(),
+    description: z.string(),
     slug: z.string().optional(),
     author: reference('author').default('default'),
     pubDate: z.coerce.date(),

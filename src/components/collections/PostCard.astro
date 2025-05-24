@@ -2,101 +2,45 @@
 import type { HTMLAttributes } from 'astro/types';
 import type { DefaultTypes } from '~/types';
 import { Image } from 'astro:assets';
-import Button from '~/components/ui/Button.astro';
+import { Icon } from 'astro-icon/components';
+import { slugify } from '~/utils/collections';
 
 interface Props extends DefaultTypes, HTMLAttributes<'li'> {
+  description: string,
+  heading: string,
   href: string
 };
 
 const { description, heading, href, image, class: className, ...rest }: Partial<Props> = Astro.props;
-
-const uniqueId = Math.random().toString(36).slice(2, 11);
 ---
 
-<li
-  aria-label={heading}
-  class:list={['group/card h-full flex flex-col-reverse rounded-xl border-transparent border-2 focus-within:border-white', className]}
-  data-post-card
-  {...rest}
->
-  <article class="flex flex-col flex-grow gap-2 p-4 mb-auto">
-    <h3
-      id={uniqueId}
-      class="text-lg md:text-xl font-serif font-medium"
-    >
-      {heading}
-    </h3>
+<li>
+  <a class:list={['group/card h-full flex flex-col-reverse rounded-xl border-transparent border-2 focus-within:border-white', className]} href={href} {...rest} aria-labelledby={`heading-${slugify(heading)}`} aria-describedby={`desc-${slugify(description)}`}>
+    <article class="flex flex-col flex-grow gap-2 p-4 mb-auto">
+      <h3 class="text-lg md:text-xl font-serif font-medium" id={`heading-${slugify(heading)}`}>{heading}</h3>
+      <p id={`desc-${slugify(description)}`} class="text-sm">{description}</p>
+      <span class="flex items-center gap-2 w-fit p-2 border-b-2 border-transparent group-hover/card:border-neutral-50 mt-auto mr-auto ml-0 pl-0 group-focus/card:border-2 group-focus/card:pl-2 group-focus/card:bg-pink-300 group-focus/card:text-black group-focus/card:border-black group-focus/card:border-b-4 group-focus/card:rounded-md group-focus/card:outline-1 outline-white transition duration-300" aria-hidden="true">
+        <span>
+          Read more
+        </span>
+        <Icon
+          name="ri:arrow-right-line"
+          height={21}
+          width={21}
+          class="group-hover/card:-rotate-45 group-focus/card:-rotate-45 transition-transform duration-300 ease-in-out"
+        />
+      </span>
+    </article>
 
-    <p class="text-sm">{description}</p>
-
-    <Button
-      aria-describedby={uniqueId}
-      buttonStyle='link'
-      buttonText='Read more'
-      class="mt-auto mr-auto ml-0 pl-0 focus:pl-2"
-      data-link
-      href={href}
-      icon='ri:arrow-right-line'
-      iconAnimate={true}
-      iconSize={21}
-    />
-  </article>
-
-  { image && (
-    <Image
-      alt={image.alt}
-      class="object-cover aspect-video rounded-t-xl opacity-75 group-hover/card:opacity-100 group-focus-within/card:opacity-100 transition duration-300"
-      format="webp"
-      width={412}
-      src={image.src}
-    />
-  )}
+    { image && (
+      <Image
+        alt={image.alt}
+        class="object-cover aspect-video rounded-t-xl opacity-75 group-hover/card:opacity-100 group-focus/card:opacity-100 transition duration-300"
+        format="webp"
+        width={412}
+        src={image.src}
+        loading="lazy"
+      />
+    )}
+  </a>
 </li>
-
-<script>
-  // @ts-nocheck
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-post-card]').forEach(card => {
-      let clickTimeout = null;
-      let preventClick = false;
-
-      const link = card.querySelector('[data-link]');
-
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          window.location = link.href;
-        }
-      });
-
-      card.addEventListener('mouseleave', () => {
-        clearTimeout(clickTimeout);
-        preventClick = false;
-      });
-
-      card.addEventListener('mousedown', (e) => {
-        preventClick = false;
-        if (e.button === 2) {
-          preventClick = true;
-        } else {
-          clickTimeout = setTimeout(() => {
-            preventClick = true;
-          }, 200);
-        }
-      });
-
-      card.addEventListener('mouseup', () => {
-        clearTimeout(clickTimeout);
-        if (!preventClick) {
-          window.location = link.href;
-        }
-        preventClick = false;
-      });
-
-      if (!preventClick) {
-        card.classList.add('cursor-pointer');
-      } else {
-        card.classList.remove('cursor-pointer');
-      }
-    });
-  });
-</script>
