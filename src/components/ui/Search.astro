@@ -11,9 +11,9 @@ import { Icon } from 'astro-icon/components';
   class="hidden"
 >
   
-  <div class="z-45 fixed bg-black/50 h-full w-full transition duration-300" data-search-overlay></div>
+  <div class="z-45 fixed bg-black/50 w-full transition duration-300" data-search-overlay></div>
 
-  <div class="z-50 relative w-screen md:max-w-[640px] flex flex-col gap-4 p-4 md:p-8 mx-4 rounded-xl bg-neutral-900">
+  <div class="z-50 relative h-full w-screen md:max-w-[640px] flex flex-col gap-4 px-4 pt-16 md:p-8 md:mx-4 md:rounded-xl bg-neutral-900">
 
     <div class="flex justify-between items-center">
       <span class="text-lg font-medium">Search this site</span>
@@ -100,7 +100,7 @@ import { Icon } from 'astro-icon/components';
     const updateModal = () => {
       if (searchOpen) {
         modal?.classList.remove('hidden');
-        modal?.classList.add('z-50', 'fixed', 'md:inset-0', 'top-0', 'left-0', 'right-0', 'h-full', 'w-full', 'flex', 'justify-center', 'items-center', 'bg-black/50');
+        modal?.classList.add('z-50', 'fixed', 'md:inset-0', 'top-0', 'left-0', 'right-0', 'h-full', 'w-full', 'flex', 'justify-center', 'md:items-center', 'bg-black/50');
         modal?.setAttribute('aria-hidden', 'false');
         toggleBtn?.setAttribute('aria-pressed', 'true');
         trapFocus(modal);
@@ -116,7 +116,7 @@ import { Icon } from 'astro-icon/components';
 
       } else {
         modal?.classList.add('hidden');
-        modal?.classList.remove('z-50', 'fixed', 'md:inset-0', 'top-0', 'left-0', 'right-0', 'h-full', 'w-full', 'flex', 'justify-center', 'items-center', 'bg-black/50');
+        modal?.classList.remove('z-50', 'fixed', 'md:inset-0', 'top-0', 'left-0', 'right-0', 'h-full', 'w-full', 'flex', 'justify-center', 'md:items-center', 'bg-black/50');
         modal?.setAttribute('aria-hidden', 'true');
         toggleBtn?.setAttribute('aria-pressed', 'false');
         toggleBtn?.focus();
@@ -167,7 +167,7 @@ import { Icon } from 'astro-icon/components';
   }
 
   .pagefind-ui__drawer {
-    @apply max-h-96 overflow-y-auto px-2;
+    @apply max-h-[calc(100vh-256px)] md:max-h-96 overflow-y-auto px-2;
   }
 
   .pagefind-ui__result {
