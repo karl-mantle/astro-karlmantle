@@ -5,7 +5,7 @@ import type { HTMLAttributes } from 'astro/types';
 import { getEntries } from '~/utils/collections';
 import PostListItem from './PostListItem.astro';
 
-interface Props extends DefaultTypes, HTMLAttributes<'section'> {
+interface Props extends DefaultTypes, HTMLAttributes<'ol'> {
   contentCollection: keyof DataEntryMap,
   maxEntries?: number
 };
@@ -15,7 +15,7 @@ const { contentCollection, maxEntries = 3, class: className, ...rest }: Partial<
 const entries = await getEntries(contentCollection, maxEntries);
 ---
 
-<ol class="grid grid-cols-1 gap-2" {...rest} >
+<ol class="grid grid-cols-1 gap-2" aria-label="recent posts" {...rest} >
 
   { contentCollection === 'posts' && (
     entries.map((post) =>

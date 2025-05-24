@@ -15,8 +15,8 @@ import ProjectsImage from '~/assets/jpg/rahul-mishra-XXMA-8fBB-g-unsplash.jpg';
 <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[1fr_368px_368px_1fr] gap-4 md:gap-8 mt-4 mb-8 md:min-h-[calc(100vh-126px)]">
 
   {/* 1st Card */}
-  <div class="relative col-span-1 md:col-span-4 lg:col-span-3 flex flex-col justify-center items-start lg:items-end p-4 lg:p-0 lg:py-8 mr-4 lg:mr-6 gap-4 rounded-r-xl bg-neutral-900 overflow-hidden hover:shadow-sm transition duration-300">
-    <div class="absolute right-0 w-2/3 saturate-25 hue-rotate-290 mix-blend-hard-light opacity-50">
+  <div class="relative col-span-1 md:col-span-4 lg:col-span-3 min-h-32 flex flex-col justify-center items-start lg:items-end p-4 lg:p-0 lg:py-8 mr-4 lg:mr-6 gap-4 rounded-r-xl bg-neutral-900 overflow-hidden hover:shadow-sm transition duration-300">
+    <div class="absolute right-0 md:w-2/3 saturate-25 hue-rotate-290 mix-blend-hard-light opacity-50">
       <Picture
         src={HeroImage}
         alt="none"
@@ -24,7 +24,7 @@ import ProjectsImage from '~/assets/jpg/rahul-mishra-XXMA-8fBB-g-unsplash.jpg';
         sizes={`(max-width: 640px) 480px`}
         formats={['webp']}
         loading="eager"
-        class="md:mask-l-from-25% opacity-75"
+        class="mask-l-from-25% opacity-75"
       />
     </div>
     <section class="flex flex-col gap-8 lg:w-[728px] z-5">
@@ -48,7 +48,7 @@ import ProjectsImage from '~/assets/jpg/rahul-mishra-XXMA-8fBB-g-unsplash.jpg';
   </div>
 
   {/* 3rd Card */}
-  <a href={`${Astro.site}code/react-pokedex`} class="group/card md:col-span-2 flex flex-col justify-end ml-auto mr-4 sm:ml-0 md:mr-auto bg-neutral-800 rounded-r-xl md:rounded-xl">
+  <a href={`${Astro.site}code/react-pokedex`} class="group/card md:col-span-2 min-h-56 flex flex-col justify-end ml-auto mr-4 sm:ml-0 md:mr-auto bg-neutral-800 rounded-r-xl md:rounded-xl">
     <div class="md:max-w-[344px] flex justify-between gap-2 p-4 bg-neutral-50/25 rounded-r-xl md:rounded-none md:rounded-b-xl group-hover/card:backdrop-blur-xs group-focus/card:bg-pink-300 group-focus/card:outline-2 group-focus/card:text-black transition duration-300">
       <div class="flex flex-col gap-2">
         <h2 class="mr-auto text-2xl font-semibold leading-none border-b-2 border-transparent group-hover/card:border-neutral-50 group-focus/card:border-neutral-900 transition duration-300">Featured project</h2>
@@ -59,13 +59,15 @@ import ProjectsImage from '~/assets/jpg/rahul-mishra-XXMA-8fBB-g-unsplash.jpg';
   </a>
 
   {/* 4th Card */}
-  <a href={`${Astro.site}code`} class="relative group/card md:col-span-2 flex flex-col justify-end ml-4 md:ml-0 rounded-l-xl bg-neutral-800 overflow-hidden transition duration-300">
-    <div class="absolute left-0 w-2/3 ">
-      <Image
+  <a href={`${Astro.site}code`} class="relative group/card md:col-span-2 min-h-56 flex flex-col justify-end ml-4 md:ml-0 rounded-l-xl bg-neutral-800 overflow-hidden transition duration-300">
+    <div class="absolute left-0 xl:w-2/3">
+      <Picture
         src={ProjectsImage}
         alt="computer screen with the software vs code open"
+        widths={[480, 728]}
+        sizes={`(max-width: 640px) 480px`}
+        formats={['webp']}
         loading="eager"
-        width="480"
         class="object-cover w-full md:mask-r-from-25% opacity-50"
       />
     </div>

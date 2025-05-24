@@ -1,81 +1,23 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import type { DefaultTypes } from '~/types';
-import { Icon } from 'astro-icon/components';
 import Date from '../ui/Date.astro';
 
 interface Props extends DefaultTypes, HTMLAttributes<'li'> {
-  href: string,
-  date: Date
+  date: Date,
+  heading: string,
+  href: string
 };
 
 const { date, description, heading, href, image, class: className, ...rest }: Partial<Props> = Astro.props;
 ---
 
-<li
-  aria-label={heading}
-  class:list={['group/card border-transparent border-2 rounded-xl focus-within:p-1 focus-within:border-white', className]}
-  data-post-card
-  {...rest}
->
-  <article class="flex flex-col gap-2 pb-2 text-sm border-neutral-600 border-b-2 hover:border-neutral-50 transition duration-300">
-    <a href={href} class="flex justify-between gap-2 focus:bg-pink-300 focus:rounded-md focus:text-black focus:p-1 focus:border-black transition duration-300">
-      <h3 class="text-lg font-medium leading-5 underline underline-offset-4 decoration-transparent hover:decoration-neutral-50 transition duration-300">{heading}</h3>
-      <Icon name="ri:arrow-right-line" height={24} width={24} class="w-8"/>
-    </a>
-    
-    <Date date={date} hideIcon={true}/>
-
-    <p>{description}</p>
-
-  </article>
-
+<li class={className} {...rest} >
+  <a href={href} class="group/list block text-sm border-2 border-transparent">
+    <article class="flex flex-col gap-2 pb-2 border-b-2 border-neutral-600 group-hover/list :border-neutral-50 group-focus/list:bg-pink-300 group-focus/list:text-black group-focus/list:p-1 group-focus/list:border-black transition duration-300">
+      <h3 class="block text-xl font-serif font-medium leading-6 underline underline-offset-4 decoration-transparent group-hover/list:decoration-neutral-50 group-focus/list:decoration-black transition duration-300">{heading}</h3>
+      <Date date={date} hideIcon={true}/>
+      <p>{description}</p>
+    </article>
+  </a>
 </li>
-
-<script>
-  // @ts-nocheck
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-post-card]').forEach(card => {
-      let clickTimeout = null;
-      let preventClick = false;
-
-      const link = card.querySelector('[data-link]');
-
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          window.location = link.href;
-        }
-      });
-
-      card.addEventListener('mouseleave', () => {
-        clearTimeout(clickTimeout);
-        preventClick = false;
-      });
-
-      card.addEventListener('mousedown', (e) => {
-        preventClick = false;
-        if (e.button === 2) {
-          preventClick = true;
-        } else {
-          clickTimeout = setTimeout(() => {
-            preventClick = true;
-          }, 200);
-        }
-      });
-
-      card.addEventListener('mouseup', () => {
-        clearTimeout(clickTimeout);
-        if (!preventClick) {
-          window.location = link.href;
-        }
-        preventClick = false;
-      });
-
-      if (!preventClick) {
-        card.classList.add('cursor-pointer');
-      } else {
-        card.classList.remove('cursor-pointer');
-      }
-    });
-  });
-</script>
