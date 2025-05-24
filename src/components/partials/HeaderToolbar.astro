@@ -34,7 +34,8 @@ const buttonClasses = "border-b-2 border-transparent rounded-md p-2 focus:bg-pin
       class={buttonClasses}
       aria-label="toggle mobile site navigation"
       data-menu-toggle
-      aria-pressed="false"
+      aria-expanded="false"
+      aria-controls="site-nav"
     >
       <Icon name="ri:menu-line" height={iconSize} width={iconSize} data-menu-icon-open />
       <Icon name="ri:close-line" height={iconSize} width={iconSize} data-menu-icon-close class="hidden" />
