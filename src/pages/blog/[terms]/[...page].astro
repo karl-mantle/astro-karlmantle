@@ -4,9 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import type { Terms } from '~/types.ts';
 import { getTerms, getEntriesByTag, getEntriesByCategory } from '~/utils/collections';
 import Base from '~/layouts/Base.astro';
-import PostCard from '~/components/collections/PostCard.astro';
 import PostArchive from '~/components/collections/PostArchive.astro';
-import Pagination from '~/components/ui/Pagination.astro';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const terms: Terms[] = await getTerms('posts');
@@ -53,30 +51,12 @@ const entryCount = page.end + 1;
 >
   <section class="container flex flex-col min-h-screen">
 
-    <PostArchive
-      description={`Now displaying ${entryCount} of ${page.total} posts.`}
-      heading={ term.type === 'category' ? `All posts categorised as “${term.name}”` : `All posts tagged with “${term.name}”` }
-    />
-
-    <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85% mb-4" />
-
-    <ol
-      class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-      aria-label={`list of posts in ${term.name} ${term.type === 'tag' ? 'tag' : 'category'}`}
-    >
-      {page.data.map((post) =>
-        <PostCard
-          description={post.data.description}
-          heading={post.data.title}
-          image={post.data.image}
-          href={`${Astro.site}blog/${post.data.slug}`}
-        />
-      )}
-    </ol>
-
-    <Pagination
-      page={page}
-    />
+  <PostArchive
+    description={`Now displaying ${entryCount} of ${page.total} posts.`}
+    heading={ term.type === 'category' ? `All posts categorised as “${term.name}”` : `All posts tagged with “${term.name}”` }
+    page={page}
+    term={term}
+  />
 
   </section>
 </Base>
