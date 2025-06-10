@@ -1,10 +1,30 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import type { DefaultTypes } from '~/types';
-import { socialLinks } from '~/site.config';
 import Button from '../ui/Button.astro';
 
 interface Props extends DefaultTypes, HTMLAttributes<'div'> {};
+
+const socialLinks = [
+  { // BlueSky
+    href: 'https://bsky.app/profile/karl-em.bsky.social',
+    icon: 'simple-icons:bluesky',
+    label: `Follow me on BlueSky`,
+    show: true
+  },
+  { // GitHub
+    href: 'https://github.com/karl-mantle/',
+    icon: 'simple-icons:github',
+    label: `Visit my GitHub`,
+    show: true
+  },
+  { // LinkedIn
+    href: 'https://www.linkedin.com/in/karlmantle/',
+    icon: 'simple-icons:linkedin',
+    label: `Connect with me on LinkedIn`,
+    show: true
+  },
+];
 
 const { class: className, ...rest }: Partial<Props> = Astro.props;
 ---
