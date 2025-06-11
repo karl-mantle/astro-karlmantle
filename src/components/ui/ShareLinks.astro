@@ -4,16 +4,19 @@ import Button from '~/components/ui/Button.astro';
 
 interface Props {
   class?: string,
+  description?: string,
   display: string[],
   title: string,
   url: string
 };
 
-const { display = ['email', 'facebook', 'linkedin', 'whatsapp'], title, url, class: className, ...rest }: Props = Astro.props;
+const { display = ['email', 'facebook', 'linkedin', 'whatsapp'], description, title, url, class: className, ...rest }: Props = Astro.props;
 ---
 
 <div class:list={['flex justify-between items-center gap-2', className]} {...rest} >
-  <span class="font-medium mr-2">Share this post:</span>
+   { description && (
+    <span class="font-medium mr-2">{description}</span>
+   )}
 
   <div class="flex gap-1">
     {(
