@@ -69,8 +69,13 @@ const projects = defineCollection({
       .optional(),
     category: z.string().default('Uncategorised'),
     tags: z.array(z.string()).default([]),
-    repoUrl: z.string().url(),
-    liveUrl: z.string().url(),
+    urls: z
+      .object({
+        demo: z.string().url().optional(),
+        github: z.string().url().optional(),
+        steam: z.string().url().optional(),
+      })
+      .optional(),
     gallery: z.array(z
       .object({
         src: image(),

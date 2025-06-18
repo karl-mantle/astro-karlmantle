@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'astro/types';
 import type { DefaultTypes } from '~/types';
 import { getEntriesByCategory } from '~/utils/collections';
 import PostCard from '~/components/collections/PostCard.astro';
-import ProjectCard from '~/components/collections/PostCard.astro';
+import ProjectCard from '~/components/collections/ProjectCardMini.astro';
 
 interface Props extends DefaultTypes, HTMLAttributes<'section'> {
   category: string,
@@ -31,16 +31,15 @@ const entries = await getEntriesByCategory(contentCollection, category, maxEntri
     )
   )}
 
-  <!-- { contentCollection === 'projects' && (
+  { contentCollection === 'projects' && (
     entries.map((project) =>
       <ProjectCard
-        date={project.data.pubDate}
         description={project.data.description}
         heading={project.data.title}
+        href={`${Astro.site}code/${project.data.category.toLowerCase()}/${project.data.slug}`}
         image={project.data.image}
-        href={`${Astro.site}code/${project.data.slug}`}
       />
     )
-  )} -->
+  )}
 
 </ul>

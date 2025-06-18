@@ -1,0 +1,77 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { DefaultTypes } from '~/types';
+import { Image } from 'astro:assets';
+import Badge from '~/components/ui/Badge.astro';
+import Button from '~/components/ui/Button.astro';
+
+interface Props extends DefaultTypes, HTMLAttributes<'li'> {
+  category?: string,
+  demoUrl?: string,
+  description: string,
+  heading: string,
+  href: string,
+  steamUrl?: string
+};
+
+const { category, demoUrl, description, heading, href, image, steamUrl, class: className, ...rest }: Partial<Props> = Astro.props;
+---
+
+<li class:list={['group/card h-full flex flex-col-reverse md:flex-row-reverse justify-end gap-4 p-4 rounded-xl bg-neutral-950 border-transparent border-2 focus-within:border-white', className]} {...rest} >
+
+  <article class="flex flex-col gap-2 md:gap-4">
+    <div class="flex gap-3">
+      <Badge title={category ?? 'Uncategorised'} />
+      <h3 class="text-lg md:text-xl font-semibold">{heading}</h3>
+    </div>
+
+    <p class="text-sm">{description}</p>
+    <div class:list={['flex mt-auto', demoUrl || steamUrl ? 'gap-2 md:gap-4 justify-between md:justify-start' : '' ]}>
+      <Button
+        ariaLabel={`Learn more about ${heading}`}
+        buttonStyle='primary'
+        buttonText='Learn more'
+        class="w-full md:w-fit"
+        href={href}
+      />
+      { demoUrl && (
+        <Button
+          ariaLabel={`Open demo of ${heading} in a new tab`}
+          buttonStyle='link'
+          buttonText='View demo'
+          class="w-full md:w-fit !px-0"
+          href={demoUrl}
+          icon='ri:arrow-right-line'
+          iconAnimate={true}
+          iconSize={21}
+          openNewTab={true}
+        />
+      )}
+      { steamUrl && (
+        <Button
+          ariaLabel={`Open ${heading} on Steam Workshop in a new tab`}
+          buttonStyle='link'
+          buttonText='View on Steam'
+          class="w-full md:w-fit !px-0 gap-3"
+          href={steamUrl}
+          icon='simple-icons:steam'
+          iconSize={21}
+          openNewTab={true}
+        />
+      )}
+    </div>
+  </article>
+
+  <div class="flex justify-center md:w-1/2">
+    { image && (
+      <Image
+        alt={image.alt}
+        class="object-cover aspect-video w-full rounded-md opacity-75 group-hover/card:opacity-100 group-focus/card:opacity-100 transition duration-300"
+        format="webp"
+        width={412}
+        src={image.src}
+        loading="lazy"
+      />
+    )}
+  </div>
+</li>

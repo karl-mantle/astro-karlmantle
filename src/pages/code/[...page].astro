@@ -1,0 +1,35 @@
+---
+import type { GetStaticPathsOptions, Page } from 'astro';
+import { type CollectionEntry } from 'astro:content';
+import { getEntries } from '~/utils/collections';
+import Base from '~/layouts/Base.astro';
+import ProjectArchive from '~/components/collections/ProjectArchive.astro';
+
+interface Props { 
+  page: Page<CollectionEntry<'projects'>>
+};
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+    const projects = await getEntries('projects');
+    return paginate(projects, {
+      pageSize: 9
+    });
+};
+
+const { page }: Partial<Props> = Astro.props;
+---
+
+<Base
+  title="karlsblog"
+  description="An archive of all my blog projects. Read the latest projects here!"
+>
+  <section class="container flex flex-col min-h-screen">
+
+  <ProjectArchive
+    description={`Now displaying ${page.start + 1} to ${page.end + 1} projects out of ${page.total} projects.`}
+    heading="Viewing all projects"
+    page={page}
+  />
+
+  </section>
+</Base>

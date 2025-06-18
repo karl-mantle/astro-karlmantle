@@ -3,9 +3,10 @@ import type { DataEntryMap } from 'astro:content';
 import type { DefaultTypes } from '~/types';
 import type { HTMLAttributes } from 'astro/types';
 import { getEntries } from '~/utils/collections';
-import PostListItem from './PostListItem.astro';
+import PostCard from '~/components/collections/PostCard.astro';
+import ProjectCard from '~/components/collections/ProjectCardMini.astro';
 
-interface Props extends DefaultTypes, HTMLAttributes<'ol'> {
+interface Props extends DefaultTypes, HTMLAttributes<'section'> {
   contentCollection: keyof DataEntryMap,
   maxEntries?: number
 };
@@ -15,27 +16,28 @@ const { contentCollection, maxEntries = 3, class: className, ...rest }: Partial<
 const entries = await getEntries(contentCollection, maxEntries);
 ---
 
-<ol class="grid grid-cols-1 gap-2" aria-label="recent posts" {...rest} >
+<ol class:list={['grid grid-cols-1 md:grid-cols-2 gap-4', className]} {...rest} >
 
   { contentCollection === 'posts' && (
     entries.map((post) =>
-      <PostListItem
-        date={post.data.updatedDate ?? post.data.pubDate}
+      <PostCard
         description={post.data.description}
-        heading={post.data.title}
+        heading={post.data.title} 
         href={`${Astro.site}blog/${post.data.slug}`}
+        image={post.data.image}
       />
     )
   )}
 
-  { /* contentCollection === 'projects' && (
+  { contentCollection === 'projects' && (
     entries.map((project) =>
-      <ProjectListItem
-        tags={project.data.tags}
+      <ProjectCard
+        description={project.data.description}
         heading={project.data.title}
-        href={`${Astro.site}code/${project.data.slug}`}
+        href={`${Astro.site}code/${project.data.category.toLowerCase()}/${project.data.slug}`}
+        image={project.data.image}
       />
     )
-  ) */ }
+  )}
 
 </ol>

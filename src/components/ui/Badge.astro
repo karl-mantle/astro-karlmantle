@@ -1,0 +1,19 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { DefaultTypes } from '~/types';
+import { Icon } from 'astro-icon/components';
+import { tagStyles } from '~/utils/collections';
+
+interface Props extends DefaultTypes, HTMLAttributes<'span'> {
+  title: string;
+};
+
+const { title, class: className, ...rest }: Partial<Props> = Astro.props;
+
+const { color, icon } = tagStyles[title.toLowerCase()] ?? { color: 'bg-gray-300 text-black', icon: undefined };
+---
+
+<span class:list={['flex items-center gap-1 px-2 py-1 rounded-md transition duration-300', color, className]} aria-label="category" {...rest} >
+  {icon && <Icon name={icon} width={12} height={12} />}
+  <span class="text-sm font-medium">{title.toLowerCase()}</span>
+</span>

@@ -1,0 +1,50 @@
+---
+import type { Page } from 'astro';
+import type { HTMLAttributes } from 'astro/types';
+import type { CollectionEntry } from 'astro:content';
+import type { DefaultTypes, Terms } from '~/types';
+import ProjectCard from '~/components/collections/ProjectCard.astro';
+import Pagination from '~/components/ui/Pagination.astro';
+
+interface Props extends DefaultTypes, HTMLAttributes<'div'> {
+  page: Page<CollectionEntry<'projects'>>,
+  term?: Terms
+};
+
+const { description, heading, page, term, class: className, ...rest }: Partial<Props> = Astro.props;
+---
+
+<div class:list={['flex flex-col py-4 md:p-4 gap-4', className]} {...rest} >
+
+  { (heading || description) && (
+    <header class:list={['flex flex-col justify-center max-w-[80ch]', (heading && description) ? 'gap-2' : '']}>
+      { heading && (
+        <h2 class="text-2xl md:text-3xl font-serif font-semibold">{heading}</h2>
+      )}
+      { description && (
+        <p>{description}</p>
+      )}
+    </header>
+  )}
+
+  <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85% mb-4" />
+
+  <ol class="grid gap-4 grid-cols-1">
+    {page.data.map((project) =>
+      <ProjectCard
+        category={project.data.category}
+        demoUrl={project.data.urls?.demo}
+        description={project.data.description}
+        heading={project.data.title}
+        image={project.data.image}
+        href={`${Astro.site}code/${project.data.category.toLowerCase()}/${project.data.slug}`}
+        steamUrl={project.data.urls?.steam}
+      />
+    )}
+  </ol>
+
+  <Pagination
+    page={page}
+  />
+
+</div>

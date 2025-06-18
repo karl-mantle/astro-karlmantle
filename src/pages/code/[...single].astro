@@ -1,0 +1,163 @@
+---
+import { type CollectionEntry, getEntry, render } from 'astro:content';
+import { getEntries } from '~/utils/collections';
+import Base from '~/layouts/Base.astro';
+import Button from '~/components/ui/Button.astro';
+import Date from '~/components/ui/Date.astro';
+import ProjectGallery from '~/components/collections/ProjectGallery.astro';
+import BadgeList from '~/components/ui/BadgeList.astro';
+import RelatedEntries from '~/components/collections/RelatedEntries.astro';
+import ShareLinks from '~/components/ui/ShareLinks.astro';
+
+type Props = { 
+  entry: CollectionEntry<'projects'>,
+  prevEntry: CollectionEntry<'projects'>,
+  nextEntry: CollectionEntry<'projects'>
+};
+
+export async function getStaticPaths() {
+    const entries = await getEntries('projects');
+    const entryCount = entries.length;
+    return entries.map((entry, index) => ({
+        params: { single: `${entry.data.category.toLowerCase()}/${entry.data.slug}` },
+        props: {
+            entry,
+            prevEntry: index + 1 < entryCount ? entries[index + 1] : null,
+            nextEntry: index > 0 ? entries[index - 1] : null
+        }
+    }));
+};
+
+const { entry, prevEntry, nextEntry } = Astro.props;
+const { Content } = await render(entry);
+const author =  await getEntry('author', entry.data.author.id);
+const authorData = author?.data;
+---
+
+<Base
+  authorData={authorData}
+  description={entry.data.description}
+  postData={entry.data}
+  schemaType="Article"
+  title={entry.data.title}
+>
+  <article class="container flex flex-col gap-4 mb-8">
+
+    <header class="py-4">
+      <h1 class="text-4xl font-semibold text-balance leading-tight tracking-tight">{entry.data.title}</h1>
+    </header>
+
+    <ProjectGallery
+      description={entry.data.description}
+      heading={entry.data.title}
+      image={entry.data.image}
+    />
+
+    { /* details box */ }
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 bg-neutral-900 p-4 -mx-4 md:rounded-xl">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-xl font-medium">Details</h2>
+        <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85%" />
+
+        <p class="text-sm my-2">{entry.data.description}</p>
+
+        <Date class="text-sm mb-2" date={entry.data.updatedDate ? entry.data.updatedDate : entry.data.pubDate} description="Last updated" />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h3 class="text-xl font-medium">Tags</h3>
+        <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85%" />
+        <BadgeList permalink={`code/tag`} tags={entry.data.tags} class="my-2"/>
+ 
+        <h3 class="text-xl font-medium md:sr-only">Links</h3>
+        <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85% md:hidden" />
+
+        <div class="flex gap-8 px-2">
+          
+          { entry.data.urls?.github && (
+            <Button
+              ariaLabel={`Open GitHub repository of ${entry.data.title} in a new tab`}
+              buttonStyle='link'
+              buttonText='View on GitHub'
+              class="!px-0 md:text-sm"
+              href={entry.data.urls.github}
+              icon='simple-icons:github'
+              iconSize={18}
+              openNewTab={true}
+            />
+          )}
+          { entry.data.urls?.steam && (
+          <Button
+            ariaLabel={`Open ${entry.data.title} on Steam Workshop in a new tab`}
+            buttonStyle='link'
+            buttonText='View on Steam'
+            class="!px-0 md:text-sm"
+            href={entry.data.urls.steam}
+            icon='simple-icons:steam'
+            iconSize={18}
+            openNewTab={true}
+          />
+          )}
+          { entry.data.urls?.demo && (
+            <Button
+              ariaLabel={`Open demo of ${entry.data.title} in a new tab`}
+              buttonStyle='link'
+              buttonText='View demo'
+              class="!px-0 md:text-sm"
+              href={entry.data.urls.demo}
+              icon='ri:arrow-right-line'
+              iconAnimate={true}
+              iconSize={18}
+              openNewTab={true}
+            />
+          )}
+        </div>
+      </div>
+    </section>
+
+    {/* Share links */}
+    <section class="flex flex-col gap-2">
+      <div class="flex justify-between">
+        <ShareLinks description="Share:" display={['email', 'facebook', 'linkedin', 'whatsapp']} title={entry.data.title} url={Astro.url.toString()} />
+  
+        <nav class="hidden md:flex justify-center md:justify-between gap-4 pr-4">
+          { prevEntry &&  (
+            <Button buttonStyle="icon" href={`${Astro.site}code/${prevEntry.data.category.toLowerCase()}/${prevEntry.data.slug}`} aria-label="previous post" icon="ri:arrow-left-s-line" iconSize={21} class="!rounded-4xl" />
+          )}
+          { nextEntry && (
+            <Button buttonStyle="icon" href={`${Astro.site}code/${nextEntry.data.category.toLowerCase()}/${nextEntry.data.slug}`} aria-label="next post" icon="ri:arrow-right-s-line" iconSize={21} class="!rounded-4xl" />
+          )}
+        </nav>
+      </div>
+      
+      <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85%" />
+    </section>
+
+    {/* TODO: Table of contents
+    <nav class="absolute top-0 left-0">
+      <span>On this page</span>
+      <ol>
+        <li>Example 1</li>
+        <li>Example 2</li>
+      </ol>
+    </nav>
+     */}
+
+    {/* Post body */}
+    <section class="prose prose-neutral prose-invert max-w-[75ch] mb-4">
+      <Content />
+    </section>
+    
+    {/* Related projects */}
+    <footer class="relative flex flex-col gap-2 mb-8">
+      <h3 class="text-xl font-medium">Related projects</h3>
+      <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85% mb-2" />
+
+      <RelatedEntries
+        category={entry.data.category}
+        contentCollection="projects"
+        maxEntries={3}
+      />
+    </footer>
+  </article>
+</Base>

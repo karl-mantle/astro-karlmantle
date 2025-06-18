@@ -93,3 +93,12 @@ export const getEntriesByTag = async (entryType: keyof DataEntryMap, tag: string
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, max)
 };
+
+export const tagStyles: Record<string, { color: string, icon?: string }> = {
+  astro: { color: 'bg-purple-600 text-white', icon: 'simple-icons:astro' },
+  javascript: { color: 'bg-yellow-300 text-black', icon: 'simple-icons:javascript' },
+  typescript: { color: 'bg-blue-300 text-black', icon: 'simple-icons:typescript' },
+  css: { color: 'bg-pink-300 text-black', icon: 'simple-icons:css3' },
+  html: { color: 'bg-orange-300 text-black', icon: 'simple-icons:html5' },
+  react: { color: 'bg-cyan-200 text-black', icon: 'simple-icons:react' },
+};

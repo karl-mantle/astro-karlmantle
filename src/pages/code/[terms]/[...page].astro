@@ -1,0 +1,62 @@
+---
+import type { GetStaticPathsOptions, Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import type { Terms } from '~/types.ts';
+import { getTerms, getEntriesByTag, getEntriesByCategory } from '~/utils/collections';
+import Base from '~/layouts/Base.astro';
+import ProjectArchive from '~/components/collections/ProjectArchive.astro';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const terms: Terms[] = await getTerms('projects');
+  let paths: any[] = [];
+
+  for (const term of terms) {
+    const { name, slug, type } = term;
+
+    let entries;
+    switch (type) {
+      case 'category':
+        entries = await getEntriesByCategory('projects', name);
+        break;
+      case 'tag':
+        entries = await getEntriesByTag('projects', name);
+        break;
+      default:
+        entries = await getEntriesByCategory('projects', name);
+    };
+
+    const paginatedTerms = paginate(entries, {
+      params: { terms: `${type}/${slug}` },
+      pageSize: 9
+    });
+
+    paginatedTerms.forEach((path) => {
+      path.props = { ...path.props, term };
+    });
+
+    paths = paths.concat(paginatedTerms);
+  };
+
+  return paths;
+};
+
+const { page, term } = Astro.props as { page: Page<CollectionEntry<'projects'>>, term: Terms };
+
+const entryCount = page.end + 1;
+---
+
+<Base
+  title={ term.type === 'category' ? `“${term.name}” category archive` : `“${term.name}” tag archive` }
+  description={ term.type === 'category' ? `View the archive of all projects in the category “${term.name}”.` : `View the archive of all projects tagged with “${term.name}”.` }
+>
+  <section class="container flex flex-col min-h-screen">
+
+  <ProjectArchive
+    description={`Now displaying ${entryCount} of ${page.total} projects.`}
+    heading={ term.type === 'category' ? `All projects categorised as “${term.name}”` : `All projects tagged with “${term.name}”` }
+    page={page}
+    term={term}
+  />
+
+  </section>
+</Base>

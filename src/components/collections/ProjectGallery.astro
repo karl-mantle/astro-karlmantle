@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import type { DefaultTypes } from '~/types';
+import { Picture } from 'astro:assets';
+
+interface Props extends DefaultTypes, HTMLAttributes<'section'> {
+};
+
+const { description, heading, image, class: className, ...rest }: Partial<Props> = Astro.props;
+---
+
+<section class:list={['mb-6', className]} {...rest} >
+
+  <div class="">
+    <Picture
+      src={image.src}
+      widths={[480, 960]}
+      sizes={`(max-width: 640px) 480px`}
+      inferSize
+      formats={['webp']}
+      loading="lazy"
+      class="object-cover aspect-video rounded-xl"
+      alt={image.alt}
+    />
+  </div>
+
+</section>
