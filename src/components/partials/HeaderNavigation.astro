@@ -2,13 +2,16 @@
 import type { Terms } from '~/types';
 import { Icon } from 'astro-icon/components';
 import { getCategories } from '~/utils/collections';
+import Button from '../ui/Button.astro';
 import TagCloud from '../ui/TagCloud.astro';
+import RecentEntries from '../collections/RecentEntries.astro';
 
 const postsCategories: Terms[] = await getCategories('posts');
+const projectsCategories: Terms[] = await getCategories('projects');
 ---
 
 <nav
-  class="hidden absolute md:static top-15 md:top-auto left-0 z-20 h-[calc(100vh-62px)] w-full md:w-auto md:h-auto md:flex md:flex-row bg-black md:bg-transparent text-lg md:text-base font-medium overflow-scroll md:overflow-visible"
+  class="hidden absolute md:static top-15 md:top-auto left-0 z-20 h-[calc(100vh-62px)] w-full md:w-auto md:h-auto md:flex md:flex-row md:justify-center bg-black md:bg-transparent text-lg md:text-base font-medium overflow-scroll md:overflow-visible"
   aria-label="site navigation"
   id="site-nav"
   data-site-nav
@@ -33,18 +36,18 @@ const postsCategories: Terms[] = await getCategories('posts');
       </button>
 
       { /* blog submenu */ }
-      <div class="hidden md:absolute md:left-0 md:top-full w-full flex flex-col md:flex-row md:gap-4 md:p-4 md:shadow-sm md:rounded-b-xl bg-neutral-900 transition duration-300" data-submenu id="blog-submenu" role="menu" aria-hidden="true">
+      <div class="hidden md:absolute md:left-0 md:top-full w-full grid grid-cols-1 md:grid-cols-2 md:gap-2 md:p-4 md:shadow-sm md:rounded-b-xl bg-neutral-900 transition duration-300" data-submenu id="blog-submenu" role="menu" aria-hidden="true">
         
         { /* categories */ }
-        <div class="flex flex-col md:gap-4 md:w-1/2">
-          <span class="p-4 text-xl font-medium md:p-0">Posts by category</span>
-          <ul aria-label="links to blog category archives" class="flex flex-col md:flex-row md:flex-wrap md:gap-2">
+        <div class="flex flex-col md:gap-4">
+          <span class="p-4 text-xl font-medium md:p-0">Categories</span>
+          <ul aria-label="Links to blog category archives" class="flex flex-col md:flex-row md:flex-wrap md:gap-2">
             {postsCategories.map((category: Terms) => (
               <li>
                 <a
                   class="flex justify-between items-center w-full md:w-fit md:bg-neutral-800 p-4 md:py-1 md:px-2 md:rounded-md border-b-2 border-neutral-600 md:border-transparent focus:border-black focus:text-black focus:bg-pink-300 md:ring-2 md:ring-transparent md:hover:ring-neutral-200 md:focus:ring-black transition duration-300"
                   href={`${Astro.site}blog/category/${category.slug}`}
-                  aria-label={`open link to ${category.name}`}
+                  aria-label={`Link to ${category.name}`}
                 >
                   <span>{category.name}</span>
                   <Icon name="ri:arrow-right-line" height={26} width={26} class="w-8 md:hidden" />
@@ -52,15 +55,79 @@ const postsCategories: Terms[] = await getCategories('posts');
               </li>
             ))}
           </ul>
+          { /* view all */ }
+          <Button
+            buttonStyle='secondary'
+            buttonText='View all posts'
+            class="mx-4 md:mx-0 md:w-fit md:mt-auto"
+            href={`${Astro.site}blog`}
+            icon='ri:arrow-right-line'
+            iconAnimate={true}
+            iconSize={20}
+          />
         </div>
         { /* tags */ }
-        <div class="flex flex-col gap-4 p-4 md:p-0 md:w-1/2">
-          <span class="text-xl font-medium">Posts by tag</span>
+        <div class="flex flex-col gap-4 p-4 md:p-0">
+          <span class="text-xl font-medium">Tags</span>
           <TagCloud class="md:bg-neutral-800 md:rounded-md md:p-2"/>
         </div>
       </div>
     </li>
 
+    { /* code */ }
+    <li class="relative flex flex-col md:static" data-menu-item role="none">
+      { /* submenu button */ }
+      <button class="flex justify-between items-center gap-2 p-4 md:py-0 md:pr-2 md:rounded-md hover:backdrop-invert hover:text-neutral-900 cursor-pointer border-b-2 border-neutral-600 md:border-2 md:border-transparent focus:border-black focus:text-black focus:bg-pink-300 transition duration-300"
+        aria-controls="code-submenu"
+        aria-expanded="false"
+        aria-haspopup="true"
+        data-submenu-toggle
+        role="menuitem"
+      >
+        <span>Code</span>
+        <span class="md:p-1">
+          <Icon class="w-8 md:w-4 transition duration-300" name="ri:arrow-down-s-line" height={32} width={32} />
+        </span>
+      </button>
+
+      { /* code submenu */ }
+      <div class="hidden md:absolute md:left-0 md:top-full w-full grid grid-cols-1 md:grid-cols-3 md:gap-2 md:p-4 md:shadow-sm md:rounded-b-xl bg-neutral-900 transition duration-300" data-submenu id="code-submenu" role="menu" aria-hidden="true">
+        
+        { /* categories */ }
+        <div class="flex flex-col md:gap-4">
+          <span class="p-4 text-xl font-medium md:p-0">Categories</span>
+          <ul aria-label="Links to project category archives" class="flex flex-col md:flex-row md:flex-wrap md:gap-2">
+            {projectsCategories.map((category: Terms) => (
+              <li>
+                <a
+                  class="flex justify-between items-center w-full md:w-fit md:bg-neutral-800 p-4 md:py-1 md:px-2 md:rounded-md border-b-2 border-neutral-600 md:border-transparent focus:border-black focus:text-black focus:bg-pink-300 md:ring-2 md:ring-transparent md:hover:ring-neutral-200 md:focus:ring-black transition duration-300"
+                  href={`${Astro.site}code/category/${category.slug}`}
+                  aria-label={`Link to ${category.name}`}
+                >
+                  <span>{category.name}</span>
+                  <Icon name="ri:arrow-right-line" height={26} width={26} class="w-8 md:hidden" />
+                </a>
+              </li>
+            ))}
+          </ul>
+          { /* view all */ }
+          <Button
+            buttonStyle='secondary'
+            buttonText='View all projects'
+            class="mx-4 md:mx-0 md:w-fit"
+            href={`${Astro.site}code`}
+            icon='ri:arrow-right-line'
+            iconAnimate={true}
+            iconSize={20}
+          />
+        </div>
+        { /* recent project cards */ }
+        <div class="flex flex-col gap-4 p-4 md:p-0 md:col-span-2">
+          <span class="text-xl font-medium">Recent projects</span>
+          <RecentEntries contentCollection='projects' maxEntries={2} />
+        </div>
+      </div>
+    </li>
   </ul>
 </nav>
 

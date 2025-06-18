@@ -4,10 +4,10 @@ import HeaderNavigation from '~/components/partials/HeaderNavigation.astro';
 import HeaderToolbar from '~/components/partials/HeaderToolbar.astro';
 ---
 
-<header data-site-header class="sticky top-0 md:top-4 z-50 relative container flex justify-between p-2 md:pr-4 md:mt-4 bg-black/75 hover:bg-neutral-900 focus-within:bg-neutral-900 md:rounded-xl transition duration-600">
-  <a class="group/logo flex flex-row items-center gap-4 px-2 font-medium text-xl focus:bg-pink-300 border-b-2 border-transparent focus:border-black rounded-md transition duration-300" href={Astro.site} aria-label="link to homepage">
+<header data-site-header class="inset-0 z-50 relative container flex md:grid md:grid-cols-3 justify-between p-2 md:pr-4 md:mt-4 bg-black/75 hover:bg-neutral-900 focus-within:bg-neutral-900 md:rounded-xl transition duration-600">
+  <a class="group/logo flex flex-row items-center gap-4 px-2 w-fit font-medium text-xl focus:bg-pink-300 border-b-2 border-transparent focus:border-black rounded-md transition duration-300" href={Astro.site} aria-label="link to homepage">
     <Image src="/favicon.svg" alt="" format="svg" width={32} height={32} loading="eager" />
-    <span class="border-b-2 border-transparent group-hover/logo:border-neutral-50 group-focus/logo:border-black group-focus/logo:text-black transition duration-300">karlmantle</span>
+    <span class="border-b-2 border-transparent group-hover/logo:border-neutral-50 group-focus/logo:border-black group-focus/logo:text-black transition duration-300">karlsblog.dev</span>
   </a>
   <HeaderNavigation />
   <HeaderToolbar />
