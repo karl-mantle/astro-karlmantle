@@ -7,13 +7,13 @@ const { buttonStyle, buttonText, buttonTextClass, buttonTextWrap, icon, iconAnim
 let buttonCSS;
 switch (buttonStyle) {
   case 'primary':
-    buttonCSS = 'gap-2 px-4 border-2 border-neutral-900 rounded-md bg-neutral-900 hover:bg-neutral-50/75 hover:border-neutral-900 text-neutral-50 hover:text-neutral-900';
+    buttonCSS = 'gap-2 px-4 border-2 border-neutral-900 rounded-md bg-neutral-50 hover:bg-transparent hover:border-neutral-200 text-neutral-900 hover:text-neutral-50';
     break;
   case 'secondary':
-    buttonCSS = 'gap-2 px-4 border-2 border-neutral-900 rounded-md text-black bg-neutral-50/75 hover:bg-neutral-900 hover:text-neutral-50';
+    buttonCSS = 'gap-2 px-4 border-2 border-neutral-50 rounded-md text-neutral-50 bg-transparent hover:bg-neutral-50 hover:text-neutral-900';
     break;
   case 'link':
-    buttonCSS = 'w-fit gap-2 border-b-2 border-transparent hover:border-neutral-50 focus:rounded-md';
+    buttonCSS = 'w-fit gap-2 px-4 border-b-2 border-transparent hover:border-neutral-50 focus:rounded-md';
     break;
   case 'icon':
     buttonCSS = 'border-b-2 border-transparent rounded-md hover:backdrop-invert hover:text-neutral-900'
