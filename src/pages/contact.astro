@@ -1,0 +1,101 @@
+---
+import { Icon } from 'astro-icon/components';
+import Base from '~/layouts/Base.astro';
+---
+<Base
+  title="Contact"
+  description="Meta description"
+  loadingOptions={{
+    loadTurnstile: true
+  }}
+>
+  <div class="container flex flex-col justify-center items-center gap-8 my-8 md:my-0 md:min-h-[calc(100vh-70px)]">
+
+    <h1 class="text-2xl md:text-4xl font-semibold font-mono lowercase">Get in touch</h1>
+
+    <section class="flex flex-col items-center p-4 md:p-8 w-full md:w-3/4 rounded-xl bg-neutral-900">
+      <form method="POST" id="form" class="flex flex-col md:grid md:grid-cols-2 gap-2 w-full">
+
+        <input type="hidden" name="access_key" value="d46263ac-da24-498f-b856-bfeaf078a85c">
+        <input type="hidden" name="captcha" value="turnstile" />
+        <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off">
+
+        <div class="flex flex-col gap-2">
+          <label for="name">Name</label>
+          <input id="name" type="text" name="name" required class="text-neutral-900">
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="email">Email</label>
+          <input id="email" type="email" name="email" required class="text-neutral-900">
+        </div>
+
+        <div class="flex flex-col gap-2 md:col-span-2">
+          <label for="subject">Subject</label>
+          <input id="subject" type="text" name="subject" required class="text-neutral-900">
+        </div>
+
+        <div class="flex flex-col gap-2 md:col-span-2">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required class="h-40 text-neutral-900"></textarea>
+        </div>
+
+        <div class="cf-turnstile mt-4 md:col-span-2 min-h-18" data-sitekey="0x4AAAAAABhqUtSMp27iLYrQ"></div>
+
+        <div class="flex md:col-span-2">
+          <button type="submit" class="group/btn flex justify-center items-center gap-2 h-fit w-fit p-2 px-4 border-2 border-neutral-900 rounded-md bg-neutral-50 hover:bg-transparent hover:border-neutral-200 text-neutral-900 hover:text-neutral-50 focus:bg-pink-300 focus:text-black focus:border-black transition duration-300 ease-in-out cursor-pointer">
+            <span class="font-medium">Submit</span>
+            <Icon name="ri:arrow-right-line" height={26} width={26} class="w-8" />
+          </button>
+        </div>
+
+        <div data-response class="col-span-2"></div>
+      </form>
+
+    </section>
+  </div>
+</Base>
+
+<script>
+  // @ts-nocheck
+  const form = document.querySelector('[data-form]');
+  const res = document.querySelector('[data-response]');
+
+  form.addEventListener('submit', function(e) {
+      const formData = new FormData(form);
+      e.preventDefault();
+
+      const object = Object.fromEntries(formData);
+      const json = JSON.stringify(object);
+
+      res.innerHTML = "Please wait..."
+
+      fetch('https://api.web3forms.com/submit', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              },
+              body: json
+          })
+          .then(async (response) => {
+              let json = await response.json();
+              if (response.status == 200) {
+                  res.innerHTML = json.message;
+              } else {
+                  console.log(response);
+                  res.innerHTML = json.message;
+              }
+          })
+          .catch(error => {
+              console.log(error);
+              res.innerHTML = "Something went wrong!";
+          })
+          .then(function() {
+              form.reset();
+              setTimeout(() => {
+                  res.style.display = "none";
+              }, 3000);
+          });
+  });
+</script>

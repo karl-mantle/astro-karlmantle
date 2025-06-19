@@ -38,7 +38,8 @@ export interface DateOptions extends HTMLAttributes<'div'> {
 };
 
 export interface LoadingOptions {
-  loadLeaflet: boolean
+  loadLeaflet: boolean,
+  loadTurnstile: boolean
 };
 
 export interface MapOptions {

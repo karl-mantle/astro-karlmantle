@@ -9,17 +9,14 @@
 }
 
 @layer base {
-  /* test remove */
-  h1 {
-    font-size: var(--text-2xl);
-  }
-
-  h2 {
-    font-size: var(--text-xl);
-  }
-
-  input:focus {
+  form * {  
     --tw-ring-color: oklch(82.3% 0.12 346.018) !important;
+  }
+}
+
+@layer utilities {
+  input, textarea {
+    @apply rounded-md
   }
 }
 
@@ -30,37 +27,5 @@
     margin-left: auto;
     padding-right: 1rem;
     padding-left: 1rem;
-  }
-}
-
-@layer utilities {
-  @keyframes typing {
-    0% {
-      width: 0ch;
-    }
-    100% {
-      width: 13ch;
-    }
-  }
-
-  @keyframes blink {
-    0%, 100% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-
-  .animate-typing {
-    animation: typing 2s steps(13) forwards;
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
-    width: 0ch;
-  }
-
-  .animate-blink {
-    animation: blink 0.7s step-end infinite;
   }
 }
