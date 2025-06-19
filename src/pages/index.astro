@@ -14,20 +14,21 @@ import FeaturedImage from '~/content/posts/images/claudio-schwarz-pQ_SEJg8rII-un
   description="Hi, I'm Karl. I build cool web things, and share whatever I'm learning or thinking about."
 >
 
-<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-[1fr_368px_368px_1fr] gap-4 md:gap-8 mt-4 mb-8 md:min-h-[calc(100vh-126px)]">
+<div class="grid grid-cols-1 md:grid-cols-[1fr_368px_368px_1fr] gap-4 md:gap-8 mt-4 mb-8 md:min-h-[calc(100vh-126px)]">
 
   {/* 1st Card */}
-  <div class="relative col-span-1 md:col-span-4 lg:col-span-3 min-h-32 flex flex-col justify-center items-start lg:items-end p-4 lg:p-0 lg:py-8 mr-4 lg:mr-4 gap-4 rounded-r-xl bg-neutral-900 overflow-hidden hover:shadow-sm transition duration-300">
+  <div class="relative col-span-1 md:col-span-3 min-h-32 flex flex-col justify-center items-start md:items-end p-4 md:p-0 md:py-8 mr-4 gap-4 rounded-r-xl bg-neutral-900 overflow-hidden hover:shadow-sm transition duration-300">
     <Picture
       src={HeroImage}
-      alt="none"
+      alt=""
+      role="presentation"
       widths={[480, 728]}
-      sizes={`(max-width: 640px) 480px`}
+      sizes={`(max-width: 728px) 480px, 728px`}
       formats={['webp']}
       loading="eager"
-      class="absolute right-0 top-0 h-full object-cover mix-blend-luminosity opacity-35 md:mask-l-from-1%"
+      class="absolute right-0 top-0 h-full object-cover mix-blend-luminosity opacity-35 md:w-3/4 md:mask-l-from-50%"
     />
-    <section class="flex flex-col gap-2 lg:w-[736px] z-5 text-sm font-mono lowercase">
+    <section class="flex flex-col gap-2 md:w-[736px] z-5 text-sm font-mono lowercase">
       <h1 class="md:mb-2 text-2xl md:text-4xl font-semibold">
         Karl's blog and projects
       </h1>
@@ -35,24 +36,22 @@ import FeaturedImage from '~/content/posts/images/claudio-schwarz-pQ_SEJg8rII-un
       <Button
         buttonStyle='link'
         buttonText='Get in touch'
-        class="!px-0 !font-mono"
         href={`${Astro.site}contact`}
         icon='ri:arrow-right-line'
         iconAnimate={true}
         iconSize={18}
-        openNewTab={true}
       />
     </section>
   </div>
 
   {/* Dummy */}
-  <div class="hidden lg:block"></div>
+  <div class="hidden md:block"></div>
 
   {/* Dummy */}
-  <div class="hidden lg:block"></div>
+  <div class="hidden md:block"></div>
 
   {/* 2nd Card */}
-  <div class="md:col-span-2 lg:col-span-1 md:row-span-2 flex flex-col justify-center gap-2 p-4 md:p-0 md:pl-4 ml-4 lg:ml-0 rounded-l-xl md:rounded-xl bg-neutral-800 md:bg-transparent ">
+  <div class="md:max-w-[368px] md:col-span-1 md:row-span-2 flex flex-col justify-center gap-2 p-4 md:p-0 md:pl-4 ml-4 md:ml-0 rounded-l-xl md:rounded-xl bg-neutral-900 md:bg-transparent ">
     <h2 class="text-2xl font-semibold pb-2 border-b-2 border-neutral-600">Latest posts</h2>
     <RecentEntriesList contentCollection='posts' maxEntries={3} />
   </div>
@@ -63,11 +62,11 @@ import FeaturedImage from '~/content/posts/images/claudio-schwarz-pQ_SEJg8rII-un
       <Picture
         src={FeaturedImage}
         alt="a series of typography works"
-        widths={[480, 728]}
-        sizes={`(max-width: 640px) 480px`}
+        widths={[480]}
+        sizes={`480px`}
         formats={['webp']}
         loading="eager"
-        class="object-cover h-full w-full opacity-50 rounded-xl"
+        class="object-cover h-full w-full opacity-50 rounded-r-xl md:rounded-xl"
       />
     </div>
     
@@ -82,12 +81,12 @@ import FeaturedImage from '~/content/posts/images/claudio-schwarz-pQ_SEJg8rII-un
 
   {/* 4th Card */}
   <a href={`${Astro.site}code`} class="relative group/card md:col-span-2 min-h-80 md:min-h-56 flex flex-col justify-end ml-4 md:ml-0 rounded-l-xl bg-neutral-800 overflow-hidden transition duration-300">
-    <div class="absolute left-0 xl:w-2/3">
+    <div class="absolute inset-0 md:left-0 xl:w-2/3">
       <Picture
         src={ProjectsImage}
         alt="computer screen with the software vs code open"
-        widths={[480, 728]}
-        sizes={`(max-width: 640px) 480px`}
+        widths={[480]}
+        sizes={`480px`}
         formats={['webp']}
         loading="eager"
         class="object-cover h-full w-full md:mask-r-from-25% opacity-50"
