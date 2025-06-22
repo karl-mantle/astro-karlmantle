@@ -3,7 +3,7 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <div
-  data-search-modal
+  id="search-modal"
   tabindex="-1"
   role="dialog"
   aria-modal="true"
@@ -11,7 +11,7 @@ import { Icon } from 'astro-icon/components';
   class="hidden"
 >
   
-  <div class="z-45 fixed bg-black/50 w-full transition duration-300" data-search-overlay></div>
+  <div class="z-45 fixed bg-black/50 w-full transition duration-300" id="search-overlay"></div>
 
   <div class="z-50 relative h-full md:h-fit w-screen md:max-w-[640px] flex flex-col gap-4 px-4 pt-16 md:p-8 md:mx-4 md:rounded-xl bg-neutral-900">
 
@@ -22,13 +22,13 @@ import { Icon } from 'astro-icon/components';
         class="border-b-2 border-transparent rounded-md p-2 focus:bg-pink-300 focus:text-black focus:border-black hover:backdrop-invert hover:text-neutral-900 cursor-pointer transition duration-300"
         aria-label="close search"
         aria-pressed="false"
-        data-close-button
+        id="search-close-btn"
       >
         <Icon name="ri:close-line" height={24} width={24} />
       </button>
     </div>
 
-    <div id="search" class="w-full ring-pink-400"></div>
+    <div id="search" class="w-full"></div>
 
   </div>
 </div>
@@ -50,10 +50,10 @@ import { Icon } from 'astro-icon/components';
       }
     });
 
-    const modal = document.querySelector('[data-search-modal]');
-    const toggleBtn = document.querySelector('[data-search-toggle]');
-    const closeBtn = modal?.querySelector('[data-close-button]');
-    const overlay = modal?.querySelector('[data-search-overlay]');
+    const modal = document.getElementById('search-modal');
+    const toggleBtn = document.getElementById('search-toggle-btn');
+    const closeBtn = document.getElementById('search-close-btn');
+    const overlay = document.getElementById('search-overlay');
     let searchOpen = false;
 
     const trapFocus = (element) => {
@@ -104,6 +104,7 @@ import { Icon } from 'astro-icon/components';
         modal?.setAttribute('aria-hidden', 'false');
         toggleBtn?.setAttribute('aria-pressed', 'true');
         trapFocus(modal);
+        updateBodyScrollLock();
 
         setTimeout(() => {
           const searchInput = modal.querySelector('.pagefind-ui__search-input');
@@ -120,8 +121,14 @@ import { Icon } from 'astro-icon/components';
         modal?.setAttribute('aria-hidden', 'true');
         toggleBtn?.setAttribute('aria-pressed', 'false');
         toggleBtn?.focus();
+        updateBodyScrollLock();
       }
     }
+
+    const updateBodyScrollLock = () => {
+      document.body.classList.toggle('h-full', searchOpen);
+      document.body.classList.toggle('overflow-hidden', searchOpen);
+    };
   
     toggleBtn?.addEventListener('click', () => {
       searchOpen = !searchOpen;
