@@ -1,12 +1,12 @@
 ---
-import { Icon } from "astro-icon/components";
+import { Icon } from 'astro-icon/components';
 ---
 
-<div id="scroll-top" class="fixed bottom-2 right-2 z-50 w-16 opacity-0 transition duration-300">
+<div id="scroll-to-top" class="fixed bottom-2 right-2 z-50 w-16 opacity-0 transition duration-300">
   <button
     title="scroll to top"
     aria-label="scroll to top"
-    id="scroll-top-btn"
+    id="scroll-to-top-btn"
     type="button"
     class="flex items-center p-4 rounded-xl w-full bg-neutral-600/75 hover:bg-neutral-600 hover:shadow-sm focus:bg-pink-300 focus:text-black focus:border-black cursor-pointer transition duration-300"
   >
@@ -17,10 +17,10 @@ import { Icon } from "astro-icon/components";
 <script>
   // @ts-nocheck
   window.addEventListener('DOMContentLoaded', () => {
-    const buttonContainer = document.getElementById('scroll-top');
-    const button = document.getElementById('scroll-top-btn');
+    const buttonContainer = document.getElementById('scroll-to-top');
+    const button = document.getElementById('scroll-to-top-btn');
 
-    function toggleBackToTopVisibility() {
+    function updateScrollToTop() {
       const scrollPosition = window.scrollY;
       if (scrollPosition > (2 * window.innerHeight)) {
         buttonContainer?.classList.remove('opacity-0');
@@ -29,9 +29,9 @@ import { Icon } from "astro-icon/components";
       }
     }
 
-    window.addEventListener('scroll', toggleBackToTopVisibility);
+    window.addEventListener('scroll', updateScrollToTop);
 
-    toggleBackToTopVisibility();
+    updateScrollToTop();
 
     button?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });

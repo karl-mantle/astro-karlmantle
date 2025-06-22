@@ -1,18 +1,17 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import { Icon } from 'astro-icon/components';
 import { slugify, tagStyles } from '~/utils/collections';
 
-interface Props extends DefaultTypes, HTMLAttributes<'ul'> {
+interface Props extends HTMLAttributes<'ul'> {
   tags: string[],
   permalink: string
 };
 
-const { permalink, tags, class: className, ...rest }: Partial<Props> = Astro.props;
+const { permalink, tags, class: className }: Props = Astro.props;
 ---
 
-<ul class:list={['flex flex-wrap gap-2 px-1 text-sm cursor-default', className]} aria-label="list of tags" {...rest} >
+<ul class:list={['flex flex-wrap gap-2 px-1 text-sm cursor-default', className]} aria-label="list of tags">
   {tags.map((tag) => {
     const lowerTag = tag.toLowerCase();
     const { color, icon } = tagStyles[lowerTag] ?? { color: 'bg-gray-300 text-black', icon: undefined };

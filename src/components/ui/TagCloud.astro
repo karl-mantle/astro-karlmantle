@@ -1,9 +1,5 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import { getTagsCount, slugify } from '~/utils/collections';
-
-interface Props extends DefaultTypes, HTMLAttributes<'ul'> {};
 
 const threshold = 2;
 const tags = await getTagsCount('posts');
@@ -17,11 +13,9 @@ function getTagSize(count?: number): string {
     return '1rem'
   }
 }
-
-const { class: className, ...rest }: Partial<Props> = Astro.props;
 ---
 
-<ul class:list={['flex flex-wrap gap-2 px-1', className]} role="list" aria-label="list of post tags" {...rest} >
+<ul class="flex flex-wrap gap-2 px-1" role="list" aria-label="list of post tags">
   {filteredTags.map((tag) =>
     <li>
       <a

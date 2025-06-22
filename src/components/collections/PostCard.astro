@@ -1,24 +1,26 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
-import { slugify } from '~/utils/collections';
 
-interface Props extends DefaultTypes, HTMLAttributes<'li'> {
+interface Props extends HTMLAttributes<'li'> {
   description: string,
   heading: string,
-  href: string
+  href: string,
+  image?: {
+    alt: string | null,
+    src: ImageMetadata
+  }
 };
 
-const { description, heading, href, image, class: className, ...rest }: Partial<Props> = Astro.props;
+const { description, heading, href, image }: Props = Astro.props;
 ---
 
 <li>
-  <a class:list={['group/card h-full flex flex-col-reverse rounded-xl border-transparent border-2 focus-within:border-white', className]} href={href} {...rest} aria-labelledby={`heading-${slugify(heading)}`} aria-describedby={`desc-${slugify(description)}`}>
+  <a class="group/card h-full flex flex-col-reverse rounded-xl border-transparent border-2 focus-within:border-white" href={href} >
     <article class="flex flex-col flex-grow gap-2 p-4 mb-auto">
-      <h3 class="text-lg md:text-xl font-serif font-medium" id={`heading-${slugify(heading)}`}>{heading}</h3>
-      <p id={`desc-${slugify(description)}`} class="text-sm">{description}</p>
+      <h3 class="text-lg md:text-xl font-serif font-medium">{heading}</h3>
+      <p class="text-sm">{description}</p>
       <span class="flex items-center gap-2 w-fit p-2 border-b-2 border-transparent group-hover/card:border-neutral-50 mt-auto mr-auto ml-0 pl-0 group-focus/card:border-2 group-focus/card:pl-2 group-focus/card:bg-pink-300 group-focus/card:text-black group-focus/card:border-black group-focus/card:border-b-4 group-focus/card:rounded-md group-focus/card:outline-1 outline-white transition duration-300" aria-hidden="true">
         <span>
           Read more

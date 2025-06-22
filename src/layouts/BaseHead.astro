@@ -1,5 +1,4 @@
 ---
-import type { LoadingOptions } from '~/types';
 import { getImage } from 'astro:assets';
 import faviconSrc from '../../public/favicon.png';
 import '~/styles/global.css';
@@ -7,7 +6,10 @@ import '~/styles/global.css';
 interface Props {
   description: string,
   image?: any,
-  loadingOptions?: LoadingOptions,
+  loadingOptions?: {
+    loadLeaflet: boolean,
+    loadTurnstile: boolean
+  },
   title: string
 };
 

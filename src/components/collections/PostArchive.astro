@@ -2,19 +2,19 @@
 import type { Page } from 'astro';
 import type { HTMLAttributes } from 'astro/types';
 import type { CollectionEntry } from 'astro:content';
-import type { DefaultTypes, Terms } from '~/types';
 import PostCard from '~/components/collections/PostCard.astro';
 import Pagination from '~/components/ui/Pagination.astro';
 
-interface Props extends DefaultTypes, HTMLAttributes<'div'> {
-  page: Page<CollectionEntry<'posts'>>,
-  term?: Terms
+interface Props extends HTMLAttributes<'div'> {
+  description?: string,
+  heading?: string,
+  page: Page<CollectionEntry<'posts'>>
 };
 
-const { description, heading, page, term, class: className, ...rest }: Partial<Props> = Astro.props;
+const { description, heading, page }: Props = Astro.props;
 ---
 
-<div class:list={['flex flex-col py-4 md:p-4 gap-4', className]} {...rest} >
+<div class="flex flex-col py-4 md:p-4 gap-4" >
 
   { (heading || description) && (
     <header class:list={['flex flex-col justify-center max-w-[80ch]', (heading && description) ? 'gap-2' : '']}>

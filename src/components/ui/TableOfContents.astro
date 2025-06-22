@@ -1,16 +1,10 @@
 ---
 import type { MarkdownHeading } from 'astro';
-import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import { Icon } from 'astro-icon/components';
 import { getTableOfContents } from '~/utils/collections';
 import TableOfContentsHeading from '~/components/ui/TableOfContentsHeading.astro';
 
-interface Props extends HTMLAttributes<'aside'> {
-  headings: MarkdownHeading[];
-};
-
-const { headings }: Props = Astro.props;
+const { headings } = Astro.props as { headings: MarkdownHeading[] };
 
 const toc = getTableOfContents(headings);
 ---

@@ -1,27 +1,30 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import { Image } from 'astro:assets';
 import Badge from '~/components/ui/Badge.astro';
 import Button from '~/components/ui/Button.astro';
 
-interface Props extends DefaultTypes, HTMLAttributes<'li'> {
+interface Props extends HTMLAttributes<'li'> {
   category?: string,
   demoUrl?: string,
   description: string,
   heading: string,
   href: string,
+  image?: {
+    alt: string | null,
+    src: ImageMetadata
+  }
   steamUrl?: string
 };
 
-const { category, demoUrl, description, heading, href, image, steamUrl, class: className, ...rest }: Partial<Props> = Astro.props;
+const { category, demoUrl, description, heading, href, image, steamUrl }: Props = Astro.props;
 ---
 
-<li class:list={['group/card h-full flex flex-col-reverse md:flex-row-reverse justify-end gap-4 p-4 rounded-xl bg-neutral-950 border-transparent border-2 focus-within:border-white', className]} {...rest} >
+<li class="group/card h-full flex flex-col-reverse md:flex-row-reverse justify-end gap-4 p-4 rounded-xl bg-neutral-950 border-transparent border-2 focus-within:border-white">
 
   <article class="flex flex-col gap-2 md:gap-4">
     <div class="flex gap-3">
-      <Badge title={category ?? 'Uncategorised'} />
+      <Badge heading={category ?? 'Uncategorised'} />
       <h3 class="text-lg md:text-xl font-semibold">{heading}</h3>
     </div>
 

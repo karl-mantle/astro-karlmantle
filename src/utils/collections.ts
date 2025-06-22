@@ -1,10 +1,16 @@
 import { type DataEntryMap, getCollection } from 'astro:content';
-import type { Terms } from '../types';
 import type { MarkdownHeading } from 'astro';
 
 interface tocHeading extends MarkdownHeading {
   subheadings: tocHeading[];
 }
+
+type Terms = {
+  count?: number,
+  name: string,
+  slug: string,
+  type?: string
+};
 
 export const slugify = (text: string) => {
   return text

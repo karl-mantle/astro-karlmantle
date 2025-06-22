@@ -1,8 +1,21 @@
 ---
-import type { ButtonOptions } from '~/types';
+import type { HTMLAttributes } from 'astro/types';
 import { Icon } from 'astro-icon/components';
 
-const { buttonStyle, buttonText, buttonTextClass, buttonTextWrap, icon, iconAnimate, iconReverse, iconSize = 21, openNewTab, ariaLabel, href, class: className, ...rest }: Partial<ButtonOptions> = Astro.props;
+interface Props extends HTMLAttributes<'a'> {
+  ariaLabel?: string,
+  buttonStyle?: 'primary' | 'secondary' | 'link' | 'icon' | 'disabled',
+  buttonText?: string,
+  buttonTextClass?: string,
+  buttonTextWrap?: boolean,
+  icon?: string,
+  iconAnimate?: boolean,
+  iconReverse?: boolean,
+  iconSize?: number,
+  openNewTab?: boolean
+};
+
+const { buttonStyle, buttonText, buttonTextClass, buttonTextWrap, icon, iconAnimate, iconReverse, iconSize = 21, openNewTab, ariaLabel, href, class: className, ...rest }: Partial<Props> = Astro.props;
 
 let buttonCSS;
 switch (buttonStyle) {

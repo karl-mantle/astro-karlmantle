@@ -1,19 +1,23 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import Date from '../ui/Date.astro';
 
-interface Props extends DefaultTypes, HTMLAttributes<'li'> {
+interface Props extends HTMLAttributes<'li'> {
   date: Date,
+  description: string,
   heading: string,
-  href: string
+  href: string,
+  image?: {
+    alt: string | null,
+    src: ImageMetadata
+  }
 };
 
-const { date, description, heading, href, image, class: className, ...rest }: Partial<Props> = Astro.props;
+const { date, description, heading, href }: Props = Astro.props;
 ---
 
 <li>
-  <a class:list={['group/list block text-sm border-2 border-transparent', className]} href={href} {...rest} >
+  <a class="group/list block text-sm border-2 border-transparent" href={href} >
     <article class="flex flex-col gap-2 pb-2 border-b-2 border-neutral-600 group-focus/list:bg-pink-300 group-focus/list:text-black group-focus/list:p-1 group-focus/list:border-black transition duration-300">
       <h3 class="block text-xl font-serif font-medium leading-6 underline underline-offset-4 decoration-transparent group-hover/list:decoration-neutral-50 group-focus/list:decoration-black transition duration-300">{heading}</h3>
       <Date date={date} hideIcon={true}/>

@@ -1,10 +1,16 @@
 ---
-import type { Terms } from '~/types';
 import { Icon } from 'astro-icon/components';
 import { getCategories } from '~/utils/collections';
-import Button from '../ui/Button.astro';
-import TagCloud from '../ui/TagCloud.astro';
-import RecentEntries from '../collections/RecentEntries.astro';
+import Button from '~/components/ui/Button.astro';
+import TagCloud from '~/components/ui/TagCloud.astro';
+import RecentEntries from '~/components/collections/RecentEntries.astro';
+
+type Terms = {
+  count?: number,
+  name: string,
+  slug: string,
+  type?: string
+};
 
 const postsCategories: Terms[] = await getCategories('posts');
 const projectsCategories: Terms[] = await getCategories('projects');

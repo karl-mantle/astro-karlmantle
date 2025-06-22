@@ -3,17 +3,16 @@ import { shareLinks, createShareUrl } from '~/utils/share';
 import Button from '~/components/ui/Button.astro';
 
 interface Props {
-  class?: string,
   description?: string,
   display: string[],
   title: string,
   url: string
 };
 
-const { display = ['email', 'facebook', 'linkedin', 'whatsapp'], description, title, url, class: className, ...rest }: Props = Astro.props;
+const { display = ['email', 'facebook', 'linkedin', 'whatsapp'], description, title, url }: Props = Astro.props;
 ---
 
-<div class:list={['flex justify-between items-center gap-2', className]} {...rest} >
+<div class="flex justify-between items-center gap-2">
    { description && (
     <span class="font-medium mr-2">{description}</span>
    )}

@@ -1,22 +1,21 @@
 ---
 import type { DataEntryMap } from 'astro:content';
-import type { DefaultTypes } from '~/types';
 import type { HTMLAttributes } from 'astro/types';
 import { getEntries } from '~/utils/collections';
 import PostCard from '~/components/collections/PostCard.astro';
 import ProjectCard from '~/components/collections/ProjectCardMini.astro';
 
-interface Props extends DefaultTypes, HTMLAttributes<'section'> {
+interface Props extends HTMLAttributes<'ol'> {
   contentCollection: keyof DataEntryMap,
   maxEntries?: number
 };
 
-const { contentCollection, maxEntries = 3, class: className, ...rest }: Partial<Props> = Astro.props;
+const { contentCollection, maxEntries = 3 }: Props = Astro.props;
 
 const entries = await getEntries(contentCollection, maxEntries);
 ---
 
-<ol class:list={['grid grid-cols-1 md:grid-cols-2 gap-4', className]} {...rest} >
+<ol class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
   { contentCollection === 'posts' && (
     entries.map((post) =>

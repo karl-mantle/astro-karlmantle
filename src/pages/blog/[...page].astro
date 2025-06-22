@@ -5,10 +5,6 @@ import { getEntries } from '~/utils/collections';
 import Base from '~/layouts/Base.astro';
 import PostArchive from '~/components/collections/PostArchive.astro';
 
-interface Props { 
-  page: Page<CollectionEntry<'posts'>>
-};
-
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
     const posts = await getEntries('posts');
     return paginate(posts, {
@@ -16,7 +12,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
     });
 };
 
-const { page }: Partial<Props> = Astro.props;
+const { page } = Astro.props as { page: Page<CollectionEntry<'posts'>>};
 ---
 
 <Base
@@ -24,12 +20,10 @@ const { page }: Partial<Props> = Astro.props;
   description="An archive of all my blog posts. Read the latest posts here!"
 >
   <section class="container flex flex-col min-h-screen">
-
-  <PostArchive
-    description={`Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.`}
-    heading="Viewing all posts"
-    page={page}
-  />
-
+    <PostArchive
+      description={`Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.`}
+      heading="Viewing all posts"
+      page={page}
+    />
   </section>
 </Base>

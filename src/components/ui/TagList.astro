@@ -1,17 +1,16 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import { slugify } from '~/utils/collections';
 
-interface Props extends DefaultTypes, HTMLAttributes<'ul'> {
+interface Props extends HTMLAttributes<'ul'> {
   tags: string[],
   permalink: string
 };
 
-const { permalink, tags, class: className, ...attributes }: Partial<Props> = Astro.props;
+const { permalink, tags }: Props = Astro.props;
 ---
 
-<ul class:list={['flex flex-wrap gap-3 px-1 text-sm', className]} aria-label="list of tags" {...attributes} >
+<ul class="flex flex-wrap gap-3 px-1 text-sm" aria-label="list of tags">
   {tags.map((tag) =>
     <li>
       <a

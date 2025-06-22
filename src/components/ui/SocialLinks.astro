@@ -1,9 +1,5 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
-import Button from '../ui/Button.astro';
-
-interface Props extends DefaultTypes, HTMLAttributes<'div'> {};
+import Button from '~/components/ui/Button.astro';
 
 const socialLinks = [
   { // BlueSky
@@ -25,11 +21,9 @@ const socialLinks = [
     show: true
   },
 ];
-
-const { class: className, ...rest }: Partial<Props> = Astro.props;
 ---
 
-<div class:list={['inline-flex items-center gap-2', className]} {...rest} >
+<div class="flex items-center gap-2">
   {(
     socialLinks
     .filter(link => link.show)

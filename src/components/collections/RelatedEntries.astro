@@ -1,28 +1,26 @@
 ---
 import type { DataEntryMap } from 'astro:content';
 import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import { getEntriesByCategory } from '~/utils/collections';
 import PostCard from '~/components/collections/PostCard.astro';
 import ProjectCard from '~/components/collections/ProjectCardMini.astro';
 
-interface Props extends DefaultTypes, HTMLAttributes<'section'> {
+interface Props extends HTMLAttributes<'ol'> {
   category: string,
   contentCollection: keyof DataEntryMap,
   maxEntries?: number
 };
 
-const { contentCollection, category, maxEntries = 3, class: className, ...rest }: Partial<Props> = Astro.props;
+const { contentCollection, category, maxEntries = 3 }: Props = Astro.props;
 
 const entries = await getEntriesByCategory(contentCollection, category, maxEntries);
 ---
 
-<ul class="grid grid-cols-1 md:grid-cols-3 gap-4" {...rest} >
+<ol class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
   { contentCollection === 'posts' && (
     entries.map((post) =>
       <PostCard
-        date={post.data.pubDate}
         description={post.data.description}
         heading={post.data.title}
         image={post.data.image}
@@ -42,4 +40,4 @@ const entries = await getEntriesByCategory(contentCollection, category, maxEntri
     )
   )}
 
-</ul>
+</ol>

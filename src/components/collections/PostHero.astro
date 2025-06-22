@@ -1,33 +1,37 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import type { DefaultTypes } from '~/types';
 import { Picture } from 'astro:assets';
 
-interface Props extends DefaultTypes, HTMLAttributes<'header'> {
+interface Props extends HTMLAttributes<'header'> {
+  heading: string,
+  image?: {
+    alt: string | null,
+    src: ImageMetadata
+  }
 };
 
-const { heading, image, class: className, ...rest }: Partial<Props> = Astro.props;
+const { heading, image }: Props = Astro.props;
 ---
 
-<header class:list={[className]} {...rest} >
-
-  <div class="-z-1 absolute top-0">
-    <Picture
-      src={image.src}
-      widths={[480, 960]}
-      sizes={`(max-width: 640px) 480px`}
-      inferSize
-      formats={['webp']}
-      loading="lazy"
-      class="md:w-1/2 object-cover aspect-video mask-b-from-10% md:mask-x-from-40% md:mask-b-from-60%"
-      alt={image.alt}
-    />
-  </div>
+<header>
+  { image && (
+    <div class="-z-1 absolute top-0">
+      <Picture
+        src={image.src as any}
+        widths={[480, 960]}
+        sizes={`(max-width: 640px) 480px`}
+        inferSize
+        formats={['webp']}
+        loading="lazy"
+        class="md:w-1/2 object-cover aspect-video mask-b-from-10% md:mask-x-from-40% md:mask-b-from-60%"
+        alt={image.alt ?? ''}
+      />
+    </div>
+  )}
 
   <div class="flex flex-col gap-4 mt-32 md:mt-48">
     <h1 class="text-3xl md:text-5xl font-semibold font-serif text-shadow-sm text-shadow-black">
       {heading}
     </h1>
   </div>
-
 </header>

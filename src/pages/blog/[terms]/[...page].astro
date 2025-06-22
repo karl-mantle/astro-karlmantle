@@ -1,10 +1,16 @@
 ---
 import type { GetStaticPathsOptions, Page } from 'astro';
 import type { CollectionEntry } from 'astro:content';
-import type { Terms } from '~/types.ts';
 import { getTerms, getEntriesByTag, getEntriesByCategory } from '~/utils/collections';
 import Base from '~/layouts/Base.astro';
 import PostArchive from '~/components/collections/PostArchive.astro';
+
+type Terms = {
+  count?: number,
+  name: string,
+  slug: string,
+  type?: string
+};
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const terms: Terms[] = await getTerms('posts');
@@ -50,13 +56,10 @@ const entryCount = page.end + 1;
   description={ term.type === 'category' ? `View the archive of all posts in the category “${term.name}”.` : `View the archive of all posts tagged with “${term.name}”.` }
 >
   <section class="container flex flex-col min-h-screen">
-
-  <PostArchive
-    description={`Now displaying ${entryCount} of ${page.total} posts.`}
-    heading={ term.type === 'category' ? `All posts categorised as “${term.name}”` : `All posts tagged with “${term.name}”` }
-    page={page}
-    term={term}
-  />
-
+    <PostArchive
+      description={`Now displaying ${entryCount} of ${page.total} posts.`}
+      heading={ term.type === 'category' ? `All posts categorised as “${term.name}”` : `All posts tagged with “${term.name}”` }
+      page={page}
+    />
   </section>
 </Base>
