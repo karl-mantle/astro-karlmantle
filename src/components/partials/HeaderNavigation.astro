@@ -59,7 +59,7 @@ const projectsCategories: Terms[] = await getCategories('projects');
           <Button
             buttonStyle='secondary'
             buttonText='View all posts'
-            class="mx-4 md:mx-0 md:w-fit md:mt-auto"
+            class="m-4 md:mx-0 md:w-fit md:mt-auto"
             href={`${Astro.site}blog`}
             icon='ri:arrow-right-line'
             iconAnimate={true}
@@ -114,7 +114,7 @@ const projectsCategories: Terms[] = await getCategories('projects');
           <Button
             buttonStyle='secondary'
             buttonText='View all projects'
-            class="mx-4 md:mx-0 md:w-fit"
+            class="m-4 md:mx-0 md:w-fit"
             href={`${Astro.site}code`}
             icon='ri:arrow-right-line'
             iconAnimate={true}
@@ -134,11 +134,11 @@ const projectsCategories: Terms[] = await getCategories('projects');
 <script>
   // @ts-nocheck
   window.addEventListener('DOMContentLoaded', () => {
-    const nav = document.querySelector('[data-site-nav]');
-    const toggleButton = document.querySelector('[data-menu-toggle]');
-    const iconOpen = toggleButton?.querySelector('[data-menu-icon-open]');
-    const iconClose = toggleButton?.querySelector('[data-menu-icon-close]');
-    const header = document.querySelector('[data-site-header]');
+    const nav = document.getElementById('site-nav');
+    const toggleButton = document.getElementById('nav-toggle-btn');
+    const iconOpen = document.getElementById('nav-open-icon');
+    const iconClose = document.getElementById('nav-close-icon');
+    const header = document.getElementById('site-header');
 
     if (!nav || !toggleButton || !header) return;
   
