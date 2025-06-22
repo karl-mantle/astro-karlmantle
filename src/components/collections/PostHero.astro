@@ -3,6 +3,7 @@ import type { HTMLAttributes } from 'astro/types';
 import { Picture } from 'astro:assets';
 
 interface Props extends HTMLAttributes<'header'> {
+  description: string,
   heading: string,
   image?: {
     alt: string | null,
