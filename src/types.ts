@@ -1,18 +1,18 @@
 import type { HTMLAttributes } from 'astro/types';
 
 export interface DefaultTypes {
-  altText?: string,
   buttonPrimary?: ButtonOptions,
   buttonSecondary?: ButtonOptions,
-  class?: string | null | undefined,
+  class?: string | null,
   date?: Date,
   dateOptions?: DateOptions,
   description?: string,
   heading?: string,
-  image?: any // ImageOptions
+  image?: ImageOptions
 };
 
 export interface ButtonOptions extends HTMLAttributes<'a'> {
+  ariaLabel?: string,
   buttonStyle?: 'primary' | 'secondary' | 'link' | 'icon' | 'disabled',
   buttonText?: string,
   buttonTextClass?: string,
@@ -21,20 +21,18 @@ export interface ButtonOptions extends HTMLAttributes<'a'> {
   iconAnimate?: boolean,
   iconReverse?: boolean,
   iconSize?: number,
-  openNewTab?: boolean,
-  ariaLabel?: string
+  openNewTab?: boolean
 };
 
 export interface ImageOptions {
-  src: ImageMetadata,
-  alt?: string
+  alt: string | null,
+  src: ImageMetadata
 };
 
 export interface DateOptions extends HTMLAttributes<'div'> {
   description?: DefaultTypes['description'],
   hideDescription?: boolean,
-  hideIcon?: boolean,
-  showTime?: boolean
+  hideIcon?: boolean
 };
 
 export interface LoadingOptions {
@@ -52,8 +50,8 @@ export interface MapOptions {
 };
 
 export type Terms = {
+  count?: number,
   name: string,
   slug: string,
-  type?: string,
-  count?: number
+  type?: string
 };
