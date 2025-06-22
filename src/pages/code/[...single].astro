@@ -8,6 +8,7 @@ import ProjectGallery from '~/components/collections/ProjectGallery.astro';
 import BadgeList from '~/components/ui/BadgeList.astro';
 import RelatedEntries from '~/components/collections/RelatedEntries.astro';
 import ShareLinks from '~/components/ui/ShareLinks.astro';
+import TableOfContents from '~/components/ui/TableOfContents.astro';
 
 type Props = { 
   entry: CollectionEntry<'projects'>,
@@ -29,7 +30,7 @@ export async function getStaticPaths() {
 };
 
 const { entry, prevEntry, nextEntry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 const author =  await getEntry('author', entry.data.author.id);
 const authorData = author?.data;
 ---
@@ -39,8 +40,11 @@ const authorData = author?.data;
   description={entry.data.description}
   postData={entry.data}
   schemaType="Article"
+  tableOfContents={headings.length > 0}
   title={entry.data.title}
 >
+  <TableOfContents headings={headings} />
+
   <article class="container flex flex-col gap-4 mb-8">
 
     <header class="py-4">
@@ -132,16 +136,6 @@ const authorData = author?.data;
       
       <hr class="w-full h-[2px] border-none bg-neutral-600 mask-x-from-85%" />
     </section>
-
-    {/* TODO: Table of contents
-    <nav class="absolute top-0 left-0">
-      <span>On this page</span>
-      <ol>
-        <li>Example 1</li>
-        <li>Example 2</li>
-      </ol>
-    </nav>
-     */}
 
     {/* Post body */}
     <section class="prose prose-neutral prose-invert max-w-[75ch] mb-4">

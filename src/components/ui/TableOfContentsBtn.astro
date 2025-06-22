@@ -1,0 +1,16 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div id="toc-btn-wrapper" class="fixed bottom-2 left-2 z-50 w-16 opacity-0 pointer-events-none transition duration-300">
+  <button
+    id="toc-toggle-btn"
+    class="flex items-center p-4 rounded-xl w-full bg-neutral-600/75 hover:bg-neutral-600 hover:shadow-sm focus:bg-pink-300 focus:text-black focus:border-black cursor-pointer transition duration-300"
+    type="button"
+    title="show table of contents"
+    aria-label="show table of contents"
+    aria-pressed="false"
+  >
+    <Icon name="ri:menu-2-line" height={32} width={32} />
+  </button>
+</div>

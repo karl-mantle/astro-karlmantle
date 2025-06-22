@@ -12,12 +12,50 @@ urls:
   github: "https://astro-karlmantle.karlmantle.workers.dev/"
 ---
 
-This will be the readme from the project repository. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+## Introduction
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+>Placeholder text has a history deeper than you might expect. 
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+Despite its random appearance, lorem ipsum is steeped in tradition. Originally derived from a scrambled portion of a classical Latin text by Cicero, this filler text has become the backbone of digital and print design. Used by designers, developers, and typographers alike, it serves as a visual aid that allows professionals to focus on layout and typography without being distracted by meaningful content. 
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+## The Origins
+### Early Usage
+Adipiscing enim eu *turpis* egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum.
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+The use of placeholder text dates back centuries. Before digital design, typesetters used nonsensical text to check for formatting irregularities. Lorem ipsum provided a balance of letters, words, and sentence structures that resembled natural language while avoiding unnecessary distraction. Over time, this practice became a standard in industries reliant on visual composition. 
+
+#### Why It Matters
+- Netus et malesuada fames ac turpis egestas.
+- Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem.
+- Varius sit amet mattis vulputate enim.
+
+The presence of generic text allows designers to focus on composition, contrast, and readability without being swayed by actual content. While some prefer more tailored filler text, lorem ipsum maintains a neutral tone that prevents subconscious bias. 
+
+## The Modern Evolution
+Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+
+### Typography and Design
+
+Morbi tristique senectus et netus.
+
+```css
+font-family: "Lorem Ipsum", serif;
+font-size: 16px;
+```
+
+Over time, design philosophies have changed, but **lorem ipsum has remained relevant**. The advent of digital publishing and website design transformed the way placeholder text is used. In UX/UI development, lorem ipsum is strategically placed within wireframes to give stakeholders an idea of the final look without the distraction of actual messaging. 
+
+## Common Criticisms
+While lorem ipsum serves as a reliable tool, critics argue that it fails to represent real-world readability. Some claim that designers should prioritize meaningful text from the start to ensure proper spacing and flow. Others believe lorem ipsum is overused in environments where actual content strategy should take precedence. 
+
+### Alternatives to Lorem Ipsum
+1. Using Real Content – Some designers opt to work with real product descriptions or headlines to create more authentic visuals.
+2. Dummy Text Generators – Various online tools offer filler text variations that resemble different languages or styles.
+3. AI-Generated Text – With advances in artificial intelligence, designers can now use dynamically generated content that mimics human writing patterns.
+
+#### Final Thoughts
+Tempus quam pellentesque nec nam aliquam sem. *Risus at ultrices mi tempus imperdiet.*
+Id porta nibh venenatis cras sed felis eget velit.
+
+Whether you love it or loathe it, lorem ipsum continues to hold a place in design history. As technology advances, placeholder text will likely evolve, but for now, it remains a staple in creative industries worldwide. 

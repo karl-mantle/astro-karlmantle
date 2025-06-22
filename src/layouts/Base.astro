@@ -3,11 +3,12 @@ import { createSchema } from '~/utils/schema';
 import BaseHead from './BaseHead.astro';
 import SkipToMain from '~/components/ui/SkipToMain.astro';
 import Header from '~/components/partials/Header.astro';
+import TableOfContentsBtn from '~/components/ui/TableOfContentsBtn.astro';
 import ScrollToTop from '~/components/ui/ScrollToTop.astro';
 import Search from '~/components/ui/Search.astro';
 import Footer from '~/components/partials/Footer.astro';
 
-const { authorData, description, loadingOptions, postData, schemaType, title } = Astro.props;
+const { authorData, description, loadingOptions, postData, schemaType, tableOfContents, title } = Astro.props;
 
 const pageUrl = new URL(Astro.url.pathname, Astro.site);
 
@@ -15,7 +16,7 @@ const schema = createSchema(authorData, description, pageUrl, postData, schemaTy
 ---
 
 <!doctype html>
-<html lang="en-GB" class="dark">
+<html lang="en-GB">
   <head>
     <BaseHead 
       description={description}
@@ -28,12 +29,14 @@ const schema = createSchema(authorData, description, pageUrl, postData, schemaTy
   <body class="text-base text-neutral-50 bg-black">
     <SkipToMain />
     <Header />
-    <main id="main" data-pagefind-body>
+    <main id="main" data-pagefind-body >
+      { tableOfContents && (
+        <TableOfContentsBtn />
+      )}
       <slot />
     </main>
     <ScrollToTop />
-    <Search />
     <Footer />
+    <Search />
   </body>
-
 </html>

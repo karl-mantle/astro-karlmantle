@@ -1,5 +1,10 @@
 import { type DataEntryMap, getCollection } from 'astro:content';
 import type { Terms } from '../types';
+import type { MarkdownHeading } from 'astro';
+
+interface tocHeading extends MarkdownHeading {
+  subheadings: tocHeading[];
+}
 
 export const slugify = (text: string) => {
   return text
@@ -9,6 +14,24 @@ export const slugify = (text: string) => {
     .replace(/--+/g, '-')
     .trim();
 };
+
+export const getTableOfContents = (headings: MarkdownHeading[]): tocHeading[] => {
+  const toc: tocHeading[] = [];
+  const parentHeadings = new Map();
+
+  headings.forEach((h) => {
+    const heading: tocHeading = { ...h, subheadings: [] };
+    parentHeadings.set(heading.depth, heading);
+
+    if (heading.depth === 2) {
+      toc.push(heading);
+    } else {
+      parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+    }
+  });
+
+  return toc;
+}
 
 export const getCategories = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
   const entries = await getCollection(entryType);

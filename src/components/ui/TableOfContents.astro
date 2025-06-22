@@ -1,0 +1,94 @@
+---
+import type { MarkdownHeading } from 'astro';
+import type { HTMLAttributes } from 'astro/types';
+import type { DefaultTypes } from '~/types';
+import { Icon } from 'astro-icon/components';
+import { getTableOfContents } from '~/utils/collections';
+import TableOfContentsHeading from '~/components/ui/TableOfContentsHeading.astro';
+
+interface Props extends HTMLAttributes<'aside'> {
+  headings: MarkdownHeading[];
+};
+
+const { headings }: Props = Astro.props;
+
+const toc = getTableOfContents(headings);
+---
+<aside class="container sticky top-0">  
+  <nav
+    id="toc"
+    class="absolute top-15 xl:top-24 left-0 xl:-left-72 2xl:-left-80 flex flex-col gap-2 p-4 w-full xl:max-w-64 bg-neutral-800/90 xl:bg-neutral-900 rounded-xl opacity-0 pointer-events-none transition duration-300"
+    aria-hidden="true"
+  >
+    <div class="text-lg mb-2 border-b-2 border-neutral-50 pb-1 w-fit">Table of contents:</div>
+    <ul>
+      {toc.map((heading) => <TableOfContentsHeading heading={heading} />)}
+    </ul>
+    <button
+      id="toc-close-btn"
+      class="flex gap-2 justify-center items-center p-2 xl:mx-auto xl:w-fit text-sm border-2 rounded-md border-neutral-50 xl:border-transparent xl:hover:border-neutral-50 focus:bg-pink-300 focus:text-black focus:border-black cursor-pointer transition duration-300"
+      aria-label="close table of contents"
+      aria-pressed="false"
+    >
+      <Icon name="ri:close-line" height={24} width={24} />
+      <span>Close</span>
+    </button>
+  </nav>
+</aside> 
+
+<script>
+  // @ts-nocheck
+  window.addEventListener('DOMContentLoaded', () => {
+    const toc = document.getElementById('toc');
+    const btnWrapper = document.getElementById('toc-btn-wrapper');
+    const toggleBtn = document.getElementById('toc-toggle-btn');
+    const closeBtn = document.getElementById('toc-close-btn');
+    let tocOpen = false;
+
+    // TODO: add focus trap
+
+    function updateToc() {
+      if (tocOpen) {
+        toc?.classList.remove('opacity-0', 'pointer-events-none');
+        toc?.removeAttribute('inert');
+        toc?.setAttribute('aria-hidden', 'false');
+        btnWrapper?.classList.add('opacity-0', 'pointer-events-none');
+        toggleBtn?.setAttribute('aria-pressed', 'true');
+        toggleBtn?.setAttribute('inert', '');
+      } else {
+        toc?.classList.add('opacity-0', 'pointer-events-none');
+        toc?.setAttribute('inert', '');
+        toc?.setAttribute('aria-hidden', 'true');
+        btnWrapper?.classList.remove('opacity-0', 'pointer-events-none');
+        toggleBtn?.setAttribute('aria-pressed', 'false');
+        toggleBtn?.removeAttribute('inert');
+      }
+    }
+
+    updateToc();
+
+    toggleBtn?.addEventListener('click', () => {
+      tocOpen = !tocOpen;
+      updateToc();
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      tocOpen = false;
+      updateToc();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        tocOpen = false;
+        updateToc();
+      }
+    });
+
+    toc?.addEventListener('focusin', () => {
+      if (!tocOpen) {
+        tocOpen = true;
+        updateToc();
+      }
+    });
+  });
+</script>
