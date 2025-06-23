@@ -11,13 +11,12 @@ const { heading } = Astro.props;
   >
     {heading.text}
   </a>
-  {
-    heading.subheadings.length > 0 && (
-      <ul>
-        {heading.subheadings.map((subheading: MarkdownHeading) => (
-          <Astro.self heading={subheading} />
-        ))}
-      </ul>
-    )
-  }
+
+  { heading.subheadings.length > 0 && (
+    <ul>
+      {heading.subheadings.map((subheading: MarkdownHeading) => (
+        <Astro.self heading={subheading} />
+      ))}
+    </ul>
+  )}
 </li>

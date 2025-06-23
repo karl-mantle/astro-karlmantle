@@ -23,7 +23,7 @@ export const slugify = (text: string) => {
 
 export const getTableOfContents = (headings: MarkdownHeading[]): tocHeading[] => {
   const toc: tocHeading[] = [];
-  const parentHeadings = new Map();
+  const parentHeadings = new Map<number, tocHeading>();
 
   headings.forEach((h) => {
     const heading: tocHeading = { ...h, subheadings: [] };
@@ -32,12 +32,17 @@ export const getTableOfContents = (headings: MarkdownHeading[]): tocHeading[] =>
     if (heading.depth === 2) {
       toc.push(heading);
     } else {
-      parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+      const parent = parentHeadings.get(heading.depth - 1);
+      if (parent) {
+        parent.subheadings.push(heading);
+      } else {
+        toc.push(heading);
+      }
     }
   });
 
   return toc;
-}
+};
 
 export const getCategories = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
   const entries = await getCollection(entryType);
