@@ -15,38 +15,41 @@ import HeaderToolbar from '~/components/partials/HeaderToolbar.astro';
 
 <script>
   // @ts-nocheck
-  const header = document.getElementById('site-header');
-  let lastScrollY = window.scrollY;
-  let isScrolling = false;
+  function initHeaderScrollHide() {
+    const header = document.getElementById('site-header');
+    let lastScrollY = window.scrollY;
+    let isScrolling = false;
 
-  window.addEventListener('scroll', () => {
-    const focusedElement = document.querySelector(':focus');
-    
-    if (focusedElement) {
-        focusedElement.blur();
-        document.body.focus();
-    }
+    window.addEventListener('scroll', () => {
+      const focusedElement = document.querySelector(':focus');
+      
+      if (focusedElement) {
+          focusedElement.blur();
+          document.body.focus();
+      }
 
-    if (!isScrolling) {
-      window.requestAnimationFrame(() => {
-        const currentScrollY = window.scrollY;
+      if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
 
-        if (currentScrollY > lastScrollY) {
-          header.classList.add('-translate-y-[150%]');
-        } else {
-          header.classList.remove('-translate-y-[150%]');
-          header.classList.add('hover:shadow-sm');
-        }
+          if (currentScrollY > lastScrollY) {
+            header.classList.add('-translate-y-[150%]');
+          } else {
+            header.classList.remove('-translate-y-[150%]');
+            header.classList.add('hover:shadow-sm');
+          }
 
-        if (currentScrollY === 0) {
-          header.classList.remove('hover:shadow-sm', 'shadow-sm');
-        }
+          if (currentScrollY === 0) {
+            header.classList.remove('hover:shadow-sm', 'shadow-sm');
+          }
 
-        lastScrollY = currentScrollY;
-        isScrolling = false;
-      });
-
-      isScrolling = true;
-    }
-  });
+          lastScrollY = currentScrollY;
+          isScrolling = false;
+        });
+        isScrolling = true;
+      }
+    });
+  };
+  document.addEventListener('DOMContentLoaded', initHeaderScrollHide);
+  document.addEventListener('astro:after-swap', initHeaderScrollHide);
 </script>

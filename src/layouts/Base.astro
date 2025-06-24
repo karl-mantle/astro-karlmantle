@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import { createSchema } from '~/utils/schema';
 import BaseHead from './BaseHead.astro';
 import SkipToMain from '~/components/ui/SkipToMain.astro';
@@ -24,6 +25,7 @@ const schema = createSchema(authorData, description, pageUrl, postData, schemaTy
       title={title}
     />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <ClientRouter />
   </head>
 
   <body class="text-base text-neutral-50 bg-black">

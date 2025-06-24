@@ -58,10 +58,11 @@ import Base from '~/layouts/Base.astro';
 
 <script>
   // @ts-nocheck
-  const form = document.getElementById('form');
-  const feedback = document.getElementById('feedback');
+  function initContactForm() {
+    const form = document.getElementById('form');
+    const feedback = document.getElementById('feedback');
 
-  form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', function(e) {
       const formData = new FormData(form);
       e.preventDefault();
 
@@ -97,5 +98,8 @@ import Base from '~/layouts/Base.astro';
                   feedback.style.display = "none";
               }, 3000);
           });
-  });
+    });
+  };
+  document.addEventListener('DOMContentLoaded', initContactForm);
+  document.addEventListener('astro:after-swap', initContactForm);
 </script>

@@ -139,7 +139,7 @@ const projectsCategories: Terms[] = await getCategories('projects');
 
 <script>
   // @ts-nocheck
-  window.addEventListener('DOMContentLoaded', () => {
+  function initSiteNav() {
     const nav = document.getElementById('site-nav');
     const toggleButton = document.getElementById('nav-toggle-btn');
     const iconOpen = document.getElementById('nav-open-icon');
@@ -260,5 +260,7 @@ const projectsCategories: Terms[] = await getCategories('projects');
         setMenuClosedCSS();
       }
     });
-  });
+  };
+  document.addEventListener('DOMContentLoaded', initSiteNav);
+  document.addEventListener('astro:after-swap', initSiteNav);
 </script>

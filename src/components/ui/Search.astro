@@ -35,8 +35,8 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   // @ts-nocheck
-  window.addEventListener('DOMContentLoaded', () => {
-
+  function initSearchModal() {
+    
     new PagefindUI({
       element: "#search",
       debounceTimeoutMs: 500,
@@ -151,7 +151,9 @@ import { Icon } from 'astro-icon/components';
         updateModal();
       }
     });
-  });
+  };
+  document.addEventListener('DOMContentLoaded', initSearchModal);
+  document.addEventListener('astro:after-swap', initSearchModal);
 </script>
 
 <style is:global>

@@ -16,11 +16,11 @@ import { Icon } from 'astro-icon/components';
 
 <script>
   // @ts-nocheck
-  window.addEventListener('DOMContentLoaded', () => {
+  function initScrollToTop() {
     const buttonContainer = document.getElementById('scroll-to-top');
     const button = document.getElementById('scroll-to-top-btn');
 
-    function updateScrollToTop() {
+    function updateScroll() {
       const scrollPosition = window.scrollY;
       if (scrollPosition > (2 * window.innerHeight)) {
         buttonContainer?.classList.remove('opacity-0');
@@ -29,12 +29,14 @@ import { Icon } from 'astro-icon/components';
       }
     }
 
-    window.addEventListener('scroll', updateScrollToTop);
+    updateScroll();
 
-    updateScrollToTop();
+    window.addEventListener('scroll', updateScroll);
 
     button?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-  });
+  };
+  document.addEventListener('DOMContentLoaded', initScrollToTop);
+  document.addEventListener('astro:after-swap', initScrollToTop);
 </script>

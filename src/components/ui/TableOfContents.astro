@@ -32,14 +32,16 @@ const toc = getTableOfContents(headings);
 
 <script>
   // @ts-nocheck
-  window.addEventListener('DOMContentLoaded', () => {
+  function initToc() {
     const toc = document.getElementById('toc');
     const btnWrapper = document.getElementById('toc-btn-wrapper');
     const toggleBtn = document.getElementById('toc-toggle-btn');
     const closeBtn = document.getElementById('toc-close-btn');
+
+    // maybe this should be global, so toc persists between different posts?
     let tocOpen = false;
 
-    // TODO: add focus trap
+    // TODO: add focus trap from search, perhaps a shared module??
 
     function updateToc() {
       if (tocOpen) {
@@ -84,5 +86,7 @@ const toc = getTableOfContents(headings);
         updateToc();
       }
     });
-  });
+  };
+  document.addEventListener('DOMContentLoaded', initToc);
+  document.addEventListener('astro:after-swap', initToc);
 </script>
