@@ -1,6 +1,8 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 import { Picture } from 'astro:assets';
+import 'swiper/css';
+import 'swiper/css/bundle';
 
 interface Props extends HTMLAttributes<'section'> {
   description: string,
@@ -8,16 +10,45 @@ interface Props extends HTMLAttributes<'section'> {
   image?: {
     alt: string | null,
     src: ImageMetadata
-  }
+  },
+  gallery?: ({
+    alt: string | null,
+    src: ImageMetadata
+  } | undefined)[]
 };
 
-const { description, heading, image, class: className, ...rest }: Props = Astro.props;
+const { description, gallery, heading, image, class: className, ...rest }: Props = Astro.props;
 ---
 
-<section class:list={['mb-6', className]} {...rest} >
+<section class:list={['swiper container mb-6', className]} {...rest}>
 
-  { /* placeholder */ }
-  { image && (
+  { /* gallery */ }
+  { gallery && (
+    <div class="swiper-wrapper">
+      {gallery.map((item, index) =>
+          item ?
+          <div id={`slide-${index + 1}`} class="swiper-slide">
+            <Picture
+              src={item.src as any}
+              widths={[480, 960]}
+              sizes={`(max-width: 640px) 480px`}
+              inferSize
+              formats={['webp']}
+              loading="lazy"
+              class="object-cover aspect-video rounded-xl"
+              alt={item.alt ? item.alt : ''}
+            />
+          </div>
+          : null
+        )}
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  )}
+
+  { /* fallback */ }
+  { image && !gallery && (
     <div class="">
       <Picture
         src={image.src as any}
@@ -33,3 +64,50 @@ const { description, heading, image, class: className, ...rest }: Props = Astro.
   )}
 
 </section>
+
+<script>
+  import Swiper from 'swiper/bundle';
+  import 'swiper/css/bundle';
+
+  function initSwiper() {
+    const swiper = new Swiper('.swiper', {
+      slidesPerView: 1,
+      spaceBetween: 12,
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      // to do...
+    });
+  };
+  document.addEventListener('DOMContentLoaded', initSwiper);
+  document.addEventListener('astro:after-swap', initSwiper);
+</script>
+
+<style is:global>
+  @reference "~/styles/global.css";
+
+  .swiper {
+    --swiper-theme-color: #fff; /* pink-300 */
+    --swiper-navigation-size: 27px;
+    --swiper-navigation-color: var(--swiper-theme-color);
+    --swiper-navigation-disabled-opacity: 0.35;
+    --swiper-pagination-bullet-size: 8px;
+    --swiper-pagination-bullet-horizontal-gap: 6px;
+    --swiper-pagination-color: var(--swiper-theme-color);
+    --swiper-pagination-bullet-inactive-opacity: 0.3;
+    --swiper-pagination-bullet-inactive-scale: 0.8;
+    --swiper-scrollbar-drag-size: 50px;
+  }
+
+  .swiper-button-next, .swiper-button-prev {
+  }
+
+  .swiper-pagination {
+  }
+</style>
