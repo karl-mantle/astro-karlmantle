@@ -86,7 +86,9 @@ const { description, gallery, heading, image, class: className, ...rest }: Props
     });
   };
   document.addEventListener('DOMContentLoaded', initSwiper);
-  document.addEventListener('astro:after-swap', initSwiper);
+  document.addEventListener('astro:after-swap', () => {
+    setTimeout(initSwiper, 50);
+  });
 </script>
 
 <style is:global>
