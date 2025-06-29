@@ -1,12 +1,12 @@
 ---
-title: "Yauk UI (Yet Another UI Kit)"
-description: "Vitae ultricies leo integer malesuada nunc vel risus commodo viverra."
-pubDate: "2025-09-01T12:10:00.000Z"
+title: "Victoria 3: All Countries Releasable"
+description: "A simple mod for Victoria 3 that makes all vanilla countries releaseable with no requirements."
+pubDate: "2025-08-01T12:10:00.000Z"
 image:
-  src: "~/content/posts/images/claudio-schwarz-pQ_SEJg8rII-unsplash.jpg"
+  src: "~/content/posts/images/markus-winkler-t-OQUILDBQs-unsplash.jpg"
   alt: "cat drinking from a bowl"
-category: "Tools"
-tags: ["html", "tailwind", "javascript", "typescript", "swiper.js"]
+category: "Steam"
+tags: ["steam", "paradox"]
 urls:
   github: "https://astro-karlmantle.karlmantle.workers.dev/"
   steam: "https://astro-karlmantle.karlmantle.workers.dev/"

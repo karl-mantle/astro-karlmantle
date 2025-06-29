@@ -5,6 +5,7 @@ import { slugify } from './utils/collections';
 const author = defineCollection({
   loader: glob({ base: './src/content/author', pattern: '**/*.yaml' }),
   schema: ({ image }) => z.object({
+    draft: z.boolean().default(false),
     title: z.string(),
     category: z.string().default('Uncategorised'),
     description: z.string(),
@@ -24,6 +25,7 @@ const author = defineCollection({
 const posts = defineCollection({
   loader: glob({ base: './src/content/posts', pattern: '**/*.{md,mdx}' }),
   schema: ({ image }) => z.object({
+    draft: z.boolean().default(false),
     title: z.string(),
     author: reference('author').default('default'),
     category: z.string().default('Uncategorised'),
@@ -55,6 +57,7 @@ const posts = defineCollection({
 const projects = defineCollection({
   loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
   schema: ({ image }) => z.object({
+    draft: z.boolean().default(false),
     title: z.string(),
     author: reference('author').default('default'),
     category: z.string().default('Uncategorised'),

@@ -1,15 +1,15 @@
 ---
 title: "Pokedex"
-description: "Vitae ultricies leo integer malesuada nunc vel risus commodo viverra."
+description: "Pokédex SPA with a retro-inspired theme built using React and PokeAPI."
 pubDate: "2025-07-04T12:10:00.000Z"
 image:
   src: "~/content/posts/images/phil-hearing-7HLzAWONoRA-unsplash.jpg"
   alt: "cat drinking from a bowl"
 category: "React"
-tags: ["html", "css", "javascript", "pokeapi", "react", "vite"]
+tags: ["html", "css", "javascript", "pokeapi", "react"]
 urls:
-  demo: "https://astro-karlmantle.karlmantle.workers.dev/"
-  github: "https://astro-karlmantle.karlmantle.workers.dev/"
+  demo: "https://karl-mantle.github.io/react-pokedex/"
+  github: "https://github.com/karl-mantle/react-pokedex"
 ---
 
 ## Introduction

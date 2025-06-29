@@ -1,14 +1,14 @@
 ---
-title: "Solar Blog Theme"
-description: "Vitae ultricies leo integer malesuada nunc vel risus commodo viverra."
-pubDate: "2025-08-01T12:10:00.000Z"
+title: "Astro Boilerplate: Blog"
+description: "A clean starting point for a multi-author markdown/mdx blog in Astro."
+pubDate: "2025-09-01T12:10:00.000Z"
 image:
-  src: "~/content/posts/images/markus-winkler-t-OQUILDBQs-unsplash.jpg"
+  src: "~/content/posts/images/claudio-schwarz-pQ_SEJg8rII-unsplash.jpg"
   alt: "cat drinking from a bowl"
-category: "steam"
-tags: ["astro", "html", "css", "tailwind", "javascript", "typescript", "swiper.js"]
+category: "Astro"
+tags: ["html", "css", "tailwind", "javascript", "typescript"]
 urls:
-  github: "https://astro-karlmantle.karlmantle.workers.dev/"
+  github: "https://github.com/karl-mantle/astro-boilerplate-blog"
 ---
 
 This will be the readme from the project repository. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.

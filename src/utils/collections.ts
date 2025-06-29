@@ -44,8 +44,27 @@ export const getTableOfContents = (headings: MarkdownHeading[]): tocHeading[] =>
   return toc;
 };
 
+export const getEntries = async (entryType: keyof DataEntryMap, max?: number) => {
+  return (await getCollection(entryType))
+    .filter((entry) => !entry.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, max)
+};
+
+export const getEntriesByCategory = async (entryType: keyof DataEntryMap, category: string, max?: number) => {
+  return (await getEntries(entryType))
+    .filter((entry) => entry.data.category.includes(category))
+    .slice(0, max)
+};
+
+export const getEntriesByTag = async (entryType: keyof DataEntryMap, tag: string, max?: number) => {
+  return (await getEntries(entryType))
+    .filter((entry) => entry.data.tags.includes(tag))
+    .slice(0, max)
+};
+
 export const getCategories = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
-  const entries = await getCollection(entryType);
+  const entries = await getEntries(entryType);
   const categories = new Set(
     entries
       .map((entry) => entry.data.category)
@@ -61,7 +80,7 @@ export const getCategories = async (entryType: keyof DataEntryMap): Promise<Term
 };
 
 export const getTags = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
-  const entries = await getCollection(entryType);
+  const entries = await getEntries(entryType);
   const tags = new Set(
     entries
       .flatMap((entry) => entry.data.tags)
@@ -76,8 +95,16 @@ export const getTags = async (entryType: keyof DataEntryMap): Promise<Terms[]> =
   return tagsArray.sort((a, b) => a.name.localeCompare(b.name));
 };
 
+export const getTerms = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
+  const categories = await getCategories(entryType);
+  const tags = await getTags(entryType);
+  const termsArray = categories.concat(tags);
+
+  return termsArray.sort((a, b) => a.name.localeCompare(b.name));
+};
+
 export const getTagsCount = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
-  const entries = await getCollection(entryType);
+  const entries = await getEntries(entryType);
   const tagList: { name: string; count: number }[] = [];
 
   entries.forEach((entry) => {
@@ -100,39 +127,17 @@ export const getTagsCount = async (entryType: keyof DataEntryMap): Promise<Terms
   return tagsArray.sort((a, b) => a.name.localeCompare(b.name));
 };
 
-export const getTerms = async (entryType: keyof DataEntryMap): Promise<Terms[]> => {
-  const categories = await getCategories(entryType);
-  const tags = await getTags(entryType);
-  const termsArray = categories.concat(tags);
-
-  return termsArray.sort((a, b) => a.name.localeCompare(b.name));
-};
-
-export const getEntries = async (entryType: keyof DataEntryMap, max?: number) => {
-  return (await getCollection(entryType))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, max)
-};
-
-export const getEntriesByCategory = async (entryType: keyof DataEntryMap, category: string, max?: number) => {
-  return (await getCollection(entryType))
-    .filter((entry) => entry.data.category.includes(category))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, max)
-};
-
-export const getEntriesByTag = async (entryType: keyof DataEntryMap, tag: string, max?: number) => {
-  return (await getCollection(entryType))
-    .filter((entry) => entry.data.tags.includes(tag))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, max)
-};
-
 export const tagStyles: Record<string, { color: string, icon?: string }> = {
   astro: { color: 'bg-purple-600 text-white', icon: 'simple-icons:astro' },
-  javascript: { color: 'bg-yellow-300 text-black', icon: 'simple-icons:javascript' },
-  typescript: { color: 'bg-blue-300 text-black', icon: 'simple-icons:typescript' },
-  css: { color: 'bg-pink-300 text-black', icon: 'simple-icons:css3' },
-  html: { color: 'bg-orange-300 text-black', icon: 'simple-icons:html5' },
-  react: { color: 'bg-cyan-200 text-black', icon: 'simple-icons:react' },
+  cloudflare: { color: 'bg-orange-500 text-white', icon: 'simple-icons:cloudflare' },
+  css: { color: 'bg-blue-600 text-white', icon: 'simple-icons:css3' },
+  html: { color: 'bg-orange-500 text-white', icon: 'simple-icons:html5' },
+  javascript: { color: 'bg-yellow-400 text-black', icon: 'simple-icons:javascript' },
+  mdx: { color: 'bg-yellow-600 text-black', icon: 'simple-icons:mdx' },
+  paradox: { color: 'bg-neutral-900 text-white', icon: 'simple-icons:paradoxinteractive' },
+  react: { color: 'bg-cyan-400 text-black', icon: 'simple-icons:react' },
+  steam: { color: 'bg-gray-800 text-white', icon: 'simple-icons:steam' },
+  swiper: { color: 'bg-indigo-600 text-white', icon: 'simple-icons:swiper' },
+  tailwind: { color: 'bg-sky-400 text-black', icon: 'simple-icons:tailwindcss' },
+  typescript: { color: 'bg-blue-500 text-black', icon: 'simple-icons:typescript' },
 };
