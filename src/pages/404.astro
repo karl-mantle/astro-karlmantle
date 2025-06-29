@@ -1,0 +1,40 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '~/layouts/Base.astro';
+import Button from '~/components/ui/Button.astro';
+import image from '~/assets/jpg/nasa-Yj1M5riCKk4-unsplash.jpg';
+---
+
+<Base
+  title="Page not found"
+  description="Error 404: The page you're looking for doesn't exist or has been moved."
+>
+  <div class="container flex flex-col my-8 md:min-h-[calc(100vh-126px)]">
+    <section class="relative grid grid-cols-1 md:h-[728px] md:rounded-xl">
+      <div class="md:absolute md:inset-0 -mx-4 md:mx-0">
+        <Picture
+          src={image}
+          alt=""
+          role="presentation"
+          widths={[480, 728]}
+          sizes={`(max-width: 728px) 480px, 728px`}
+          formats={['webp']}
+          loading="eager"
+          class="h-full aspect-video md:aspect-square object-cover md:rounded-xl"
+        />
+      </div>
+      <div class="flex flex-col justify-center self-center gap-2 md:gap-4 p-4 md:p-12 md:mx-16 h-fit md:bg-neutral-400/25 md:rounded-xl md:z-5 md:text-sm">
+          <h1 class="mb-2 text-2xl md:text-5xl font-semibold">404</h1>
+          <p>Oops! That page doesn't exist. It might've been moved, renamed, or just never existed at all.</p>
+          <Button
+            buttonStyle='link'
+            buttonText='Return home'
+            href={Astro.site}
+            icon='ri:arrow-left-line'
+            iconReverse={true}
+            iconSize={18}
+          />
+      </div>
+    </section>
+  </div>
+</Base>

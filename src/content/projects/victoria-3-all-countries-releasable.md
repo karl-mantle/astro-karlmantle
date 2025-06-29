@@ -1,5 +1,5 @@
 ---
-title: "Victoria 3: All Countries Releasable"
+title: "All Countries Releasable"
 description: "A simple mod for Victoria 3 that makes all vanilla countries releaseable with no requirements."
 pubDate: "2025-08-01T12:10:00.000Z"
 image:

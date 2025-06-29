@@ -35,7 +35,7 @@ const { description, heading, href, image }: Props = Astro.props;
     { image && (
       <Image
         alt={image.alt}
-        class="absolute inset-0 rounded-xl object-cover opacity-35 group-focus/card:hidden transition duration-300"
+        class="absolute inset-0 h-full rounded-xl object-cover opacity-35 group-focus/card:hidden transition duration-300"
         format="webp"
         width={412}
         src={image.src}
