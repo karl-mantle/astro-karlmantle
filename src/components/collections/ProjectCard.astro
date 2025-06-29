@@ -20,9 +20,21 @@ interface Props extends HTMLAttributes<'li'> {
 const { category, demoUrl, description, heading, href, image, steamUrl }: Props = Astro.props;
 ---
 
-<li class="group/card h-full flex flex-col-reverse md:flex-row-reverse justify-end gap-4 p-4 rounded-xl bg-neutral-950 border-transparent border-2 focus-within:border-white">
+<li class="group/card h-full grid grid-cols-1 md:grid-cols-3 justify-end gap-4 p-4 rounded-xl bg-neutral-950 border-transparent border-2 focus-within:border-white">
+  <div class="flex justify-center md:col-span-1">
+    { image && (
+      <Image
+        alt={image.alt}
+        class="object-cover aspect-video w-full rounded-md opacity-75 group-hover/card:opacity-100 group-focus/card:opacity-100 transition duration-300"
+        format="webp"
+        width={412}
+        src={image.src}
+        loading="lazy"
+      />
+    )}
+  </div>
 
-  <article class="flex flex-col gap-2 md:gap-4">
+  <article class="flex flex-col gap-2 md:gap-4 md:col-span-2">
     <div class="flex gap-3">
       <Badge label={category ?? 'Uncategorised'} />
       <h3 class="text-lg md:text-xl font-semibold">{heading}</h3>
@@ -64,17 +76,4 @@ const { category, demoUrl, description, heading, href, image, steamUrl }: Props 
       )}
     </div>
   </article>
-
-  <div class="flex justify-center md:w-1/2">
-    { image && (
-      <Image
-        alt={image.alt}
-        class="object-cover aspect-video w-full rounded-md opacity-75 group-hover/card:opacity-100 group-focus/card:opacity-100 transition duration-300"
-        format="webp"
-        width={412}
-        src={image.src}
-        loading="lazy"
-      />
-    )}
-  </div>
 </li>

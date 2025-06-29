@@ -48,7 +48,7 @@ const { description, gallery, heading, image, class: className, ...rest }: Props
   )}
 
   { /* fallback */ }
-  { image && !gallery && (
+  { image && (!gallery || gallery.filter(Boolean).length === 0) && (
     <div class="">
       <Picture
         src={image.src as any}
