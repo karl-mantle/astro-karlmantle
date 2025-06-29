@@ -18,7 +18,7 @@ const { description, heading, href, image }: Props = Astro.props;
 ---
 
 <li>
-  <a class="group/card relative h-full flex flex-col rounded-xl border-transparent border-2 overflow-hidden focus:border-white focus:bg-pink-300 focus:text-black" href={href} aria-label={`Link to ${slugify(heading)}`} >
+  <a class="group/card relative h-full flex flex-col rounded-xl border-transparent border-2 bg-black overflow-hidden focus:border-white focus:bg-pink-300 focus:text-black" href={href} aria-label={`Link to ${slugify(heading)}`} >
     <article class="flex flex-col flex-grow gap-2 p-4 min-h-40 z-5 rounded-xl group-hover/card:backdrop-blur-xs transition duration-300">
       <div class="flex justify-between gap-4">
         <h3 class="text-lg md:text-xl font-serif font-medium">{heading}</h3>
@@ -35,7 +35,7 @@ const { description, heading, href, image }: Props = Astro.props;
     { image && (
       <Image
         alt={image.alt}
-        class="absolute inset-0 h-full rounded-xl object-cover opacity-35 group-focus/card:hidden transition duration-300"
+        class="absolute inset-0 h-full rounded-xl object-cover opacity-50 group-focus/card:hidden transition duration-300"
         format="webp"
         width={412}
         src={image.src}

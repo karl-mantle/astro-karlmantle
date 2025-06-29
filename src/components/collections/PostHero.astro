@@ -14,9 +14,9 @@ interface Props extends HTMLAttributes<'header'> {
 const { heading, image }: Props = Astro.props;
 ---
 
-<header>
+<header class="relative flex flex-col">
   { image && (
-    <div class="-z-1 absolute top-0">
+    <div class="-z-1 absolute inset-0 -mx-4 md:-mx-16 -mt-4 md:-mt-32">
       <Picture
         src={image.src as any}
         widths={[480, 960]}
@@ -24,13 +24,13 @@ const { heading, image }: Props = Astro.props;
         inferSize
         formats={['webp']}
         loading="lazy"
-        class="md:w-1/2 object-cover aspect-video mask-b-from-10% md:mask-x-from-40% md:mask-b-from-60%"
+        class="object-cover aspect-video mask-b-from-60% mask-x-from-40%"
         alt={image.alt ?? ''}
       />
     </div>
   )}
 
-  <div class="flex flex-col gap-4 mt-32 md:mt-48">
+  <div class="flex flex-col mt-48">
     <h1 class="text-3xl md:text-5xl font-semibold font-serif text-shadow-sm text-shadow-black">
       {heading}
     </h1>
