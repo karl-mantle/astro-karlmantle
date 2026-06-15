@@ -1,13 +1,13 @@
 ---
 import Head from "~/layouts/Head.astro";
 
-interface Props {
+type Props = {
   description?: string;
   entry?: any;
   title?: string;
-}
+};
 
-const { description, entry, title }: Props = Astro.props;
+const { description, entry, title } = Astro.props;
 ---
 
 <!doctype html>

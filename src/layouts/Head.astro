@@ -2,13 +2,13 @@
 import { getImage } from "astro:assets";
 import opengraphImageSrc from "public/opengraph.webp";
 
-interface Props {
+type Props = {
   description?: string;
   entry?: any;
   title?: string;
-}
+};
 
-const { description, entry, title }: Props = Astro.props;
+const { description, entry, title } = Astro.props;
 
 const opengraphImage = entry?.data.image?.src ?? opengraphImageSrc;
 
