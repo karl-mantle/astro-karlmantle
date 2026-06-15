@@ -1,0 +1,9 @@
+# build output
+dist/
+public/
+
+# generated
+.astro/
+
+# dependencies
+node_modules/
