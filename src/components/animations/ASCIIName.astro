@@ -1,0 +1,75 @@
+---
+const ascii = `▓█   ██▓    ▄▄▄       ██▀███   ██▓       ███▄ ▄███▓
+▓█  ██▒    ▒████▄    ▓██ ▒ ██▒▓██▒      ▓██▒▀█▀ ██▒
+▒█████░    ▒██  ▀█▄  ▓██ ░▄█ ▒▒██░      ▓██    ▓██░
+▒██▓ ██▄   ░██▄▄▄▄██ ▒██▀▀█▄  ▒██░      ▒██    ▒██
+▒██▒  ██▒   ▓█   ▓██▒░██▓ ▒██▒░██████▒  ▒██▒   ░██▒
+▒ ▒▒  ▓▒    ▒▒   ▓▒█░░ ▒▓ ░▒▓░░ ▒░▓  ░  ░ ▒░   ░  ░
+░ ░▒   ▒░    ▒   ▒▒ ░  ░▒ ░ ▒░░ ░ ▒  ░  ░  ░      ░
+░  ░   ░     ░   ▒     ░░   ░   ░ ░     ░      ░
+      ░          ░  ░   ░         ░  ░         ░`;
+---
+
+<section
+  class="header-ascii-wrapper relative flex flex-col items-center
+  after:absolute after:content-[''] after:opacity-0 after:blur-sm after:translate-x-[-50%] after:translate-y-[-50%]
+  before:absolute before:content-[''] before:opacity-0 before:mix-blend-screen"
+>
+  <pre id="header-ascii" class="text-xs md:text-lg z-1" data-ascii-text={ascii} set:html={ascii} />
+  <pre
+    id="header-ascii-glitch"
+    class="text-xs md:text-lg absolute text-pink-400 inset-0 z-2 opacity-0 ascii-glitch"
+    aria-hidden="true">
+  </pre>
+</section>
+
+<script type="module">
+  import { initHomeAsciiGlitch } from "/src/scripts/animations/asciiName";
+
+  window.addEventListener(
+    "load",
+    () => {
+      window.setTimeout(initHomeAsciiGlitch, 200);
+    },
+    { once: true, passive: true },
+  );
+</script>
+
+<style>
+  .header-ascii-wrapper::before {
+    top: var(--ascii-scan-top, 0);
+    left: var(--ascii-scan-left, 0);
+    width: var(--ascii-scan-width, 0);
+    height: var(--ascii-scan-height, 0);
+  }
+
+  .header-ascii-wrapper::after {
+    top: var(--ascii-bloom-y, 50%);
+    left: var(--ascii-bloom-x, 50%);
+    width: calc(var(--text-cell) * 7);
+    height: calc(var(--text-size) * 2);
+  }
+
+  .header-ascii-wrapper.is-glitching::before {
+    opacity: var(--ascii-scan-opacity, 0.6);
+  }
+
+  .header-ascii-wrapper.is-glitching::after {
+    opacity: var(--ascii-bloom-opacity, 0.03);
+  }
+
+  .ascii-glitch {
+    text-shadow:
+      var(--ascii-glitch-shadow-a, 2px) 0 var(--fg),
+      var(--ascii-glitch-shadow-b, -2px) 0 var(--link-hover);
+    transform: translate(var(--ascii-glitch-shift-x, 0), var(--ascii-glitch-shift-y, 0));
+    clip-path: inset(
+      var(--ascii-glitch-clip-top, 0) var(--ascii-glitch-clip-right, 0)
+        var(--ascii-glitch-clip-bottom, 0) var(--ascii-glitch-clip-left, 0)
+    );
+  }
+
+  .header-ascii-wrapper.is-glitching .ascii-glitch {
+    opacity: var(--ascii-glitch-opacity, 0.72);
+  }
+</style>
