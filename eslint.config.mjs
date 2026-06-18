@@ -26,7 +26,7 @@ export default defineConfig([
       prettier: prettier,
     },
     rules: {
-      "prettier/prettier": "off",
+      // add rules
     },
   },
 

@@ -9,6 +9,9 @@ const mapEnvDomain = {
   ci: {
     site: "http://localhost:4321/",
   },
+  staging: {
+    site: "https://staging.karlmantle.com/",
+  },
   prod: {
     site: "https://www.karlmantle.com/",
   },
@@ -19,7 +22,7 @@ const domain = mapEnvDomain[getEnv as Environment].site;
 export const siteConfig = {
   url: domain,
   name: "Karl Mantle",
-  short_name: "Karl M",
+  short_name: "karlmantle.com",
   title_separator: "~",
   description:
     "My personal website & blog. I write about technology, my projects, and other things that interest me.",
@@ -44,4 +47,23 @@ export const collectionsConfig = {
   permalink_posts_entry: "blog/entry/",
   permalink_posts_category: "blog/category/",
   permalink_posts_tag: "blog/tag/",
+};
+
+export const imagesConfig = {
+  full: {
+    sizes: "(max-width: 640px) 480px, (max-width: 1024px) 1024px, 1920px",
+    widths: [480, 1024, 1920],
+  },
+  half: {
+    sizes: "(max-width: 640px) 480px, 960px",
+    widths: [480, 960],
+  },
+  third: {
+    sizes: "(max-width: 640px) 480px, 640px",
+    widths: [480, 640],
+  },
+  thumbnail: {
+    height: 64,
+    width: 64,
+  },
 };
