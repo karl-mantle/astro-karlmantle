@@ -1,0 +1,41 @@
+---
+
+---
+
+<button
+  id="scroll-to-top"
+  class="cursor-pointer text-black underline hover:bg-pink-200 hover:text-black hover:decoration-0 dark:text-white"
+  type="button"
+>
+  Return to top
+</button>
+
+<script>
+  function initScrollToTop() {
+    const button = document.getElementById("scroll-to-top");
+    const toolbar = document.getElementById("footer-toolbar");
+
+    function updateScroll() {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 2 * window.innerHeight) {
+        button?.classList.remove("opacity-0", "hidden", "pointer-events-none");
+        toolbar?.classList.add("gap-4");
+      } else {
+        button?.classList.add("opacity-0", "hidden", "pointer-events-none");
+        toolbar?.classList.remove("gap-4");
+      }
+    }
+
+    updateScroll();
+
+    window.addEventListener("scroll", updateScroll);
+
+    button?.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      const main = document.getElementById("main");
+      main?.focus();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initScrollToTop);
+</script>

@@ -1,13 +1,15 @@
 ---
+import type { DataEntryMap } from "astro:content";
 import Head from "~/layouts/Head.astro";
 import Header from "~/components/common/Header.astro";
+import Footer from "~/components/common/Footer.astro";
 import NoiseOverlay from "~/components/animations/NoiseOverlay.astro";
 import { siteConfig } from "~/site.config";
 
 type Props = {
-  description?: string;
-  entry?: any;
-  title?: string;
+  description: string;
+  entry?: DataEntryMap[keyof DataEntryMap][string];
+  title: string;
 };
 
 const { description, entry, title } = Astro.props;
@@ -22,6 +24,7 @@ const { description, entry, title } = Astro.props;
     <main id="main" class="mx-auto max-w-xl px-4">
       <slot />
     </main>
+    <Footer />
     <NoiseOverlay />
   </body>
 </html>
