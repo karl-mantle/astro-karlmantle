@@ -10,7 +10,9 @@ type GlitchZone = {
   collapseBias: number;
 };
 
-const asciiGlitchCharset = Array.from({ length: 95 }, (_, index) => String.fromCharCode(32 + index)).join("");
+const asciiGlitchCharset = Array.from({ length: 95 }, (_, index) =>
+  String.fromCharCode(32 + index),
+).join("");
 const asciiGlitchUppercaseSubstitutions = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const decayFrameMinMs = 24;
 const decayFrameMaxMs = 86;
@@ -26,24 +28,33 @@ export function initHomeAsciiGlitch(): void {
     burstFrameMax: 8,
     mutationRatioMin: 0.018,
     mutationRatioMax: 0.11,
-    lineShiftChance: 0.52
+    lineShiftChance: 0.52,
   };
 
   if (!config.enable || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    console.log(
+      "ASCII glitch animation: Disabled due to configuration or reduced motion preference.",
+    );
     return;
   }
 
-  const hero = document.querySelector(".header-ascii-wrapper");
+  const header = document.getElementById("header-ascii-wrapper");
   const base = document.getElementById("header-ascii");
   const glitch = document.getElementById("header-ascii-glitch");
 
-  if (!(hero instanceof HTMLElement) || !(base instanceof HTMLElement) || !(glitch instanceof HTMLElement)) {
+  if (
+    !(header instanceof HTMLElement) ||
+    !(base instanceof HTMLElement) ||
+    !(glitch instanceof HTMLElement)
+  ) {
+    console.warn("ASCII glitch animation: Required elements not found in the DOM.");
     return;
   }
 
   const source = base.dataset.asciiText ?? base.textContent ?? "";
 
   if (!source) {
+    console.warn("ASCII glitch animation: No source text found for glitching.");
     return;
   }
 
@@ -56,6 +67,7 @@ export function initHomeAsciiGlitch(): void {
 
   const schedule = () => {
     if (document.visibilityState !== "visible") {
+      console.log("ASCII glitch animation: Document not visible, skipping scheduling.");
       return;
     }
 
@@ -85,22 +97,22 @@ export function initHomeAsciiGlitch(): void {
         colEnd: Math.max(zone.colStart + 2, zone.colEnd + randomInt(-3, 3)),
         strength: Math.max(0.16, zone.strength * randomBetween(0.72, 0.94)),
         decay: zone.decay - 1,
-        collapseBias: Math.min(0.72, zone.collapseBias * randomBetween(0.92, 1.08))
+        collapseBias: Math.min(0.72, zone.collapseBias * randomBetween(0.92, 1.08)),
       }));
 
     base.textContent = createBaseFrame(
       source,
       Math.max(config.mutationRatioMin * 0.5, mutationRatio * randomBetween(0.32, 0.55)),
       config.lineShiftChance,
-      zones
+      zones,
     );
     lastGlitchFrame = createGlitchFrame(source, mutationRatio, config.lineShiftChance, zones);
     glitch.textContent = lastGlitchFrame;
-    applyGlitchVisualState(hero);
-    hero.classList.add("is-glitching");
+    applyGlitchVisualState(header);
+    header.classList.add("is-glitching");
     frameTimeoutId = window.setTimeout(
       () => runBurstFrame(remainingFrames - 1),
-      randomBetween(config.frameMinMs, config.frameMaxMs)
+      randomBetween(config.frameMinMs, config.frameMaxMs),
     );
   };
 
@@ -129,14 +141,19 @@ export function initHomeAsciiGlitch(): void {
     const keepRatio = randomBetween(0.08, 0.34) * (1 - progress * 0.55);
     const baseDropRatio = randomBetween(0.01, 0.035) * remainingFrames;
     const ghostFrame = createDecayFrame(previousFrame, keepRatio);
-    base.textContent = createBaseFrame(source, baseDropRatio, config.lineShiftChance * 0.25, lingeringZones);
+    base.textContent = createBaseFrame(
+      source,
+      baseDropRatio,
+      config.lineShiftChance * 0.25,
+      lingeringZones,
+    );
     glitch.textContent = ghostFrame;
-    applyGlitchDecayVisualState(hero, remainingFrames);
-    hero.classList.add("is-glitching");
+    applyGlitchDecayVisualState(header, remainingFrames);
+    header.classList.add("is-glitching");
 
     frameTimeoutId = window.setTimeout(
       () => runDecayFrame(remainingFrames - 1, ghostFrame),
-      randomBetween(decayFrameMinMs, decayFrameMaxMs)
+      randomBetween(decayFrameMinMs, decayFrameMaxMs),
     );
   };
 
@@ -144,10 +161,10 @@ export function initHomeAsciiGlitch(): void {
     burstActive = false;
     frameTimeoutId = 0;
     lastGlitchFrame = "";
-    hero.classList.remove("is-glitching");
+    header.classList.remove("is-glitching");
     base.textContent = source;
     glitch.textContent = "";
-    clearGlitchVisualState(hero);
+    clearGlitchVisualState(header);
     if (followupBudget > 0) {
       followupBudget -= 1;
     }
@@ -161,10 +178,10 @@ export function initHomeAsciiGlitch(): void {
     frameTimeoutId = 0;
     burstActive = false;
     lastGlitchFrame = "";
-    hero.classList.remove("is-glitching");
+    header.classList.remove("is-glitching");
     base.textContent = source;
     glitch.textContent = "";
-    clearGlitchVisualState(hero);
+    clearGlitchVisualState(header);
   };
 
   schedule();
@@ -186,7 +203,9 @@ export function initHomeAsciiGlitch(): void {
 function sampleGlitchCharacter(source: string): string {
   if (/[A-Z]/.test(source)) {
     return (
-      asciiGlitchUppercaseSubstitutions[Math.floor(Math.random() * asciiGlitchUppercaseSubstitutions.length)] ?? "E"
+      asciiGlitchUppercaseSubstitutions[
+        Math.floor(Math.random() * asciiGlitchUppercaseSubstitutions.length)
+      ] ?? "E"
     );
   }
   if (/[0-9]/.test(source)) {
@@ -260,7 +279,7 @@ function shiftSegment(line: string, start: number, end: number): string {
       ? `${" ".repeat(offset)}${segment}`.slice(0, segment.length)
       : `${segment.slice(Math.min(-offset, segment.length))}${" ".repeat(Math.min(-offset, segment.length))}`.slice(
           0,
-          segment.length
+          segment.length,
         );
 
   chars.splice(boundedStart, boundedEnd - boundedStart, ...shifted.split(""));
@@ -293,7 +312,10 @@ function corruptSegment(line: string, start: number, end: number, collapseBias =
   } else if (mode === 2) {
     const segment = chars.slice(boundedStart, boundedEnd);
     const collapsed = segment.filter((_, index) => index % 2 === 0);
-    const padded = [...collapsed, ...Array(Math.max(0, segment.length - collapsed.length)).fill(" ")];
+    const padded = [
+      ...collapsed,
+      ...Array(Math.max(0, segment.length - collapsed.length)).fill(" "),
+    ];
     chars.splice(boundedStart, boundedEnd - boundedStart, ...padded);
   } else {
     const count = randomInt(1, Math.max(1, Math.min(4, boundedEnd - boundedStart)));
@@ -362,7 +384,7 @@ function createGlitchZones(lines: string[], carryover: GlitchZone[] = []): Glitc
       colEnd: Math.min(maxWidth, colStart + colSpan),
       strength: randomBetween(0.35, 1),
       decay: randomInt(1, 3),
-      collapseBias: randomBetween(0.08, 0.45)
+      collapseBias: randomBetween(0.08, 0.45),
     };
   });
 
@@ -373,8 +395,18 @@ function zoneAffectsRow(zone: GlitchZone, rowIndex: number): boolean {
   return rowIndex >= zone.rowStart && rowIndex < zone.rowEnd;
 }
 
-function distortZone(line: string, zone: GlitchZone, mutationRatio: number, lineShiftChance: number): string {
-  let next = mutateLine(line, mutationRatio * (0.7 + zone.strength * 0.75), zone.colStart, zone.colEnd);
+function distortZone(
+  line: string,
+  zone: GlitchZone,
+  mutationRatio: number,
+  lineShiftChance: number,
+): string {
+  let next = mutateLine(
+    line,
+    mutationRatio * (0.7 + zone.strength * 0.75),
+    zone.colStart,
+    zone.colEnd,
+  );
   if (maybe(lineShiftChance * (0.65 + zone.strength * 0.45))) {
     next = shiftSegment(next, zone.colStart, zone.colEnd);
   }
@@ -394,7 +426,7 @@ function createGlitchFrame(
   source: string,
   mutationRatio: number,
   lineShiftChance: number,
-  zones: GlitchZone[]
+  zones: GlitchZone[],
 ): string {
   return source
     .split("\n")
@@ -410,7 +442,12 @@ function createGlitchFrame(
     .join("\n");
 }
 
-function createBaseFrame(source: string, mutationRatio: number, lineShiftChance: number, zones: GlitchZone[]): string {
+function createBaseFrame(
+  source: string,
+  mutationRatio: number,
+  lineShiftChance: number,
+  zones: GlitchZone[],
+): string {
   return source
     .split("\n")
     .map((line, rowIndex) => {
@@ -419,7 +456,12 @@ function createBaseFrame(source: string, mutationRatio: number, lineShiftChance:
         if (!zoneAffectsRow(zone, rowIndex)) {
           continue;
         }
-        next = mutateLine(next, mutationRatio * (0.4 + zone.strength * 0.28), zone.colStart, zone.colEnd);
+        next = mutateLine(
+          next,
+          mutationRatio * (0.4 + zone.strength * 0.28),
+          zone.colStart,
+          zone.colEnd,
+        );
         if (maybe(lineShiftChance * 0.2)) {
           next = shiftSegment(next, zone.colStart, zone.colEnd);
         }
@@ -490,41 +532,41 @@ function blankLine(line: string): string {
   return " ".repeat(line.length);
 }
 
-function applyGlitchVisualState(hero: HTMLElement): void {
+function applyGlitchVisualState(header: HTMLElement): void {
   const scanLeft = randomBetween(0, 42);
   const scanWidth = randomBetween(8, 100 - scanLeft);
-  hero.style.setProperty("--ascii-scan-top", `${randomBetween(3, 82)}%`);
-  hero.style.setProperty("--ascii-scan-height", `${randomBetween(5, 38)}%`);
-  hero.style.setProperty("--ascii-scan-left", `${scanLeft.toFixed(2)}%`);
-  hero.style.setProperty("--ascii-scan-width", `${scanWidth.toFixed(2)}%`);
-  hero.style.setProperty("--ascii-scan-opacity", randomBetween(0.35, 0.98).toFixed(2));
-  hero.style.setProperty("--ascii-glitch-opacity", randomBetween(0.4, 1).toFixed(2));
-  hero.style.setProperty("--ascii-glitch-shift-x", `${randomInt(-12, 12)}px`);
-  hero.style.setProperty("--ascii-glitch-shift-y", `${randomInt(-4, 4)}px`);
-  hero.style.setProperty("--ascii-glitch-shadow-a", `${randomInt(1, 8)}px`);
-  hero.style.setProperty("--ascii-glitch-shadow-b", `${randomInt(-8, -1)}px`);
-  hero.style.setProperty("--ascii-glitch-clip-top", `${randomBetween(0, 70).toFixed(2)}%`);
-  hero.style.setProperty("--ascii-glitch-clip-right", `${randomBetween(0, 58).toFixed(2)}%`);
-  hero.style.setProperty("--ascii-glitch-clip-bottom", `${randomBetween(0, 42).toFixed(2)}%`);
-  hero.style.setProperty("--ascii-glitch-clip-left", `${randomBetween(0, 58).toFixed(2)}%`);
-  hero.style.setProperty("--ascii-bloom-x", `${randomBetween(8, 92).toFixed(2)}%`);
-  hero.style.setProperty("--ascii-bloom-y", `${randomBetween(8, 92).toFixed(2)}%`);
-  hero.style.setProperty("--ascii-bloom-opacity", randomBetween(0.01, 0.05).toFixed(2));
+  header.style.setProperty("--ascii-scan-top", `${randomBetween(3, 82)}%`);
+  header.style.setProperty("--ascii-scan-height", `${randomBetween(5, 38)}%`);
+  header.style.setProperty("--ascii-scan-left", `${scanLeft.toFixed(2)}%`);
+  header.style.setProperty("--ascii-scan-width", `${scanWidth.toFixed(2)}%`);
+  header.style.setProperty("--ascii-scan-opacity", randomBetween(0.35, 0.98).toFixed(2));
+  header.style.setProperty("--ascii-glitch-opacity", randomBetween(0.4, 1).toFixed(2));
+  header.style.setProperty("--ascii-glitch-shift-x", `${randomInt(-12, 12)}px`);
+  header.style.setProperty("--ascii-glitch-shift-y", `${randomInt(-4, 4)}px`);
+  header.style.setProperty("--ascii-glitch-shadow-a", `${randomInt(1, 8)}px`);
+  header.style.setProperty("--ascii-glitch-shadow-b", `${randomInt(-8, -1)}px`);
+  header.style.setProperty("--ascii-glitch-clip-top", `${randomBetween(0, 70).toFixed(2)}%`);
+  header.style.setProperty("--ascii-glitch-clip-right", `${randomBetween(0, 58).toFixed(2)}%`);
+  header.style.setProperty("--ascii-glitch-clip-bottom", `${randomBetween(0, 42).toFixed(2)}%`);
+  header.style.setProperty("--ascii-glitch-clip-left", `${randomBetween(0, 58).toFixed(2)}%`);
+  header.style.setProperty("--ascii-bloom-x", `${randomBetween(8, 92).toFixed(2)}%`);
+  header.style.setProperty("--ascii-bloom-y", `${randomBetween(8, 92).toFixed(2)}%`);
+  header.style.setProperty("--ascii-bloom-opacity", randomBetween(0.01, 0.05).toFixed(2));
 }
 
-function applyGlitchDecayVisualState(hero: HTMLElement, remainingFrames: number): void {
-  applyGlitchVisualState(hero);
+function applyGlitchDecayVisualState(header: HTMLElement, remainingFrames: number): void {
+  applyGlitchVisualState(header);
   const fade = Math.min(1, Math.max(0.12, remainingFrames / 5));
-  hero.style.setProperty("--ascii-scan-opacity", randomBetween(0.08, 0.26 * fade).toFixed(2));
-  hero.style.setProperty("--ascii-glitch-opacity", randomBetween(0.1, 0.46 * fade).toFixed(2));
-  hero.style.setProperty("--ascii-bloom-opacity", "0");
-  hero.style.setProperty("--ascii-glitch-shift-x", `${randomInt(-5, 5)}px`);
-  hero.style.setProperty("--ascii-glitch-shift-y", `${randomInt(-2, 2)}px`);
-  hero.style.setProperty("--ascii-glitch-shadow-a", `${randomInt(1, 3)}px`);
-  hero.style.setProperty("--ascii-glitch-shadow-b", `${randomInt(-3, -1)}px`);
+  header.style.setProperty("--ascii-scan-opacity", randomBetween(0.08, 0.26 * fade).toFixed(2));
+  header.style.setProperty("--ascii-glitch-opacity", randomBetween(0.1, 0.46 * fade).toFixed(2));
+  header.style.setProperty("--ascii-bloom-opacity", "0");
+  header.style.setProperty("--ascii-glitch-shift-x", `${randomInt(-5, 5)}px`);
+  header.style.setProperty("--ascii-glitch-shift-y", `${randomInt(-2, 2)}px`);
+  header.style.setProperty("--ascii-glitch-shadow-a", `${randomInt(1, 3)}px`);
+  header.style.setProperty("--ascii-glitch-shadow-b", `${randomInt(-3, -1)}px`);
 }
 
-function clearGlitchVisualState(hero: HTMLElement): void {
+function clearGlitchVisualState(header: HTMLElement): void {
   [
     "--ascii-scan-top",
     "--ascii-scan-height",
@@ -542,8 +584,8 @@ function clearGlitchVisualState(hero: HTMLElement): void {
     "--ascii-glitch-clip-left",
     "--ascii-bloom-x",
     "--ascii-bloom-y",
-    "--ascii-bloom-opacity"
+    "--ascii-bloom-opacity",
   ].forEach((property) => {
-    hero.style.removeProperty(property);
+    header.style.removeProperty(property);
   });
 }
