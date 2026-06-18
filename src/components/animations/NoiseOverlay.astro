@@ -1,0 +1,35 @@
+---
+
+---
+
+<div
+  class="pointer-events-none absolute inset-0 z-5 opacity-25 filter-[url(#fractal-noise)]"
+  aria-hidden="true"
+>
+  <svg aria-hidden="true" width="0" height="0" class="absolute">
+    <filter id="fractal-noise">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.75"
+        numOctaves="3"
+        seed="5"
+        stitchTiles="stitch"></feTurbulence>
+    </filter>
+  </svg>
+</div>
+
+<script>
+  function initFractalNoise() {
+    const turbulence = document.querySelector("feTurbulence");
+    if (!turbulence) return;
+
+    let seed = 1;
+
+    setInterval(() => {
+      seed++;
+      turbulence.setAttribute("seed", String(seed));
+    }, 120);
+  }
+
+  document.addEventListener("DOMContentLoaded", initFractalNoise);
+</script>
