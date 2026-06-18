@@ -1,0 +1,15 @@
+---
+import { siteConfig } from "~/site.config";
+import ASCIICube from "~/components/animations/ASCIICube.astro";
+import ASCIIName from "~/components/animations/ASCIIName.astro";
+import HeaderNavigation from "~/components/common/HeaderNavigation.astro";
+---
+
+<header id="site-header" class="mx-auto px-4 max-w-3xl flex flex-col gap-4 md:gap-8">
+  <div class="flex flex-col gap-4 relative">
+    <ASCIICube />
+    <ASCIIName />
+    <span class="sr-only">{siteConfig.name}</span>
+  </div>
+  <HeaderNavigation />
+</header>

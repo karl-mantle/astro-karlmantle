@@ -1,0 +1,39 @@
+---
+import { siteConfig } from "~/site.config";
+
+const siteNavigation = [
+  {
+    label: "Index",
+    href: siteConfig.url,
+  },
+  {
+    label: "About",
+    href: `${siteConfig.url}about`,
+  },
+  {
+    label: "Blog",
+    href: "#",
+  },
+  {
+    label: "Contact",
+    href: "#",
+  },
+];
+---
+
+<nav id="site-navigation">
+  <ul class="flex flex-row justify-center">
+    {
+      siteNavigation.map((item) => (
+        <li class="border-black px-4 not-last:border-r-2 md:px-8 dark:border-white">
+          <a
+            class="font-bold text-black lowercase hover:bg-pink-200 dark:text-white dark:hover:text-black"
+            href={item.href}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

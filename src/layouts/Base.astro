@@ -1,5 +1,7 @@
 ---
 import Head from "~/layouts/Head.astro";
+import Header from "~/components/common/Header.astro";
+import { siteConfig } from "~/site.config";
 
 type Props = {
   description?: string;
@@ -11,11 +13,12 @@ const { description, entry, title } = Astro.props;
 ---
 
 <!doctype html>
-<html>
+<html lang={siteConfig.language}>
   <Head description={description} entry={entry} title={title} />
 
-  <body>
-    <main id="main">
+  <body class="relative min-h-screen bg-white font-mono text-black dark:bg-black dark:text-white">
+    <Header />
+    <main id="main" class="mx-auto max-w-xl px-4">
       <slot />
     </main>
   </body>
