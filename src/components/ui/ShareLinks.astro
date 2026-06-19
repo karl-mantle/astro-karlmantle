@@ -1,0 +1,48 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { shareLinks, createShareUrl } from "~/scripts/share";
+import IconBtn from "~/components/ui/buttons/IconBtn.astro";
+import CopyBtn from "~/components/ui/buttons/CopyBtn.astro";
+import ShareBtn from "~/components/ui/buttons/ShareBtn.astro";
+
+type Props = HTMLAttributes<"ul"> & {
+  description?: string;
+  display?: string[];
+  title: string;
+  url: string;
+};
+
+const { description, display = ["linkedin", "email", "copy", "native"], title, url } = Astro.props;
+---
+
+<ul class="flex items-center gap-4 place-self-end" aria-label="share buttons and links">
+  {
+    shareLinks
+      .filter((link) => display.includes(link.name))
+      .map((link) => (
+        <li>
+          <IconBtn
+            icon={link.icon}
+            iconSize={18}
+            href={createShareUrl(link.name, title, url)}
+            label={link.label}
+            openNewTab={true}
+          />
+        </li>
+      ))
+  }
+  {
+    display.includes("native") && (
+      <li>
+        <ShareBtn title={title} description={description} />
+      </li>
+    )
+  }
+  {
+    display.includes("copy") && (
+      <li>
+        <CopyBtn />
+      </li>
+    )
+  }
+</ul>

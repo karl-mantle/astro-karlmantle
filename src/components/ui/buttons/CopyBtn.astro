@@ -1,0 +1,97 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+
+type Props = HTMLAttributes<"button"> & {
+  text?: string;
+  label?: string;
+  labelSuccess?: string;
+};
+
+const {
+  text = `${Astro.url}`,
+  label = "Click to copy link",
+  labelSuccess = "Link copied!",
+} = Astro.props;
+---
+
+<button
+  class="group/btn flex w-fit cursor-pointer self-center p-1 hover:bg-pink-200 hover:text-black"
+  type="button"
+  aria-label="Copy to clipboard"
+  data-copy-btn
+  data-copy-text={text}
+>
+  {
+    label && (
+      <span class="sr-only" data-copy-label data-copy-success={labelSuccess}>
+        {label}
+      </span>
+    )
+  }
+
+  {/* copy icon */}
+  <Icon
+    class="self-center group-[.copied]/btn:hidden"
+    name="material-symbols:content-copy-outline"
+    height={21}
+    width={21}
+    aria-hidden="true"
+  />
+
+  {/* success icon */}
+  <Icon
+    class="hidden self-center group-[.copied]/btn:block"
+    name="material-symbols:check"
+    height={21}
+    width={21}
+    aria-hidden="true"
+  />
+</button>
+
+<script>
+  function initClickToCopy() {
+    const btns = document.querySelectorAll<HTMLButtonElement>("[data-copy-btn]");
+    if (!btns.length) return;
+
+    btns.forEach((btn) => {
+      if (btn.dataset.bound === "true") return;
+      btn.dataset.bound = "true";
+
+      const text = btn.dataset.copyText;
+      const label = btn.querySelector<HTMLElement>("[data-copy-label]");
+
+      if (!text || !navigator.clipboard) {
+        btn.disabled = true;
+        btn.setAttribute("aria-disabled", "true");
+        return;
+      }
+
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(text);
+
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.classList.remove("copied");
+          }, 1500);
+
+          if (label) {
+            const original = label.textContent;
+            const success = label.getAttribute("data-copy-success");
+
+            label.textContent = success;
+
+            setTimeout(() => {
+              label.textContent = original;
+            }, 1500);
+          }
+        } catch (err) {
+          console.error("Copy failed:", err);
+        }
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initClickToCopy);
+</script>

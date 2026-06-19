@@ -11,7 +11,7 @@ type Props = HTMLAttributes<"ul"> & {
 const { tags } = Astro.props;
 ---
 
-<ul class="flex flex-wrap gap-4 px-2 text-sm" aria-label="tags for this post">
+<ul class="flex flex-wrap gap-4 text-sm" aria-label="tags for this post">
   {
     tags.map((tag) => (
       <li>

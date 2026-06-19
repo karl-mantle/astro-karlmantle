@@ -1,0 +1,54 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+
+type Props = HTMLAttributes<"button"> & {
+  description?: string;
+  title: string;
+};
+
+const { description = "No description provided.", title } = Astro.props;
+---
+
+<button
+  class="flex w-fit cursor-pointer self-center p-1 hover:bg-pink-200 hover:text-black"
+  type="button"
+  aria-label={`Share this page: ${title}`}
+  data-native-share-btn
+  data-title={title}
+  data-description={description}
+>
+  <Icon class="self-center" name="material-symbols:share" height={21} width={21} />
+</button>
+
+<script>
+  function initShareBtn() {
+    const btns = document.querySelectorAll<HTMLButtonElement>("[data-native-share-btn]");
+
+    btns.forEach((btn) => {
+      if (!navigator.share) {
+        btn.disabled = true;
+        btn.setAttribute("aria-disabled", "true");
+        return;
+      }
+
+      const url = window.location.href;
+      const title = btn.dataset.title;
+      const description = btn.dataset.description;
+
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.share({
+            url,
+            title,
+            text: description,
+          });
+        } catch {
+          // ignore cancel
+        }
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initShareBtn);
+</script>

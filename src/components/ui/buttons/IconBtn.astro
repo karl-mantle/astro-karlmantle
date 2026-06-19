@@ -1,0 +1,28 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { Icon } from "astro-icon/components";
+
+type Props = HTMLAttributes<"a"> & {
+  label: string;
+  icon: string;
+  iconSize?: number;
+  openNewTab?: boolean;
+};
+
+const { label, icon, iconSize = 21, openNewTab, href, class: className, ...rest } = Astro.props;
+
+const newTabAttributes = openNewTab ? { target: "_blank", rel: "noreferrer noopener" } : {};
+---
+
+<a
+  class:list={["flex self-center p-1 hover:bg-pink-200 hover:text-black", className]}
+  href={href}
+  {...newTabAttributes}
+  {...rest}
+>
+  <span class="sr-only">{label}</span>
+
+  {openNewTab && <span class="sr-only">(opens in a new tab)</span>}
+
+  <Icon class="self-center" name={icon} height={iconSize} width={iconSize} />
+</a>

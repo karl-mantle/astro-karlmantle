@@ -12,7 +12,8 @@ export default defineConfig({
     icon({
       iconDir: "src/images/svg",
       include: {
-        "simple-icons": ["github", "linkedin", "rss"],
+        "simple-icons": ["*"],
+        "material-symbols": ["*"],
       },
     }),
   ],
