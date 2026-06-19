@@ -41,6 +41,16 @@ export const siteConfig = {
   footer_text: "Last updated: 15th June 2026",
 };
 
+export const measurementConfig = {
+  partytown: false,
+  bing_verificaton: "",
+  google_ga4_id: "",
+  google_gtm_id: "",
+  google_verification: "",
+  umami_id: "",
+  umami_source: "",
+};
+
 export const collectionsConfig = {
   posts_per_page: 6,
   permalink_posts: "blog",

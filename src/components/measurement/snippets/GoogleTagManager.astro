@@ -1,0 +1,41 @@
+---
+// https://support.google.com/tagmanager/answer/14847097
+import { measurementConfig } from "~/site.config";
+
+type Props = {
+  parent: 'head' | 'body'
+  partytown?: boolean;
+}
+
+const { parent, partytown = false } = Astro.props;
+const attrs = partytown ? { type: "text/partytown" } : {};
+const id = measurementConfig.google_gtm_id;
+---
+
+<>
+  { parent === "head" && (
+    <script is:inline define:vars={{ id, partytown }} {...attrs}>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        const f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        if (partytown) j.type = "text/partytown";
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", id);
+    </script>
+  )}
+
+  { parent === "body" && (
+    <noscript set:html={`<iframe
+      src="https://www.googletagmanager.com/ns.html?id=${id}"
+      height="0"
+      width="0"
+      style="display:none;visibility:hidden"
+      title="GTM no script"></iframe>`
+    }></noscript>
+  )}
+</>

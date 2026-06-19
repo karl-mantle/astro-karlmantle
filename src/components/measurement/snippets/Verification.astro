@@ -1,0 +1,19 @@
+---
+import { measurementConfig } from "~/site.config";
+---
+
+<>
+  {
+    /* Google Search Console */
+    measurementConfig.google_verification && (
+      <meta name="google-site-verification" content={measurementConfig.google_verification} />
+    )
+  }
+
+  {
+    /* Bing / Microsoft Webmaster */
+    measurementConfig.bing_verificaton && (
+      <meta name="msvalidate.01" content={measurementConfig.bing_verificaton} />
+    )
+  }
+</>

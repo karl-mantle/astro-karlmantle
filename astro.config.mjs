@@ -5,6 +5,7 @@ import favicons from "astro-favicons";
 import icon from "astro-icon";
 import mdx from "@astrojs/mdx";
 import netlify from "@astrojs/netlify";
+import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 import robotsTxt from "astro-robots-txt";
 import sitemap from "@astrojs/sitemap";
@@ -63,6 +64,7 @@ export default defineConfig({
       },
     }),
     mdx(),
+    partytown(),
     react(),
     robotsTxt({
       policy: [

@@ -4,6 +4,7 @@ import { getImage } from "astro:assets";
 import { siteConfig } from "~/site.config";
 import "~/styles/global.css";
 import opengraphImageSrc from "public/opengraph.webp";
+import MeasurementHeadEnd from "~/components/measurement/HeadEnd.astro";
 
 type Props = {
   description: string;
@@ -45,4 +46,6 @@ const metadata = {
   <meta property="twitter:image" content={metadata.image.src} />
 
   <slot />
+
+  <MeasurementHeadEnd />
 </head>

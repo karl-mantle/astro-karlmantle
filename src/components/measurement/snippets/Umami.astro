@@ -1,0 +1,19 @@
+---
+// https://umami.is/docs/collect-data
+// https://umami.is/docs/google-tag-manager
+import { measurementConfig } from "~/site.config";
+
+type Props = {
+  partytown?: boolean;
+};
+
+const { partytown = false } = Astro.props;
+const attrs = partytown ? { type: "text/partytown" } : {};
+---
+
+<script
+  is:inline
+  src={measurementConfig.umami_source}
+  data-website-id={measurementConfig.umami_id}
+  defer
+  {...attrs}></script>

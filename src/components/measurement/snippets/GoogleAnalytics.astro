@@ -1,0 +1,27 @@
+---
+// https://support.google.com/analytics/answer/9304153
+import { measurementConfig } from "~/site.config";
+
+type Props = {
+  partytown?: boolean;
+};
+
+const { partytown = false } = Astro.props;
+
+const attrs = partytown ? { type: "text/partytown" } : {};
+const id = measurementConfig.google_ga4_id;
+---
+
+<>
+  <script is:inline src={`https://www.googletagmanager.com/gtag/js?id=${id}`} async {...attrs}
+  ></script>
+
+  <script is:inline define:vars={{ id }} {...attrs}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", id);
+  </script>
+</>

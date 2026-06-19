@@ -2,6 +2,7 @@
 import type { DataEntryMap } from "astro:content";
 import { siteConfig } from "~/site.config";
 import Head from "~/layouts/Head.astro";
+import MeasurementBodyStart from "~/components/measurement/BodyStart.astro";
 import SkipToMain from "~/components/ui/a11y/SkipToMain.astro";
 import Header from "~/components/common/Header.astro";
 import Footer from "~/components/common/Footer.astro";
@@ -21,6 +22,7 @@ const { description, entry, title } = Astro.props;
   <Head description={description} entry={entry} title={title} />
 
   <body class="relative min-h-screen bg-white font-mono text-black dark:bg-black dark:text-white">
+    <MeasurementBodyStart />
     <SkipToMain />
     <Header />
     <main id="main" class="mx-auto max-w-xl px-4">

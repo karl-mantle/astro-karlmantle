@@ -1,0 +1,16 @@
+---
+import { measurementConfig } from "~/site.config";
+import GoogleAnalytics from "~/components/measurement/snippets/GoogleAnalytics.astro";
+import GoogleTagManager from "~/components/measurement/snippets/GoogleTagManager.astro";
+import Umami from "~/components/measurement/snippets/Umami.astro";
+import Verification from "~/components/measurement/snippets/Verification.astro";
+
+const partytown = measurementConfig.partytown;
+---
+
+<>
+  <Verification />
+  {measurementConfig.google_ga4_id && <GoogleAnalytics {partytown} />}
+  {measurementConfig.google_gtm_id && <GoogleTagManager parent="head" {partytown} />}
+  {measurementConfig.umami_source && measurementConfig.umami_id && <Umami {partytown} />}
+</>
