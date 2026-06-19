@@ -4,6 +4,8 @@ import { siteConfig } from "./src/site.config";
 import icon from "astro-icon";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
+import robotsTxt from "astro-robots-txt";
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -27,6 +29,15 @@ export default defineConfig({
       },
     }),
     react(),
+    robotsTxt({
+      policy: [
+        {
+          userAgent: "*",
+          disallow: "/",
+        },
+      ],
+    }),
+    sitemap(),
   ],
   vite: {
     plugins: [tailwindcss(), tsconfigPaths()],
