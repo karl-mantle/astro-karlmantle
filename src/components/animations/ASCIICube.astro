@@ -2,16 +2,16 @@
 
 ---
 
-<div class="mt-4 relative h-80 flex justify-center overflow-hidden">
+<div class="relative mt-4 flex h-80 justify-center overflow-hidden">
   <pre
     id="ascii-cube"
-    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-pre font-mono text-[11px] leading-none pointer-events-none text-pink-400 letter-spacing-[2px]"
+    class="letter-spacing-[2px] pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-mono text-[11px] leading-none whitespace-pre text-pink-400"
     aria-hidden="true">
   </pre>
 </div>
 
 <script type="module">
-  import { ASCIICube } from "/src/scripts/animations/asciiCube";
+  import { ASCIICube } from "../../scripts/animations/asciiCube";
 
   function initASCIICube() {
     const el = document.getElementById("ascii-cube");

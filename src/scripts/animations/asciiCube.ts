@@ -34,24 +34,24 @@ class ASCIICube {
     standard: " '`.,:;+=xo*WMB&8%#@",
     dense: " ░▒▓█",
     blocks: "KARLMNTE",
-    debug: "0123456789"
+    debug: "0123456789",
   };
-  outputEl?: HTMLOutputElement;
+  outputEl?: HTMLElement;
   renderState: RenderState = {
     charset: Object.keys(this.charsets)[0],
     speed: 0.5,
     size: 80,
-    angleX: 45 * Math.PI / 180,
+    angleX: (45 * Math.PI) / 180,
     angleY: 0 * Math.PI,
-    angleZ: -45 * Math.PI / 180,
+    angleZ: (-45 * Math.PI) / 180,
     distance: 10,
     width: 80,
     height: 80,
     screen: [],
-    zBuffer: []
+    zBuffer: [],
   };
 
-  constructor(el: HTMLOutputElement) {
+  constructor(el: HTMLElement) {
     this.outputEl = el;
   }
 
@@ -112,7 +112,7 @@ class ASCIICube {
     }
   }
 
-  /** Initialize the screen buffer. */ 
+  /** Initialize the screen buffer. */
   private initScreen(): void {
     const { width, height, screen, zBuffer } = this.renderState;
 
@@ -134,14 +134,18 @@ class ASCIICube {
 
     // transform the vertices
     const cubeVertices = [
-      new Vector3(-1, -1, -1), new Vector3(1, -1, -1),
-      new Vector3(1, 1, -1), new Vector3(-1, 1, -1),
-      new Vector3(-1, -1, 1), new Vector3(1, -1, 1),
-      new Vector3(1, 1, 1), new Vector3(-1, 1, 1)
+      new Vector3(-1, -1, -1),
+      new Vector3(1, -1, -1),
+      new Vector3(1, 1, -1),
+      new Vector3(-1, 1, -1),
+      new Vector3(-1, -1, 1),
+      new Vector3(1, -1, 1),
+      new Vector3(1, 1, 1),
+      new Vector3(-1, 1, 1),
     ];
-    const transformedVertices = cubeVertices.map(v => {
+    const transformedVertices = cubeVertices.map((v) => {
       const rotated = Utils.transformVertex(v, rotation);
-      const { width, height, size, distance} = this.renderState;
+      const { width, height, size, distance } = this.renderState;
 
       return Utils.projectVertex(rotated, width, height, size, distance);
     });
@@ -151,26 +155,38 @@ class ASCIICube {
 
     // draw the faces
     const cubeFaces = [
-      [0, 1, 2], [0, 2, 3], // front
-      [5, 4, 7], [5, 7, 6], // back
-      [4, 0, 3], [4, 3, 7], // left
-      [1, 5, 6], [1, 6, 2], // right
-      [3, 2, 6], [3, 6, 7], // top
-      [4, 5, 1], [4, 1, 0]  // bottom
+      [0, 1, 2],
+      [0, 2, 3], // front
+      [5, 4, 7],
+      [5, 7, 6], // back
+      [4, 0, 3],
+      [4, 3, 7], // left
+      [1, 5, 6],
+      [1, 6, 2], // right
+      [3, 2, 6],
+      [3, 6, 7], // top
+      [4, 5, 1],
+      [4, 1, 0], // bottom
     ];
     const faceNormals = [
-      new Vector3(0, 0, -1), new Vector3(0, 0, -1), // front
-      new Vector3(0, 0, 1), new Vector3(0, 0, 1),   // back
-      new Vector3(-1, 0, 0), new Vector3(-1, 0, 0), // left
-      new Vector3(1, 0, 0), new Vector3(1, 0, 0),   // right
-      new Vector3(0, 1, 0), new Vector3(0, 1, 0),   // top
-      new Vector3(0, -1, 0), new Vector3(0, -1, 0)  // bottom
+      new Vector3(0, 0, -1),
+      new Vector3(0, 0, -1), // front
+      new Vector3(0, 0, 1),
+      new Vector3(0, 0, 1), // back
+      new Vector3(-1, 0, 0),
+      new Vector3(-1, 0, 0), // left
+      new Vector3(1, 0, 0),
+      new Vector3(1, 0, 0), // right
+      new Vector3(0, 1, 0),
+      new Vector3(0, 1, 0), // top
+      new Vector3(0, -1, 0),
+      new Vector3(0, -1, 0), // bottom
     ];
     cubeFaces.forEach((face, faceIndex) => {
       const v1 = transformedVertices[face[0]];
       const v2 = transformedVertices[face[1]];
       const v3 = transformedVertices[face[2]];
-      
+
       // calculate the lighting
       const normal = Utils.transformVertex(faceNormals[faceIndex], rotation);
       const brightness = Math.max(0.1, Math.abs(normal.dot(lightDir)));
@@ -222,9 +238,9 @@ class Utils {
     const d1 = this.sign({ x, y }, v1, v2);
     const d2 = this.sign({ x, y }, v2, v3);
     const d3 = this.sign({ x, y }, v3, v1);
-    const hasNeg = (d1 < 0) || (d2 < 0) || (d3 < 0);
-    const hasPos = (d1 > 0) || (d2 > 0) || (d3 > 0);
-    
+    const hasNeg = d1 < 0 || d2 < 0 || d3 < 0;
+    const hasPos = d1 > 0 || d2 > 0 || d3 > 0;
+
     return !(hasNeg && hasPos);
   }
   /**
@@ -245,7 +261,11 @@ class Utils {
    * @param m2 Second matrix
    */
   static multiplyMatrix(m1: Matrix3x3, m2: Matrix3x3): Matrix3x3 {
-    const result: Matrix3x3 = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    const result: Matrix3x3 = [
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ];
 
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
@@ -265,7 +285,13 @@ class Utils {
    * @param size Cube size
    * @param distance Cube distance
    */
-  static projectVertex(vertex: Vector3, width: number, height: number, size: number, distance: number): Point3D {
+  static projectVertex(
+    vertex: Vector3,
+    width: number,
+    height: number,
+    size: number,
+    distance: number,
+  ): Point3D {
     const halfWidth = width / 2;
     const halfHeight = height / 2;
     const vertexXHandled = vertex.x / (vertex.z + distance);
@@ -299,7 +325,7 @@ class Utils {
     return [
       [1, 0, 0],
       [0, cos, -sin],
-      [0, sin, cos]
+      [0, sin, cos],
     ];
   }
   /**
@@ -313,7 +339,7 @@ class Utils {
     return [
       [cos, 0, sin],
       [0, 1, 0],
-      [-sin, 0, cos]
+      [-sin, 0, cos],
     ];
   }
   /**
@@ -327,7 +353,7 @@ class Utils {
     return [
       [cos, -sin, 0],
       [sin, cos, 0],
-      [0, 0, 1]
+      [0, 0, 1],
     ];
   }
   /**
@@ -345,50 +371,50 @@ class Utils {
    * @param matrix Matrix
    */
   static transformVertex(vertex: Vector3, matrix: Matrix3x3): Vector3 {
-    const [ top, middle, bottom ] = matrix;
-    const [ t0, t1, t2 ] = top;
-    const [ m0, m1, m2 ] = middle;
-    const [ b0, b1, b2 ] = bottom;
+    const [top, middle, bottom] = matrix;
+    const [t0, t1, t2] = top;
+    const [m0, m1, m2] = middle;
+    const [b0, b1, b2] = bottom;
     const { x, y, z } = vertex;
 
     return new Vector3(
       t0 * x + t1 * y + t2 * z,
       m0 * x + m1 * y + m2 * z,
-      b0 * x + b1 * y + b2 * z
+      b0 * x + b1 * y + b2 * z,
     );
   }
 }
 
 class Vector3 {
-    x: number;
-    y: number;
-    z: number;
+  x: number;
+  y: number;
+  z: number;
 
-    /**
-     * Create a vector with a 3D coordinate set.
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param z z-coordinate
-     */
-    constructor(x: number = 0, y: number = 0, z: number = 0) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-    dot(v: Vector3): number {
-        return this.x * v.x + this.y * v.y + this.z * v.z;
-    }
-    normalize(): Vector3 {
-        const length = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2);
+  /**
+   * Create a vector with a 3D coordinate set.
+   * @param x x-coordinate
+   * @param y y-coordinate
+   * @param z z-coordinate
+   */
+  constructor(x: number = 0, y: number = 0, z: number = 0) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+  dot(v: Vector3): number {
+    return this.x * v.x + this.y * v.y + this.z * v.z;
+  }
+  normalize(): Vector3 {
+    const length = Math.sqrt(this.x ** 2 + this.y ** 2 + this.z ** 2);
 
-        if (length === 0) return new Vector3();
+    if (length === 0) return new Vector3();
 
-        const vx = this.x / length;
-        const vy = this.y / length;
-        const vz = this.z / length;
+    const vx = this.x / length;
+    const vy = this.y / length;
+    const vz = this.z / length;
 
-        return new Vector3(vx, vy, vz);
-    }
+    return new Vector3(vx, vy, vz);
+  }
 }
 
 export { ASCIICube };
