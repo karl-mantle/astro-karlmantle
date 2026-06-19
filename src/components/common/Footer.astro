@@ -1,6 +1,6 @@
 ---
-import { Icon } from "astro-icon/components";
 import ScrollToTop from "~/components/ui/a11y/ScrollToTop.astro";
+import IconBtn from "~/components/ui/buttons/IconBtn.astro";
 import ThemeBtn from "~/components/ui/buttons/ThemeBtn.astro";
 
 const socialLinks = [
@@ -38,14 +38,13 @@ const socialLinks = [
     {
       socialLinks.map((item) => (
         <li>
-          <a
+          <IconBtn
             href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label=`{item.label} (opens in a new tab)`
-          >
-            <Icon name={item.icon} height={18} width={18} />
-          </a>
+            label={item.label}
+            icon={item.icon}
+            iconSize={18}
+            openNewTab={true}
+          />
         </li>
       ))
     }
