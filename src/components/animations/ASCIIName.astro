@@ -12,17 +12,17 @@ const ascii = `▓█   ██▓    ▄▄▄       ██▀███   ██
 
 <section
   id="header-ascii-wrapper"
-  class="elative flex flex-col items-center before:absolute before:opacity-0 before:mix-blend-screen before:content-[''] after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:opacity-0 after:blur-sm after:content-['']"
+  class="relative flex flex-col items-center overflow-hidden before:absolute before:opacity-0 before:mix-blend-screen before:content-[''] after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:opacity-0 after:blur-sm after:content-['']"
 >
   <pre
     id="header-ascii"
-    class="z-1 text-[11px] md:text-lg"
+    class="z-1 text-[11px] sm:text-lg"
     data-ascii-text={ascii}
     set:html={ascii}
   />
   <pre
     id="header-ascii-glitch"
-    class="ascii-glitch absolute inset-0 z-2 text-xs text-pink-400 opacity-0 md:text-lg"
+    class="ascii-glitch absolute inset-0 z-2 text-[11px] text-pink-400 opacity-50 sm:text-lg"
     aria-hidden="true">
   </pre>
 </section>
