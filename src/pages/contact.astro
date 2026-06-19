@@ -1,7 +1,14 @@
 ---
 import Base from "~/layouts/Base.astro";
+import Form from "~/components/contact/Form.astro";
 ---
 
 <Base title="contact" description="contact page">
-  <h1>contact</h1>
+  <section class="mt-8 flex flex-col gap-4 sm:mt-16">
+    <h1 class="text-2xl font-bold lowercase">Contact</h1>
+    <p class="lowercase">
+      You can contact me either by emailing root@karlmantle.com or using the form below.
+    </p>
+    <Form />
+  </section>
 </Base>
