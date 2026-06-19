@@ -10,7 +10,7 @@ const mapEnvDomain = {
     site: "http://localhost:4321/",
   },
   staging: {
-    site: "https://staging.karlmantle.com/",
+    site: "https://karlmantle-staging.netlify.app/",
   },
   prod: {
     site: "https://www.karlmantle.com/",
@@ -42,7 +42,7 @@ export const siteConfig = {
 };
 
 export const collectionsConfig = {
-  posts_per_page: 9,
+  posts_per_page: 6,
   permalink_posts: "blog",
   permalink_posts_entry: "blog/entry/",
   permalink_posts_category: "blog/category/",
