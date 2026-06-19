@@ -16,7 +16,7 @@ const siteNavigation = [
   },
   {
     label: "Contact",
-    href: "#",
+    href: `${siteConfig.url}contact`,
   },
 ];
 ---
@@ -24,14 +24,15 @@ const siteNavigation = [
 <nav id="site-navigation">
   <ul class="flex flex-row justify-center">
     {
-      siteNavigation.map((item) => (
-        <li class="border-black px-4 not-last:border-r-2 md:px-8 dark:border-white">
+      siteNavigation.map((item, index) => (
+        <li class="flex items-center">
           <a
-            class="font-bold text-black lowercase hover:bg-pink-200 dark:text-white dark:hover:text-black"
+            class="mx-4 leading-4 font-bold lowercase hover:bg-pink-200 dark:hover:text-black"
             href={item.href}
           >
             {item.label}
           </a>
+          {index < siteNavigation.length - 1 && <span aria-hidden="true">|</span>}
         </li>
       ))
     }
