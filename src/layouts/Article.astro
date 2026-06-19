@@ -1,0 +1,31 @@
+---
+import { type CollectionEntry, render } from "astro:content";
+import Hero from "~/components/blog/Hero.astro";
+import Details from "~/components/blog/Details.astro";
+
+type Props = {
+  entry: CollectionEntry<"posts">;
+};
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<article class="contain mt-8 mb-4 grid grid-cols-1 gap-4 sm:mt-16 sm:mb-8 sm:gap-8">
+  <Hero
+    category={entry.data.category}
+    date={entry.data.pubDate}
+    description={entry.data.description}
+    heading={entry.data.title}
+    image={entry.data.image}
+  />
+
+  <section class="prose dark:prose-invert mb-4 font-serif sm:mb-8">
+    <Content />
+    <hr />
+  </section>
+
+  <footer class="flex justify-between">
+    <Details entry={entry} />
+  </footer>
+</article>

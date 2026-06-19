@@ -1,12 +1,14 @@
 ---
-import "~/styles/global.css";
+import type { DataEntryMap } from "astro:content";
 import { getImage } from "astro:assets";
+import { siteConfig } from "~/site.config";
+import "~/styles/global.css";
 import opengraphImageSrc from "public/opengraph.webp";
 
 type Props = {
-  description?: string;
-  entry?: any;
-  title?: string;
+  description: string;
+  entry?: DataEntryMap[keyof DataEntryMap][string];
+  title: string;
 };
 
 const { description, entry, title } = Astro.props;
@@ -15,9 +17,9 @@ const opengraphImage = entry?.data.image?.src ?? opengraphImageSrc;
 
 const metadata = {
   canonical: new URL(Astro.url.pathname, Astro.site),
-  description: description ?? entry?.data.description,
+  description: entry?.data.description ?? description,
   image: await getImage({ src: opengraphImage, width: 1200, height: 630 }),
-  title: `${title ?? entry?.data.title} ~ karlmantle.com`,
+  title: `${entry?.data.title ?? title} ${siteConfig.title_separator} karlmantle.com`,
 };
 ---
 

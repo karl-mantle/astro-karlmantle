@@ -1,0 +1,75 @@
+---
+import type { GetStaticPathsOptions, GetStaticPathsResult, Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { collectionsConfig } from "~/site.config";
+import { getPostsTerms, getPostsByTag, getPostsByCategory } from "~/scripts/collections/posts";
+import Base from "~/layouts/Base.astro";
+import Listing from "~/layouts/Listing.astro";
+
+type Terms = {
+  count?: number;
+  label: string;
+  slug: string;
+  type: string;
+};
+
+type Props = {
+  page: Page<CollectionEntry<"posts">>;
+  term: Terms;
+};
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const terms: Terms[] = await getPostsTerms();
+  let paths: GetStaticPathsResult = [];
+
+  for (const term of terms) {
+    const { label, slug, type } = term;
+
+    let entries;
+    switch (type) {
+      case "category":
+        entries = await getPostsByCategory(label);
+        break;
+      case "tag":
+        entries = await getPostsByTag(label);
+        break;
+      default:
+        entries = await getPostsByCategory(label);
+    }
+
+    const paginatedTerms = paginate(entries, {
+      params: { posts: collectionsConfig.permalink_posts, terms: `${type}/${slug}` },
+      pageSize: collectionsConfig.posts_per_page || 9,
+    });
+
+    paginatedTerms.forEach((path) => {
+      path.props = { ...path.props, term };
+    });
+
+    paths = paths.concat(paginatedTerms);
+  }
+
+  return paths;
+}
+
+const { page, term } = Astro.props;
+---
+
+<Base
+  description={term.type === "category"
+    ? `View all posts in the category “${term.label}”.`
+    : `View all posts tagged with “${term.label}”.`}
+  title={term.type === "category"
+    ? `“${term.label}” category archive page ${page.currentPage}`
+    : `“${term.label}” tag archive page ${page.currentPage}`}
+>
+  <Listing
+    title={term.type === "category"
+      ? `“${term.label}” category archive page ${page.currentPage}`
+      : `“${term.label}” tag archive page ${page.currentPage}`}
+    description={term.type === "category"
+      ? `View all posts in the category “${term.label}”.`
+      : `View all posts tagged with “${term.label}”.`}
+    page={page}
+  />
+</Base>

@@ -1,0 +1,27 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { siteConfig, collectionsConfig } from "~/site.config";
+import { getPosts } from "~/scripts/collections/posts";
+import Card from "~/components/blog/Card.astro";
+
+type Props = HTMLAttributes<"ol"> & {
+  max: number;
+};
+
+const { max = 3 } = Astro.props;
+
+const entries = await getPosts(max);
+---
+
+<ol class="grid grid-cols-1 gap-4">
+  {
+    entries.map((entry) => (
+      <Card
+        date={entry.data.pubDate}
+        description={entry.data.description}
+        heading={entry.data.title}
+        href={`${siteConfig.url}${collectionsConfig.permalink_posts_entry}${entry.data.slug}`}
+      />
+    ))
+  }
+</ol>

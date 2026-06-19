@@ -1,0 +1,49 @@
+---
+import type { ImageMetadata } from "astro";
+import type { HTMLAttributes } from "astro/types";
+import { Picture } from "astro:assets";
+import { imagesConfig } from "~/site.config";
+import Date from "~/components/ui/Date.astro";
+
+type Props = HTMLAttributes<"li"> & {
+  date: Date;
+  description: string;
+  heading: string;
+  href: string;
+  image?: {
+    alt: string | null;
+    src: ImageMetadata;
+  };
+  loading?: "eager" | "lazy";
+};
+
+const { date, description, heading, href, image, loading } = Astro.props;
+---
+
+<li>
+  <a class="group/card flex grow flex-col-reverse gap-4 sm:flex-row" href={href}>
+    <span aria-hidden="true" class="hidden sm:block">&gt;&gt;</span>
+
+    <div class="flex grow flex-col gap-2 text-sm">
+      <h2 class="text-bold text-lg group-hover/card:underline">
+        {heading}
+      </h2>
+      <Date date={date} />
+      <p>{description}</p>
+    </div>
+
+    {
+      image && (
+        <Picture
+          alt={image.alt ?? ""}
+          class="aspect-video object-cover opacity-75 transition-opacity duration-300 group-hover/card:opacity-100 group-focus/card:opacity-100 sm:h-fit sm:max-w-48"
+          format="webp"
+          loading={loading ?? "lazy"}
+          sizes={imagesConfig.third.sizes}
+          src={image.src}
+          widths={imagesConfig.third.widths}
+        />
+      )
+    }
+  </a>
+</li>

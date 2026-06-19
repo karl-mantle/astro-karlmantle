@@ -1,0 +1,40 @@
+---
+import type { Page } from "astro";
+import type { HTMLAttributes } from "astro/types";
+import type { CollectionEntry } from "astro:content";
+import { siteConfig, collectionsConfig } from "~/site.config";
+import Card from "~/components/blog/Card.astro";
+import Pagination from "~/components/ui/Pagination.astro";
+
+type Props = HTMLAttributes<"section"> & {
+  title: string;
+  description: string;
+  page: Page<CollectionEntry<"posts">>;
+};
+
+const { description, page, title } = Astro.props;
+---
+
+<section class="mt-8 mb-4 flex flex-col gap-4 sm:mt-16 sm:mb-8 sm:gap-8">
+  <header class="flex flex-col gap-4 sm:gap-8">
+    <h1 class="text-2xl font-bold lowercase">{title}</h1>
+    <p class="lowercase">{description}</p>
+  </header>
+
+  <ol class="mb-4 grid gap-4 sm:mb-8 sm:gap-8" aria-label="posts, most recent first">
+    {
+      page.data.map((post) => (
+        <Card
+          date={post.data.pubDate}
+          description={post.data.description}
+          heading={post.data.title}
+          href={`${siteConfig.url}${collectionsConfig.permalink_posts_entry}${post.data.slug}`}
+          image={post.data.image}
+          loading="eager"
+        />
+      ))
+    }
+  </ol>
+
+  <Pagination page={page} />
+</section>

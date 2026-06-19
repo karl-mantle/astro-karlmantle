@@ -1,0 +1,30 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a"> & {
+  disabled?: boolean;
+  label: string;
+  openNewTab?: boolean;
+};
+
+const { disabled, label, openNewTab, href, class: className, ...rest } = Astro.props;
+
+const newTabAttributes = openNewTab
+  ? { target: "_blank", rel: "noreferrer noopener", ariaLabel: `${label} opens in a new tab` }
+  : {};
+---
+
+<a
+  class:list={[
+    !disabled && "underline hover:bg-pink-200 hover:text-black hover:decoration-0",
+    disabled && "dark:text-base-800 cursor-not-allowed text-neutral-200",
+    className,
+  ]}
+  href={disabled ? undefined : href}
+  tabindex={disabled ? "-1" : undefined}
+  aria-disabled={disabled ? "true" : undefined}
+  {...newTabAttributes}
+  {...rest}
+>
+  {label}
+</a>

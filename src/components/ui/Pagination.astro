@@ -1,0 +1,43 @@
+---
+import TextBtn from "~/components/ui/buttons/TextBtn.astro";
+
+const { page } = Astro.props;
+---
+
+<nav class="flex justify-center" aria-label="page controls">
+  <ul class="grid grid-cols-3 items-center w-full">
+    <li>
+      {
+        page.url.prev ? (
+          <TextBtn
+            href={page.url.prev}
+            label="&lt;&lt; Previous"
+            aria-label={`Go to previous page, page ${page.currentPage - 1}`}
+          />
+        ) : (
+          <TextBtn disabled={true} label="&lt;&lt; Previous" />
+        )
+      }
+    </li>
+
+    <li class="justify-self-center">
+      <span class="px-4" aria-label="current page">
+        Page {page.currentPage} of {page.lastPage}
+      </span>
+    </li>
+
+    <li class="justify-self-end">
+      {
+        page.url.next ? (
+          <TextBtn
+            href={page.url.next}
+            label="Next &gt;&gt;"
+            aria-label={`Go to next page, page ${page.currentPage + 1}`}
+          />
+        ) : (
+          <TextBtn disabled={true} label="Next &gt;&gt;" />
+        )
+      }
+    </li>
+  </ul>
+</nav>
