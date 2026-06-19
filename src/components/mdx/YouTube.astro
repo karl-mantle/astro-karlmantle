@@ -1,0 +1,103 @@
+---
+import type { ImageMetadata } from "astro";
+import type { HTMLAttributes } from "astro/types";
+import { Image } from "astro:assets";
+import "lite-youtube-embed/src/lite-yt-embed.css";
+
+type Props = HTMLAttributes<"div"> & {
+  image?: {
+    src: ImageMetadata;
+    alt?: string;
+  };
+  imageQuality?: "max" | "high" | "standard" | "low";
+  label?: string;
+  loop?: boolean;
+  params?: string;
+  title?: string;
+  url: string;
+};
+
+const { image, imageQuality = "high", label = "Play", loop, params, title, url } = Astro.props;
+
+const extractVideoId = (url: string): string | undefined => {
+  if (!url) return undefined;
+  if (/^[A-Za-z0-9_-]{11}$/.test(url)) return url;
+  const match = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/,
+  );
+  return match?.[1];
+};
+
+const videoId = extractVideoId(url);
+
+const imagePaths = {
+  max: "maxresdefault",
+  high: "hqdefault",
+  standard: "sddefault",
+  low: "default",
+}[imageQuality];
+---
+
+<div class="not-prose relative mb-4 w-full md:mb-8">
+  <lite-youtube
+    videoid={videoId}
+    title={title}
+    data-title={title}
+    params={loop === true ? `${params}&loop=1&playlist=${videoId}` : params}
+  >
+    <div class="absolute inset-0">
+      {
+        image ? (
+          <Image
+            class="h-full w-full object-cover"
+            src={image.src}
+            alt={image.alt ?? ""}
+            height={800}
+            width={450}
+            format="webp"
+            loading="lazy"
+          />
+        ) : (
+          <Image
+            class="h-full w-full object-cover"
+            src={`https://i.ytimg.com/vi/${videoId}/${imagePaths}.jpg`}
+            alt=""
+            height={800}
+            width={450}
+            format="jpg"
+            loading="lazy"
+          />
+        )
+      }
+    </div>
+
+    <a href={url} class="lty-playbtn">
+      <span class="sr-only">{label}</span>
+    </a>
+  </lite-youtube>
+</div>
+
+<script src="lite-youtube-embed"></script>
+
+<style is:global>
+  @reference "~/styles/global.css";
+
+  lite-youtube > iframe {
+    all: unset !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    inset: 0 !important;
+    border: 0 !important;
+  }
+
+  lite-youtube {
+    background: none !important;
+    background-image: none !important;
+    max-width: none !important;
+  }
+
+  lite-youtube::before {
+    z-index: 5;
+  }
+</style>

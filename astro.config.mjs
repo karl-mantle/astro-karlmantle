@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import { siteConfig } from "./src/site.config";
 import icon from "astro-icon";
+import mdx from "@astrojs/mdx";
 import netlify from "@astrojs/netlify";
 import react from "@astrojs/react";
 import robotsTxt from "astro-robots-txt";
@@ -28,6 +29,7 @@ export default defineConfig({
         ],
       },
     }),
+    mdx(),
     react(),
     robotsTxt({
       policy: [

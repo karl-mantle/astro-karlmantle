@@ -4,7 +4,7 @@ import { z } from "astro/zod";
 import slugify from "slugify";
 
 const posts = defineCollection({
-  loader: glob({ base: "src/content/posts", pattern: "**/*.{md,mdx}" }),
+  loader: glob({ base: "src/content/posts/", pattern: "**/*.{md,mdx}" }),
   schema: ({ image }) =>
     z
       .object({

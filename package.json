@@ -22,9 +22,11 @@
     "astro": "^6.4.6",
     "astro-icon": "^1.1.5",
     "astro-robots-txt": "^1.0.0",
+    "lite-youtube-embed": "^0.3.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "slugify": "^1.6.9"
+    "slugify": "^1.6.9",
+    "swiper": "^12.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
