@@ -25,7 +25,7 @@ export const siteConfig = {
   short_name: "karlmantle.com",
   title_separator: "~",
   description:
-    "My personal website & blog. I write about technology, my projects, and other things that interest me.",
+    "Interested in web development, languages & open source. Project Coordinator @ Itineris, London",
   logo: {
     src: "/logo.webp",
     height: 512,
