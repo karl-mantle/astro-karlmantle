@@ -46,7 +46,7 @@ export default function ChatIsland() {
               msg.role === "user" ? "self-end" : "self-start",
               msg.role === "user"
                 ? "border bg-white text-black"
-                : "border-white bg-black text-white",
+                : "border border-white bg-black text-white",
             ].join(" ")}
           >
             {msg.content}
