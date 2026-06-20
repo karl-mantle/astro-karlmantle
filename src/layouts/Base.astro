@@ -1,6 +1,8 @@
 ---
+import type { Page } from "astro";
 import type { DataEntryMap } from "astro:content";
 import { siteConfig } from "~/site.config";
+import { createSchema } from "~/scripts/schema/createSchema";
 import Head from "~/layouts/Head.astro";
 import MeasurementBodyStart from "~/components/measurement/BodyStart.astro";
 import SkipToMain from "~/components/ui/a11y/SkipToMain.astro";
@@ -9,17 +11,25 @@ import Footer from "~/components/common/Footer.astro";
 import NoiseOverlay from "~/components/animations/NoiseOverlay.astro";
 
 type Props = {
+  type: string;
+  title: string;
   description: string;
   entry?: DataEntryMap[keyof DataEntryMap][string];
-  title: string;
+  page?: Page;
 };
 
-const { description, entry, title } = Astro.props;
+const { type, title, description, entry, page } = Astro.props;
+
+const url = new URL(Astro.url.pathname, Astro.site);
+
+const schema = createSchema(type, url, title, description, entry, page);
 ---
 
 <!doctype html>
 <html lang={siteConfig.language}>
-  <Head description={description} entry={entry} title={title} />
+  <Head description={description} entry={entry} title={title}>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </Head>
 
   <body class="relative min-h-screen bg-white font-mono text-black dark:bg-black dark:text-white">
     <MeasurementBodyStart />

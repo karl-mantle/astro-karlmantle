@@ -56,12 +56,14 @@ const { page, term } = Astro.props;
 ---
 
 <Base
+  type="collectionPage"
   description={term.type === "category"
     ? `View all posts in the category “${term.label}”.`
     : `View all posts tagged with “${term.label}”.`}
   title={term.type === "category"
     ? `“${term.label}” category archive page ${page.currentPage}`
     : `“${term.label}” tag archive page ${page.currentPage}`}
+  page={page}
 >
   <Listing
     title={term.type === "category"

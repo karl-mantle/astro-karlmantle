@@ -77,3 +77,21 @@ export const imagesConfig = {
     width: 64,
   },
 };
+
+export const socialLinks = [
+  {
+    href: "https://www.linkedin.com/in/karlmantle/",
+    icon: "simple-icons:linkedin",
+    label: "Visit my LinkedIn",
+  },
+  {
+    href: "https://github.com/karl-mantle/",
+    icon: "simple-icons:github",
+    label: "Visit my GitHub",
+  },
+  {
+    href: "/rss.xml",
+    icon: "material-symbols:rss-feed",
+    label: "Subscribe to RSS feed",
+  },
+];
