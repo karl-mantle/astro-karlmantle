@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { siteConfig } from "~/site.config";
 
 type Props = HTMLAttributes<"time"> & {
   date: Date;
@@ -23,12 +24,16 @@ const ordinal = (day: number) => {
 };
 
 const day = date.getDate();
-const month = date.toLocaleString("en-GB", { month: "long" });
+const month = date.toLocaleString(siteConfig.language, { month: "long" });
 const year = date.getFullYear();
 
 const formattedDate = `${day}${ordinal(day)} ${month} ${year}`;
 ---
 
-<time class:list={["flex items-center", className]} datetime={date.toISOString()} lang="en-GB">
+<time
+  class:list={["flex items-center", className]}
+  datetime={date.toISOString()}
+  lang={siteConfig.language}
+>
   {formattedDate}
 </time>
