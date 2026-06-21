@@ -12,7 +12,7 @@ const { siteKey = "0x4AAAAAADn4XAqG6smz2nm3" } = Astro.props;
   id="contact-form"
   name="contact-form"
   class="grid w-full grid-cols-1 gap-2 sm:grid-cols-2"
-  netlify
+  data-netlify="true"
 >
   {siteKey && <input type="hidden" name="captcha" value="turnstile" />}
 
@@ -38,14 +38,14 @@ const { siteKey = "0x4AAAAAADn4XAqG6smz2nm3" } = Astro.props;
     <textarea id="message" name="message" required class="min-h-40"></textarea>
   </div>
 
-  {siteKey && <div class="cf-turnstile mt-4 min-h-18 sm:col-span-2" data-sitekey={siteKey} />}
+  {siteKey && <div class="cf-turnstile my-4 sm:col-span-2 [&>div]:flex" data-sitekey={siteKey} />}
 
   <div class="flex sm:col-span-2">
     <button
       type="submit"
-      class="cursor-pointer text-lg underline hover:bg-pink-200 hover:text-black hover:decoration-0"
+      class="cursor-pointer text-lg leading-4.5 underline hover:bg-pink-200 hover:text-black hover:decoration-0"
     >
-      <span class="font-medium">Submit &gt;&gt;</span>
+      Submit &gt;&gt;
     </button>
   </div>
 
