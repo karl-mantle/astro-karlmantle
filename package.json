@@ -24,6 +24,7 @@
     "astro-favicons": "^3.1.6",
     "astro-icon": "^1.1.5",
     "astro-robots-txt": "^1.0.0",
+    "dompurify": "^3.4.11",
     "lite-youtube-embed": "^0.3.4",
     "marked": "^18.0.5",
     "react": "^19.2.7",
