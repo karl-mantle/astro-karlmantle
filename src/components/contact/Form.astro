@@ -48,13 +48,30 @@ const { siteKey = "0x4AAAAAADn4XAqG6smz2nm3" } = Astro.props;
       Submit &gt;&gt;
     </button>
   </div>
-
-  <div id="feedback" class="sm:col-span-2" role="alert" aria-live="polite" aria-atomic="true"></div>
 </form>
 
-{siteKey && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
+<script is:inline>
+  function initTurnstile() {
+    const el = document.querySelector(".cf-turnstile");
+    if (!el) return;
 
-<style>
+    if (el.dataset.initialised === "true") return;
+
+    if (!window.turnstile) return;
+
+    el.innerHTML = "";
+
+    window.turnstile.render(el, {
+      sitekey: el.dataset.sitekey,
+    });
+
+    el.dataset.initialised = "true";
+  }
+
+  document.addEventListener("astro:page-load", initTurnstile);
+</script>
+
+<style is:global>
   @reference "~/styles/global.css";
 
   input,
