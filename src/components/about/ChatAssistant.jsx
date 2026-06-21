@@ -9,7 +9,7 @@ export default function ChatIsland() {
 
   const sendMessage = async () => {
     if (!input.trim()) return;
-    const userMessage = { role: "user", content: input };
+    const userMessage = { role: "user", content: DOMPurify.sanitize(marked.parse(input)) };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setLoading(true);
@@ -32,14 +32,16 @@ export default function ChatIsland() {
           const copy = [...prev];
           copy[copy.length - 1] = {
             role: "ai",
-            content: streamed,
-            markdown: DOMPurify.sanitize(marked.parse(streamed)),
+            content: DOMPurify.sanitize(marked.parse(streamed)),
           };
           return copy;
         });
       });
     } catch (err) {
-      setMessages((prev) => [...prev, { role: "ai", content: "Error: could not reach API" }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "ai", content: marked.parse("**Error:** could not reach API") },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -80,7 +82,7 @@ export default function ChatIsland() {
                 : "border border-white bg-black text-white",
             ].join(" ")}
             dangerouslySetInnerHTML={{
-              __html: msg.markdown,
+              __html: msg.content,
             }}
           ></div>
         ))}
