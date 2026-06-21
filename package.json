@@ -25,6 +25,7 @@
     "astro-icon": "^1.1.5",
     "astro-robots-txt": "^1.0.0",
     "lite-youtube-embed": "^0.3.4",
+    "marked": "^18.0.5",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "slugify": "^1.6.9",

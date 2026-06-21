@@ -1,4 +1,6 @@
+import { marked } from "marked";
 import { useState } from "react";
+import DOMPurify from "dompurify";
 
 export default function ChatIsland() {
   const [messages, setMessages] = useState([]);
@@ -19,13 +21,42 @@ export default function ChatIsland() {
         body: JSON.stringify({ prompt: input }),
       });
       const data = await res.json();
-      const aiMessage = { role: "ai", content: data.answer };
-      setMessages((prev) => [...prev, aiMessage]);
+      setMessages((prev) => [...prev, { role: "ai", content: "" }]);
+
+      let streamed = "";
+
+      typeMessage(data.answer, (partial) => {
+        streamed = partial;
+
+        setMessages((prev) => {
+          const copy = [...prev];
+          copy[copy.length - 1] = {
+            role: "ai",
+            content: streamed,
+            markdown: DOMPurify.sanitize(marked.parse(streamed)),
+          };
+          return copy;
+        });
+      });
     } catch (err) {
       setMessages((prev) => [...prev, { role: "ai", content: "Error: could not reach API" }]);
     } finally {
       setLoading(false);
     }
+  };
+
+  const typeMessage = (fullText, onUpdate, speed = 10) => {
+    let i = 0;
+
+    const interval = setInterval(() => {
+      i++;
+
+      onUpdate(fullText.slice(0, i));
+
+      if (i >= fullText.length) {
+        clearInterval(interval);
+      }
+    }, speed);
   };
 
   const handleKeyDown = (e) => {
@@ -48,24 +79,25 @@ export default function ChatIsland() {
                 ? "border bg-white text-black"
                 : "border border-white bg-black text-white",
             ].join(" ")}
-          >
-            {msg.content}
-          </div>
+            dangerouslySetInnerHTML={{
+              __html: msg.markdown,
+            }}
+          ></div>
         ))}
-        {loading && <div className="self-start">…AI is typing…</div>}
+        {loading && <div className="self-start">AI is typing...</div>}
       </div>
 
       <div class="relative">
         <textarea
           className="min-h-20 w-full border p-2 dark:border-white"
-          placeholder="Type your message…"
+          placeholder="Enter a message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
         />
         <button
           onClick={sendMessage}
-          className="absolute right-2 bottom-2 cursor-pointer bg-black p-4 leading-0 text-white dark:bg-white dark:text-black"
+          className="absolute right-4 bottom-4 cursor-pointer bg-black p-4 leading-0 text-white dark:bg-white dark:text-black"
           disabled={loading}
         >
           Send
