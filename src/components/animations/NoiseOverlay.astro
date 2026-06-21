@@ -20,13 +20,17 @@
 </div>
 
 <script>
-  const turbulence = document.getElementById("fractal-noise");
-  if (!turbulence) return;
+  function initFractalNoise() {
+    const turbulence = document.getElementById("fractal-noise");
+    if (!turbulence) return;
 
-  let seed = 1;
+    let seed = 1;
 
-  setInterval(() => {
-    seed++;
-    turbulence.setAttribute("seed", String(seed));
-  }, 120);
+    setInterval(() => {
+      seed++;
+      turbulence.setAttribute("seed", String(seed));
+    }, 120);
+  }
+
+  document.addEventListener("astro:page-load", initFractalNoise);
 </script>
