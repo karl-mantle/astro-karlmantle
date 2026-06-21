@@ -10,7 +10,9 @@ type Terms = {
 
 export const getPosts = async (max?: number) => {
   return (await getCollection("posts"))
-    .filter((entry) => !entry.data.draft)
+    .filter((entry) =>
+      import.meta.env.PUBLIC_SITE_ENV === "production" ? !entry.data.draft : true,
+    )
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, max);
 };

@@ -21,20 +21,26 @@ const { description, page, title } = Astro.props;
     <p class="lowercase">{description}</p>
   </header>
 
-  <ol class="mb-4 grid gap-4 sm:mb-8 sm:gap-8" aria-label="posts, most recent first">
-    {
-      page.data.map((post) => (
-        <Card
-          date={post.data.pubDate}
-          description={post.data.description}
-          heading={post.data.title}
-          href={`${siteConfig.url}${collectionsConfig.permalink_posts_entry}${post.data.slug}`}
-          image={post.data.image}
-          loading="eager"
-        />
-      ))
-    }
-  </ol>
+  {
+    page.data.length > 0 ? (
+      <>
+        <ol class="mb-4 grid gap-4 sm:mb-8 sm:gap-8" aria-label="posts, most recent first">
+          {page.data.map((post) => (
+            <Card
+              date={post.data.pubDate}
+              description={post.data.description}
+              heading={post.data.title}
+              href={`${siteConfig.url}${collectionsConfig.permalink_posts_entry}${post.data.slug}`}
+              image={post.data.image}
+              loading="eager"
+            />
+          ))}
+        </ol>
 
-  <Pagination page={page} />
+        <Pagination page={page} />
+      </>
+    ) : (
+      <p>Nothing here yet! Check back soon.</p>
+    )
+  }
 </section>

@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Tailwind CSS Typography"
 description: "What follows from here is just a bunch of absolute nonsense I've written to dogfood the plugin itself."
 pubDate: "2025-09-10T12:40:00.000Z"

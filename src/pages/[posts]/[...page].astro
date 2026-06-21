@@ -23,15 +23,19 @@ const { page } = Astro.props;
 
 <Base
   type="collectionPage"
-  title=`All posts page ${page.currentPage}`
-  description=`Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.
+  title={page.data.length > 0 ? `All posts ~ Page ${page.currentPage}` : "All posts"}
+  description={page.data.length > 0
+    ? `Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.
 `
+    : "There are currently no posts to show."}
   page={page}
 >
   <Listing
     title="Viewing all posts"
-    description=`Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.
+    description={page.data.length > 0
+      ? `Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.
 `
+      : "There are currently no posts to show"}
     page={page}
   />
 </Base>

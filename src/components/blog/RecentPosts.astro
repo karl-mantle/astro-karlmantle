@@ -15,13 +15,19 @@ const entries = await getPosts(max);
 
 <ol class="grid grid-cols-1 gap-4">
   {
-    entries.map((entry) => (
-      <Card
-        date={entry.data.pubDate}
-        description={entry.data.description}
-        heading={entry.data.title}
-        href={`${siteConfig.url}${collectionsConfig.permalink_posts_entry}${entry.data.slug}`}
-      />
-    ))
+    entries.length > 0 ? (
+      <>
+        {entries.map((entry) => (
+          <Card
+            date={entry.data.pubDate}
+            description={entry.data.description}
+            heading={entry.data.title}
+            href={`${siteConfig.url}${collectionsConfig.permalink_posts_entry}${entry.data.slug}`}
+          />
+        ))}
+      </>
+    ) : (
+      <p>Nothing here yet! Check back soon.</p>
+    )
   }
 </ol>

@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Markdown post example 4"
 description: "Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem."
 pubDate: "2025-04-27T12:02:33.000Z"

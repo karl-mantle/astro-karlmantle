@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Markdown post example 2"
 description: "Lorem ipsum dolor sit amet, integer quis auctor elit sed vulputate mi."
 slug: "this-isnt-the-slug-youre-looking-for"

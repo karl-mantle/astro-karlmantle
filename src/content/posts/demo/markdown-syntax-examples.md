@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Markdown syntax examples"
 description: "Examples of basic Markdown syntax that can be used when writing content."
 pubDate: "2025-08-30T06:21:02.000Z"
