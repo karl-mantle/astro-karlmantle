@@ -3,7 +3,14 @@ import Base from "~/layouts/Base.astro";
 import RecentPosts from "~/components/blog/RecentPosts.astro";
 ---
 
-<Base type="webpage" title="Index" description="Index">
+<Base
+  type="webpage"
+  title="Index"
+  description="Index"
+  pageOptions={{
+    showHomeText: true,
+  }}
+>
   <h1 class="sr-only">index</h1>
 
   <section class="mt-8 flex flex-col gap-4 sm:mt-16">
