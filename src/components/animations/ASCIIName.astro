@@ -30,7 +30,7 @@ const ascii = `▓█   ██▓    ▄▄▄       ██▀███   ██
 <script>
   import { initHomeAsciiGlitch } from "~/scripts/animations/asciiName";
 
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("astro:page-load", () => {
     setTimeout(() => {
       initHomeAsciiGlitch();
     }, 200);

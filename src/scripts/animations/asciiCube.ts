@@ -57,6 +57,10 @@ class ASCIICube {
 
   /** Run the animation loop. */
   animate(): void {
+    if (!this.outputEl?.isConnected) {
+      return;
+    }
+
     const { speed } = this.renderState;
     const fullCircle = 2 * Math.PI;
     const fraction = fullCircle / 120;

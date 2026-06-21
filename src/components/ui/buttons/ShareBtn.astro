@@ -50,5 +50,5 @@ const { description = "No description provided.", title } = Astro.props;
     });
   }
 
-  document.addEventListener("DOMContentLoaded", initShareBtn);
+  document.addEventListener("astro:page-load", initShareBtn);
 </script>

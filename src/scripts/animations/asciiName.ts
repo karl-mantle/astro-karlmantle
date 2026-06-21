@@ -66,17 +66,31 @@ export function initHomeAsciiGlitch(): void {
   let lastGlitchFrame = "";
 
   const schedule = () => {
-    if (document.visibilityState !== "visible") {
-      console.log("ASCII glitch animation: Document not visible, skipping scheduling.");
-      return;
-    }
-
     window.clearTimeout(idleTimeoutId);
     const nextDelay =
       followupBudget > 0 && maybe(0.58)
         ? randomBetween(config.minIntervalMs * 0.18, config.minIntervalMs * 0.55)
         : chooseWeightedDelays(config.minIntervalMs, config.maxIntervalMs);
     idleTimeoutId = window.setTimeout(trigger, nextDelay);
+  };
+
+  const visibilityHandler = () => {
+    if (document.visibilityState === "visible") {
+      schedule();
+    } else {
+      reset();
+    }
+  };
+
+  const cleanup = () => {
+    window.clearTimeout(idleTimeoutId);
+    window.clearTimeout(frameTimeoutId);
+
+    idleTimeoutId = 0;
+    frameTimeoutId = 0;
+
+    document.removeEventListener("visibilitychange", visibilityHandler);
+    document.removeEventListener("astro:before-swap", cleanup);
   };
 
   const runBurstFrame = (remainingFrames: number) => {
@@ -186,18 +200,8 @@ export function initHomeAsciiGlitch(): void {
 
   schedule();
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") {
-      schedule();
-      return;
-    }
-
-    reset();
-  });
-  window.addEventListener("beforeunload", () => {
-    window.clearTimeout(idleTimeoutId);
-    window.clearTimeout(frameTimeoutId);
-  });
+  document.addEventListener("visibilitychange", visibilityHandler);
+  document.addEventListener("astro:before-swap", cleanup);
 }
 
 function sampleGlitchCharacter(source: string): string {

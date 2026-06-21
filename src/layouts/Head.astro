@@ -1,6 +1,7 @@
 ---
 import type { DataEntryMap } from "astro:content";
 import { getImage } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
 import { siteConfig } from "~/site.config";
 import "~/styles/global.css";
 import opengraphImageSrc from "public/opengraph.webp";
@@ -44,6 +45,9 @@ const metadata = {
   <meta property="twitter:title" content={metadata.title} />
   <meta property="twitter:description" content={metadata.description} />
   <meta property="twitter:image" content={metadata.image.src} />
+
+  {/* view transitions */}
+  <ClientRouter />
 
   <slot />
 
