@@ -1,26 +1,7 @@
-/* move to another file */
-type Environment = keyof typeof mapEnvDomain;
-
-const getEnv = process.env.ASTRO_ENV ?? "dev";
-const mapEnvDomain = {
-  dev: {
-    site: "http://localhost:4321/",
-  },
-  ci: {
-    site: "http://localhost:4321/",
-  },
-  staging: {
-    site: "https://karlmantle-staging.netlify.app/",
-  },
-  prod: {
-    site: "https://www.karlmantle.com/",
-  },
-};
-const domain = mapEnvDomain[getEnv as Environment].site;
-/* end move to another file */
+import { getSiteUrl } from "~/scripts/domain";
 
 export const siteConfig = {
-  url: domain,
+  url: getSiteUrl(),
   name: "Karl Mantle",
   short_name: "karlmantle.com",
   title_separator: "~",
@@ -39,6 +20,21 @@ export const siteConfig = {
   language: "en-GB",
   date_format: "j F Y",
   footer_text: "Last updated: 15th June 2026",
+};
+
+export const domainConfig = {
+  development: {
+    site: "http://localhost:4321/",
+  },
+  ci: {
+    site: "http://localhost:4321/",
+  },
+  staging: {
+    site: "https://karlmantle-staging.netlify.app/",
+  },
+  produdction: {
+    site: "https://www.karlmantle.com/",
+  },
 };
 
 export const measurementConfig = {
