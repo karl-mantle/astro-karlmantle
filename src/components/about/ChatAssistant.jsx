@@ -75,7 +75,7 @@ export default function ChatIsland() {
           <div
             key={i}
             className={[
-              "max-w-3/4 p-1",
+              "max-w-3/4 p-2",
               msg.role === "user" ? "self-end" : "self-start",
               msg.role === "user"
                 ? "border bg-white text-black"
@@ -89,7 +89,7 @@ export default function ChatIsland() {
         {loading && <div className="self-start">AI is typing...</div>}
       </div>
 
-      <div class="relative">
+      <div className="relative">
         <textarea
           className="min-h-20 w-full border p-2 dark:border-white"
           placeholder="Enter a message..."

@@ -3,10 +3,16 @@ import Base from "~/layouts/Base.astro";
 import ChatAssistant from "~/components/about/ChatAssistant.jsx";
 ---
 
-<Base type="webpage" title="About" description="About page">
-  <section class="mt-8 flex flex-col gap-4 sm:mt-16">
-    <h1 class="text-2xl font-bold lowercase">About me</h1>
-    <p class="lowercase sm:mb-4">Ask my AI assistant anything you'd like to know.</p>
+<Base
+  type="webpage"
+  title="About me"
+  description="AI-powered about page. Ask the assistant to learn about me, projects and this site."
+>
+  <section class="mt-8 flex flex-col gap-4 lowercase sm:mt-16">
+    <h1 class="text-2xl font-bold">About me</h1>
+    <p class="sm:mb-4">
+      Want to know more about me or my work? Ask the assistant to find out more.
+    </p>
     <ChatAssistant client:load />
   </section>
 </Base>

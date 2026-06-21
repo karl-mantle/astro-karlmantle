@@ -1,6 +1,7 @@
 ---
 import Base from "~/layouts/Base.astro";
 import RecentPosts from "~/components/blog/RecentPosts.astro";
+import { siteConfig } from "~/site.config";
 ---
 
 <Base
@@ -13,7 +14,7 @@ import RecentPosts from "~/components/blog/RecentPosts.astro";
 >
   <h1 class="sr-only">index</h1>
 
-  <section class="mt-8 flex flex-col gap-4 sm:mt-16">
+  <section class="mt-8 flex flex-col gap-4 lowercase sm:mt-16">
     <h2 class="text-xl font-bold lowercase">tl;dr</h2>
 
     <ul class="ml-2">
@@ -41,10 +42,12 @@ import RecentPosts from "~/components/blog/RecentPosts.astro";
 
     <p>
       If you'd like to know more check out my <a
-        href="/blog"
+        href={`${siteConfig.url}blog`}
         class="underline hover:bg-pink-200 hover:text-black hover:decoration-0">blog</a
       > or
-      <a href="/about" class="underline hover:bg-pink-200 hover:text-black hover:decoration-0"
+      <a
+        href={`${siteConfig.url}about`}
+        class="underline hover:bg-pink-200 hover:text-black hover:decoration-0"
         >ask my AI assistant</a
       >.
     </p>

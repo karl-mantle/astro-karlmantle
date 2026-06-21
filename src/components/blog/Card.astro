@@ -21,8 +21,11 @@ const { date, description, heading, href, image, loading } = Astro.props;
 ---
 
 <li>
-  <a class="group/card flex grow flex-col-reverse gap-4 sm:flex-row" href={href}>
-    <span aria-hidden="true" class="hidden sm:block">&gt;&gt;</span>
+  <a
+    class:list={["group/card flex grow gap-2 sm:gap-4", image && "flex-col-reverse sm:flex-row"]}
+    href={href}
+  >
+    <span aria-hidden="true" class={image && "hidden sm:block"}>&gt;&gt;</span>
 
     <div class="flex grow flex-col gap-2 text-sm">
       <h2 class="text-bold text-lg group-hover/card:underline">
