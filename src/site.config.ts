@@ -1,7 +1,22 @@
-import { getSiteUrl } from "~/scripts/domain";
+import { getSiteUrl } from "./scripts/domain";
+
+export const domainConfig = {
+  development: {
+    site: "http://localhost:4321/",
+  },
+  ci: {
+    site: "http://localhost:4321/",
+  },
+  staging: {
+    site: "https://karlmantle-staging.netlify.app/",
+  },
+  production: {
+    site: "https://www.karlmantle.com/",
+  },
+};
 
 export const siteConfig = {
-  url: getSiteUrl(),
+  url: getSiteUrl(domainConfig),
   name: "Karl Mantle",
   short_name: "karlmantle.com",
   title_separator: "~",
@@ -20,21 +35,6 @@ export const siteConfig = {
   language: "en-GB",
   date_format: "j F Y",
   footer_text: "Last updated: 15th June 2026",
-};
-
-export const domainConfig = {
-  development: {
-    site: "http://localhost:4321/",
-  },
-  ci: {
-    site: "http://localhost:4321/",
-  },
-  staging: {
-    site: "https://karlmantle-staging.netlify.app/",
-  },
-  produdction: {
-    site: "https://www.karlmantle.com/",
-  },
 };
 
 export const measurementConfig = {

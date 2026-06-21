@@ -1,11 +1,17 @@
-import { domainConfig } from "~/site.config";
+type DomainConfig = {
+  [key: string]: {
+    site: string;
+  };
+};
 
-type Environment = keyof typeof domainConfig;
+export function getSiteUrl(config: DomainConfig) {
+  type Environment = keyof typeof config;
 
-export function getSiteUrl() {
-  const currentEnv = process.env.PUBLIC_SITE_ENV ?? "dev";
+  const env = import.meta.env.PUBLIC_SITE_ENV;
 
-  const domain = domainConfig[currentEnv as Environment].site;
+  if (env && env in config) {
+    return config[env as Environment].site;
+  }
 
-  return domain;
+  return config.development.site;
 }
