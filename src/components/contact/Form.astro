@@ -74,8 +74,10 @@ const { siteKey = "0x4AAAAAADn4XAqG6smz2nm3" } = Astro.props;
 <style is:global>
   @reference "~/styles/global.css";
 
-  input,
-  textarea {
-    @apply border p-2 dark:border-white;
+  @layer base {
+    input,
+    textarea {
+      @apply border border-white p-2;
+    }
   }
 </style>

@@ -41,7 +41,7 @@ const schema = createSchema(type, url, title, description, entry, page);
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
   </Head>
 
-  <body class="relative min-h-screen bg-white font-mono text-black dark:bg-black dark:text-white">
+  <body class="relative min-h-screen bg-black font-mono text-white">
     <MeasurementBodyStart />
     <SkipToMain />
     <Header showHomeText={pageOptions.showHomeText} />

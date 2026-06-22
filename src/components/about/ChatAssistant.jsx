@@ -70,7 +70,7 @@ export default function ChatIsland() {
 
   return (
     <div className="flex w-full flex-col gap-4">
-      <div className="flex h-80 flex-col gap-2 overflow-y-auto border p-2 dark:border-white">
+      <div className="flex h-80 flex-col gap-2 overflow-y-auto border border-white p-2">
         {messages.map((msg, i) => (
           <div
             key={i}
@@ -91,7 +91,7 @@ export default function ChatIsland() {
 
       <div className="relative">
         <textarea
-          className="min-h-20 w-full border p-2 dark:border-white"
+          className="min-h-20 w-full border border-white p-2"
           placeholder="Enter a message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -99,7 +99,7 @@ export default function ChatIsland() {
         />
         <button
           onClick={sendMessage}
-          className="absolute right-4 bottom-4 cursor-pointer bg-black p-4 leading-0 text-white dark:bg-white dark:text-black"
+          className="absolute right-4 bottom-4 cursor-pointer bg-white p-4 leading-0 text-black"
           disabled={loading}
         >
           Send
