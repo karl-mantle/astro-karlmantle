@@ -5,7 +5,9 @@ import HeaderNavigation from "~/components/common/HeaderNavigation.astro";
 ---
 
 <header id="site-header" class="relative mx-auto flex max-w-xl flex-col gap-4 px-4 md:gap-8">
-  <ASCIICube />
-  <span class="sr-only">{siteConfig.name}</span>
+  <a href={siteConfig.url}>
+    <ASCIICube />
+    <span class="sr-only">{siteConfig.name}</span>
+  </a>
   <HeaderNavigation />
 </header>
