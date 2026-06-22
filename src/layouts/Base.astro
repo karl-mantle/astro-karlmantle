@@ -16,19 +16,9 @@ type Props = {
   description: string;
   entry?: DataEntryMap[keyof DataEntryMap][string];
   page?: Page;
-  pageOptions?: {
-    showHomeText?: boolean;
-  };
 };
 
-const {
-  type,
-  title,
-  description,
-  entry,
-  page,
-  pageOptions = { showHomeText: false },
-} = Astro.props;
+const { type, title, description, entry, page } = Astro.props;
 
 const url = new URL(Astro.url.pathname, Astro.site);
 
@@ -44,7 +34,7 @@ const schema = createSchema(type, url, title, description, entry, page);
   <body class="relative min-h-screen bg-black font-mono text-white">
     <MeasurementBodyStart />
     <SkipToMain />
-    <Header showHomeText={pageOptions.showHomeText} />
+    <Header />
     <main id="main" class="mx-auto max-w-xl px-4">
       <slot />
     </main>

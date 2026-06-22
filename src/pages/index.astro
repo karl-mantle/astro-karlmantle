@@ -1,5 +1,6 @@
 ---
 import Base from "~/layouts/Base.astro";
+import ASCIIName from "~/components/animations/ASCIIName.astro";
 import RecentPosts from "~/components/blog/RecentPosts.astro";
 import { siteConfig } from "~/site.config";
 ---
@@ -7,14 +8,11 @@ import { siteConfig } from "~/site.config";
 <Base
   type="webpage"
   title="Index"
-  description="Index"
-  pageOptions={{
-    showHomeText: true,
-  }}
+  description="The index of karlmantle.com. Home to projects, tools, notes and experiments from Karl Mantle."
 >
-  <h1 class="sr-only">index</h1>
+  <ASCIIName title="Index of karlmantle.com" class="mt-8 sm:mt-16" />
 
-  <section class="mt-8 flex flex-col gap-4 lowercase sm:mt-16">
+  <section class="mt-8 flex flex-col gap-4 lowercase">
     <h2 class="text-xl font-bold lowercase">tl;dr</h2>
 
     <ul class="ml-2">

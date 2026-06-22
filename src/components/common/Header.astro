@@ -1,22 +1,11 @@
 ---
-import type { HTMLAttributes } from "astro/types";
 import { siteConfig } from "~/site.config";
 import ASCIICube from "~/components/animations/ASCIICube.astro";
-import ASCIIName from "~/components/animations/ASCIIName.astro";
 import HeaderNavigation from "~/components/common/HeaderNavigation.astro";
-
-type Props = HTMLAttributes<"header"> & {
-  showHomeText?: boolean;
-};
-
-const { showHomeText } = Astro.props;
 ---
 
-<header id="site-header" class="mx-auto flex max-w-xl flex-col gap-4 px-4 md:gap-8">
-  <div class="relative flex flex-col gap-4">
-    <ASCIICube />
-    {showHomeText && <ASCIIName />}
-    <span class="sr-only">{siteConfig.name}</span>
-  </div>
+<header id="site-header" class="relative mx-auto flex max-w-xl flex-col gap-4 px-4 md:gap-8">
+  <ASCIICube />
+  <span class="sr-only">{siteConfig.name}</span>
   <HeaderNavigation />
 </header>

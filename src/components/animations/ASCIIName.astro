@@ -1,4 +1,12 @@
 ---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"section"> & {
+  title: string;
+};
+
+const { title, class: className } = Astro.props;
+
 const ascii = `▓█   ██▓    ▄▄▄       ██▀███   ██▓       ███▄ ▄███▓
 ▓█  ██▒    ▒████▄    ▓██ ▒ ██▒▓██▒      ▓██▒▀█▀ ██▒
 ▒█████░    ▒██  ▀█▄  ▓██ ░▄█ ▒▒██░      ▓██    ▓██░
@@ -11,20 +19,24 @@ const ascii = `▓█   ██▓    ▄▄▄       ██▀███   ██
 ---
 
 <section
-  id="header-ascii-wrapper"
-  class="relative flex flex-col items-center overflow-hidden before:absolute before:opacity-0 before:mix-blend-screen before:content-[''] after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:opacity-0 after:blur-sm after:content-['']"
+  id="hero-ascii-wrapper"
+  class:list={[
+    "relative flex flex-col items-center overflow-hidden before:absolute before:opacity-0 before:mix-blend-screen before:content-[''] after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:opacity-0 after:blur-sm after:content-['']",
+    className,
+  ]}
 >
   <pre
-    id="header-ascii"
+    id="hero-ascii"
     class="z-1 text-[11px] sm:text-lg"
     data-ascii-text={ascii}
     set:html={ascii}
   />
   <pre
-    id="header-ascii-glitch"
+    id="hero-ascii-glitch"
     class="ascii-glitch absolute inset-0 z-2 text-[11px] text-pink-400 opacity-50 sm:text-lg"
     aria-hidden="true">
   </pre>
+  <h1 class="sr-only">{title}</h1>
 </section>
 
 <script>
@@ -38,25 +50,25 @@ const ascii = `▓█   ██▓    ▄▄▄       ██▀███   ██
 </script>
 
 <style>
-  .header-ascii-wrapper::before {
+  .hero-ascii-wrapper::before {
     top: var(--ascii-scan-top, 0);
     left: var(--ascii-scan-left, 0);
     width: var(--ascii-scan-width, 0);
     height: var(--ascii-scan-height, 0);
   }
 
-  .header-ascii-wrapper::after {
+  .hero-ascii-wrapper::after {
     top: var(--ascii-bloom-y, 50%);
     left: var(--ascii-bloom-x, 50%);
     width: calc(var(--text-cell) * 7);
     height: calc(var(--text-size) * 2);
   }
 
-  .header-ascii-wrapper.is-glitching::before {
+  .hero-ascii-wrapper.is-glitching::before {
     opacity: var(--ascii-scan-opacity, 0.6);
   }
 
-  .header-ascii-wrapper.is-glitching::after {
+  .hero-ascii-wrapper.is-glitching::after {
     opacity: var(--ascii-bloom-opacity, 0.03);
   }
 
@@ -71,7 +83,7 @@ const ascii = `▓█   ██▓    ▄▄▄       ██▀███   ██
     );
   }
 
-  .header-ascii-wrapper.is-glitching .ascii-glitch {
+  .hero-ascii-wrapper.is-glitching .ascii-glitch {
     opacity: var(--ascii-glitch-opacity, 0.72);
   }
 </style>

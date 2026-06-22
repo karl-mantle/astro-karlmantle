@@ -38,12 +38,12 @@ export function initHomeAsciiGlitch(): void {
     return;
   }
 
-  const header = document.getElementById("header-ascii-wrapper");
-  const base = document.getElementById("header-ascii");
-  const glitch = document.getElementById("header-ascii-glitch");
+  const hero = document.getElementById("hero-ascii-wrapper");
+  const base = document.getElementById("hero-ascii");
+  const glitch = document.getElementById("hero-ascii-glitch");
 
   if (
-    !(header instanceof HTMLElement) ||
+    !(hero instanceof HTMLElement) ||
     !(base instanceof HTMLElement) ||
     !(glitch instanceof HTMLElement)
   ) {
@@ -122,8 +122,8 @@ export function initHomeAsciiGlitch(): void {
     );
     lastGlitchFrame = createGlitchFrame(source, mutationRatio, config.lineShiftChance, zones);
     glitch.textContent = lastGlitchFrame;
-    applyGlitchVisualState(header);
-    header.classList.add("is-glitching");
+    applyGlitchVisualState(hero);
+    hero.classList.add("is-glitching");
     frameTimeoutId = window.setTimeout(
       () => runBurstFrame(remainingFrames - 1),
       randomBetween(config.frameMinMs, config.frameMaxMs),
@@ -162,8 +162,8 @@ export function initHomeAsciiGlitch(): void {
       lingeringZones,
     );
     glitch.textContent = ghostFrame;
-    applyGlitchDecayVisualState(header, remainingFrames);
-    header.classList.add("is-glitching");
+    applyGlitchDecayVisualState(hero, remainingFrames);
+    hero.classList.add("is-glitching");
 
     frameTimeoutId = window.setTimeout(
       () => runDecayFrame(remainingFrames - 1, ghostFrame),
@@ -175,10 +175,10 @@ export function initHomeAsciiGlitch(): void {
     burstActive = false;
     frameTimeoutId = 0;
     lastGlitchFrame = "";
-    header.classList.remove("is-glitching");
+    hero.classList.remove("is-glitching");
     base.textContent = source;
     glitch.textContent = "";
-    clearGlitchVisualState(header);
+    clearGlitchVisualState(hero);
     if (followupBudget > 0) {
       followupBudget -= 1;
     }
@@ -192,10 +192,10 @@ export function initHomeAsciiGlitch(): void {
     frameTimeoutId = 0;
     burstActive = false;
     lastGlitchFrame = "";
-    header.classList.remove("is-glitching");
+    hero.classList.remove("is-glitching");
     base.textContent = source;
     glitch.textContent = "";
-    clearGlitchVisualState(header);
+    clearGlitchVisualState(hero);
   };
 
   schedule();
@@ -536,41 +536,41 @@ function blankLine(line: string): string {
   return " ".repeat(line.length);
 }
 
-function applyGlitchVisualState(header: HTMLElement): void {
+function applyGlitchVisualState(hero: HTMLElement): void {
   const scanLeft = randomBetween(0, 42);
   const scanWidth = randomBetween(8, 100 - scanLeft);
-  header.style.setProperty("--ascii-scan-top", `${randomBetween(3, 82)}%`);
-  header.style.setProperty("--ascii-scan-height", `${randomBetween(5, 38)}%`);
-  header.style.setProperty("--ascii-scan-left", `${scanLeft.toFixed(2)}%`);
-  header.style.setProperty("--ascii-scan-width", `${scanWidth.toFixed(2)}%`);
-  header.style.setProperty("--ascii-scan-opacity", randomBetween(0.35, 0.98).toFixed(2));
-  header.style.setProperty("--ascii-glitch-opacity", randomBetween(0.4, 1).toFixed(2));
-  header.style.setProperty("--ascii-glitch-shift-x", `${randomInt(-12, 12)}px`);
-  header.style.setProperty("--ascii-glitch-shift-y", `${randomInt(-4, 4)}px`);
-  header.style.setProperty("--ascii-glitch-shadow-a", `${randomInt(1, 8)}px`);
-  header.style.setProperty("--ascii-glitch-shadow-b", `${randomInt(-8, -1)}px`);
-  header.style.setProperty("--ascii-glitch-clip-top", `${randomBetween(0, 70).toFixed(2)}%`);
-  header.style.setProperty("--ascii-glitch-clip-right", `${randomBetween(0, 58).toFixed(2)}%`);
-  header.style.setProperty("--ascii-glitch-clip-bottom", `${randomBetween(0, 42).toFixed(2)}%`);
-  header.style.setProperty("--ascii-glitch-clip-left", `${randomBetween(0, 58).toFixed(2)}%`);
-  header.style.setProperty("--ascii-bloom-x", `${randomBetween(8, 92).toFixed(2)}%`);
-  header.style.setProperty("--ascii-bloom-y", `${randomBetween(8, 92).toFixed(2)}%`);
-  header.style.setProperty("--ascii-bloom-opacity", randomBetween(0.01, 0.05).toFixed(2));
+  hero.style.setProperty("--ascii-scan-top", `${randomBetween(3, 82)}%`);
+  hero.style.setProperty("--ascii-scan-height", `${randomBetween(5, 38)}%`);
+  hero.style.setProperty("--ascii-scan-left", `${scanLeft.toFixed(2)}%`);
+  hero.style.setProperty("--ascii-scan-width", `${scanWidth.toFixed(2)}%`);
+  hero.style.setProperty("--ascii-scan-opacity", randomBetween(0.35, 0.98).toFixed(2));
+  hero.style.setProperty("--ascii-glitch-opacity", randomBetween(0.4, 1).toFixed(2));
+  hero.style.setProperty("--ascii-glitch-shift-x", `${randomInt(-12, 12)}px`);
+  hero.style.setProperty("--ascii-glitch-shift-y", `${randomInt(-4, 4)}px`);
+  hero.style.setProperty("--ascii-glitch-shadow-a", `${randomInt(1, 8)}px`);
+  hero.style.setProperty("--ascii-glitch-shadow-b", `${randomInt(-8, -1)}px`);
+  hero.style.setProperty("--ascii-glitch-clip-top", `${randomBetween(0, 70).toFixed(2)}%`);
+  hero.style.setProperty("--ascii-glitch-clip-right", `${randomBetween(0, 58).toFixed(2)}%`);
+  hero.style.setProperty("--ascii-glitch-clip-bottom", `${randomBetween(0, 42).toFixed(2)}%`);
+  hero.style.setProperty("--ascii-glitch-clip-left", `${randomBetween(0, 58).toFixed(2)}%`);
+  hero.style.setProperty("--ascii-bloom-x", `${randomBetween(8, 92).toFixed(2)}%`);
+  hero.style.setProperty("--ascii-bloom-y", `${randomBetween(8, 92).toFixed(2)}%`);
+  hero.style.setProperty("--ascii-bloom-opacity", randomBetween(0.01, 0.05).toFixed(2));
 }
 
-function applyGlitchDecayVisualState(header: HTMLElement, remainingFrames: number): void {
-  applyGlitchVisualState(header);
+function applyGlitchDecayVisualState(hero: HTMLElement, remainingFrames: number): void {
+  applyGlitchVisualState(hero);
   const fade = Math.min(1, Math.max(0.12, remainingFrames / 5));
-  header.style.setProperty("--ascii-scan-opacity", randomBetween(0.08, 0.26 * fade).toFixed(2));
-  header.style.setProperty("--ascii-glitch-opacity", randomBetween(0.1, 0.46 * fade).toFixed(2));
-  header.style.setProperty("--ascii-bloom-opacity", "0");
-  header.style.setProperty("--ascii-glitch-shift-x", `${randomInt(-5, 5)}px`);
-  header.style.setProperty("--ascii-glitch-shift-y", `${randomInt(-2, 2)}px`);
-  header.style.setProperty("--ascii-glitch-shadow-a", `${randomInt(1, 3)}px`);
-  header.style.setProperty("--ascii-glitch-shadow-b", `${randomInt(-3, -1)}px`);
+  hero.style.setProperty("--ascii-scan-opacity", randomBetween(0.08, 0.26 * fade).toFixed(2));
+  hero.style.setProperty("--ascii-glitch-opacity", randomBetween(0.1, 0.46 * fade).toFixed(2));
+  hero.style.setProperty("--ascii-bloom-opacity", "0");
+  hero.style.setProperty("--ascii-glitch-shift-x", `${randomInt(-5, 5)}px`);
+  hero.style.setProperty("--ascii-glitch-shift-y", `${randomInt(-2, 2)}px`);
+  hero.style.setProperty("--ascii-glitch-shadow-a", `${randomInt(1, 3)}px`);
+  hero.style.setProperty("--ascii-glitch-shadow-b", `${randomInt(-3, -1)}px`);
 }
 
-function clearGlitchVisualState(header: HTMLElement): void {
+function clearGlitchVisualState(hero: HTMLElement): void {
   [
     "--ascii-scan-top",
     "--ascii-scan-height",
@@ -590,6 +590,6 @@ function clearGlitchVisualState(header: HTMLElement): void {
     "--ascii-bloom-y",
     "--ascii-bloom-opacity",
   ].forEach((property) => {
-    header.style.removeProperty(property);
+    hero.style.removeProperty(property);
   });
 }
