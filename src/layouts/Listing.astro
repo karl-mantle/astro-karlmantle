@@ -36,11 +36,10 @@ const { description, page, title } = Astro.props;
             />
           ))}
         </ol>
-
-        <Pagination page={page} />
       </>
     ) : (
       <p>Nothing here yet! Check back soon.</p>
     )
   }
+  {page.lastPage > 1 && <Pagination page={page} />}
 </section>
