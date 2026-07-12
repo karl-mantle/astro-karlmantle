@@ -35,7 +35,7 @@ const schema = createSchema(type, url, title, description, entry, page);
     <MeasurementBodyStart />
     <SkipToMain />
     <Header />
-    <main id="main" class="mx-auto max-w-xl px-4">
+    <main id="main" class:list={["mx-auto max-w-xl px-4", type === "project" && "max-w-3xl"]}>
       <slot />
     </main>
     <Footer />

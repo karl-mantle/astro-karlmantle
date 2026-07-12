@@ -4,7 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import { collectionsConfig } from "~/site.config";
 import { getPostsTerms, getPostsByTag, getPostsByCategory } from "~/scripts/collections/posts";
 import Base from "~/layouts/Base.astro";
-import Listing from "~/layouts/Listing.astro";
+import BlogListing from "~/layouts/BlogListing.astro";
 
 type Terms = {
   count?: number;
@@ -65,7 +65,7 @@ const { page, term } = Astro.props;
     : `“${term.label}” tag archive page ${page.currentPage}`}
   page={page}
 >
-  <Listing
+  <BlogListing
     title={term.type === "category"
       ? `“${term.label}” category archive page ${page.currentPage}`
       : `“${term.label}” tag archive page ${page.currentPage}`}

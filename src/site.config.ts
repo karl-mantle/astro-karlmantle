@@ -21,7 +21,7 @@ export const siteConfig = {
   short_name: "karlmantle.com",
   title_separator: "~",
   description:
-    "Interested in web development, languages & open source. Project Coordinator @ Itineris, London",
+    "Interested in web development, languages & open source. Project Coordinator @ Itineris, London, UK",
   logo: {
     src: "/logo.webp",
     height: 512,
@@ -38,13 +38,13 @@ export const siteConfig = {
 };
 
 export const measurementConfig = {
-  partytown: false,
+  partytown: true,
   bing_verificaton: "",
   google_ga4_id: "",
   google_gtm_id: "",
   google_verification: "",
-  umami_id: "",
-  umami_source: "",
+  umami_id: "1a690b89-e604-4c8d-868c-fba6d7e1c18a",
+  umami_source: "https://cloud.umami.is/script.js",
 };
 
 export const collectionsConfig = {
@@ -53,6 +53,8 @@ export const collectionsConfig = {
   permalink_posts_entry: "blog/entry/",
   permalink_posts_category: "blog/category/",
   permalink_posts_tag: "blog/tag/",
+  projects_per_page: 8,
+  permalink_projects: "projects",
 };
 
 export const imagesConfig = {

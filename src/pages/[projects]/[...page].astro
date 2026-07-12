@@ -2,19 +2,19 @@
 import type { GetStaticPathsOptions, Page } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { collectionsConfig } from "~/site.config";
-import { getPosts } from "~/scripts/collections/posts";
+import { getProjects } from "~/scripts/collections/projects";
 import Base from "~/layouts/Base.astro";
-import BlogListing from "~/layouts/BlogListing.astro";
+import ProjectsListing from "~/layouts/ProjectsListing.astro";
 
 type Props = {
-  page: Page<CollectionEntry<"posts">>;
+  page: Page<CollectionEntry<"projects">>;
 };
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
-  const posts = await getPosts();
-  return paginate(posts, {
-    params: { posts: collectionsConfig.permalink_posts },
-    pageSize: collectionsConfig.posts_per_page || 9,
+  const projects = await getProjects();
+  return paginate(projects, {
+    params: { projects: collectionsConfig.permalink_projects },
+    pageSize: collectionsConfig.projects_per_page || 8,
   });
 }
 
@@ -30,7 +30,7 @@ const { page } = Astro.props;
     : "There are currently no posts to show."}
   page={page}
 >
-  <BlogListing
+  <ProjectsListing
     title="Viewing all posts"
     description={page.data.length > 0
       ? `Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.
