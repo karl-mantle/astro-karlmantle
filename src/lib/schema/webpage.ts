@@ -1,5 +1,5 @@
 import { siteConfig } from "~/site.config";
-import { cleanUrl, getCommonStructuredData } from "~/scripts/schema/common";
+import { cleanUrl, getCommonStructuredData } from "~/lib/schema/common";
 
 export function createWebpage(url: URL, title: string, description: string) {
   const { ids: commonIds, nodes: commonNodes } = getCommonStructuredData();

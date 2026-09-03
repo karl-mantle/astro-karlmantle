@@ -1,5 +1,5 @@
 import type { Page } from "astro";
-import { cleanUrl, getCommonStructuredData } from "~/scripts/schema/common";
+import { cleanUrl, getCommonStructuredData } from "~/lib/schema/common";
 import { collectionsConfig, siteConfig } from "~/site.config";
 
 export function createCollectionPage(url: URL, title: string, description: string, page?: Page) {

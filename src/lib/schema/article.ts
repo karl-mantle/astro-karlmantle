@@ -1,6 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import { siteConfig } from "~/site.config";
-import { cleanUrl, getCommonStructuredData } from "~/scripts/schema/common";
+import { cleanUrl, getCommonStructuredData } from "~/lib/schema/common";
 
 export function createArticle(
   url: URL,

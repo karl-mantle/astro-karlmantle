@@ -1,5 +1,5 @@
 import { siteConfig } from "~/site.config";
-import { cleanUrl, getCommonStructuredData } from "~/scripts/schema/common";
+import { cleanUrl, getCommonStructuredData } from "~/lib/schema/common";
 
 export function createSearchResultPage(url: URL, title: string) {
   const { ids: commonIds, nodes: commonNodes } = getCommonStructuredData();

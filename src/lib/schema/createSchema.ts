@@ -1,9 +1,9 @@
 import type { Page } from "astro";
 import type { CollectionEntry, DataEntryMap } from "astro:content";
-import { createWebpage } from "~/scripts/schema/webpage";
-import { createCollectionPage } from "~/scripts/schema/collectionPage";
-import { createSearchResultPage } from "~/scripts/schema/searchResultsPage";
-import { createArticle } from "~/scripts/schema/article";
+import { createWebpage } from "~/lib/schema/webpage";
+import { createCollectionPage } from "~/lib/schema/collectionPage";
+import { createSearchResultPage } from "~/lib/schema/searchResultsPage";
+import { createArticle } from "~/lib/schema/article";
 
 export function createSchema(
   type: string,
