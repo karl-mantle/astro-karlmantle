@@ -4,7 +4,7 @@ title: "Markdown post example 1"
 description: "Lorem ipsum dolor sit amet, integer quis auctor elit sed vulputate mi."
 pubDate: "2024-12-20T11:35:03.000Z"
 image:
-  src: "~/images/jpg/arthur-mazi-6148mnVnY-s-unsplash.jpg"
+  src: "~/assets/jpg/arthur-mazi-6148mnVnY-s-unsplash.jpg"
   alt: "Low angle photography of grey high rise building"
 category: "Markdown"
 tags: ["example", "markdown", "image", "first"]

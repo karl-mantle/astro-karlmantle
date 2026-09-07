@@ -6,7 +6,7 @@ pubDate: "2025-05-29T11:35:03.000Z"
 updatedDate: "2025-05-29T17:23:25.000Z"
 author: "lorem-ipsum"
 image:
-  src: "~/images/jpg/arthur-mazi-6148mnVnY-s-unsplash.jpg"
+  src: "~/assets/jpg/arthur-mazi-6148mnVnY-s-unsplash.jpg"
   alt: "Low angle photography of grey high rise building"
 category: "Markdown"
 tags: ["example", "markdown", "fifth", "image", "lorem ipsum"]

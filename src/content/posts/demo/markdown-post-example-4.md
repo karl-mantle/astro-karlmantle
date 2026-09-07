@@ -5,7 +5,7 @@ description: "Eget magna fermentum iaculis eu non diam phasellus vestibulum lore
 pubDate: "2025-04-27T12:02:33.000Z"
 author: "lorem-ipsum"
 image:
-  src: "~/images/jpg/mick-nsenga-50XwniKxiXI-unsplash.jpg"
+  src: "~/assets/jpg/mick-nsenga-50XwniKxiXI-unsplash.jpg"
   alt: "Greyscale photo of glass window"
 category: "Markdown"
 tags: ["example", "mardown", "fourth", "image", "lorem ipsum"]

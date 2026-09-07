@@ -2,20 +2,21 @@
 import type { Page } from "astro";
 import type { HTMLAttributes } from "astro/types";
 import type { CollectionEntry } from "astro:content";
-import Card from "~/components/projects/Card.astro";
+import { siteConfig, collectionsConfig } from "~/site.config";
+import Card from "~/components/collections/posts/Card.astro";
 import Pagination from "~/components/ui/Pagination.astro";
 
 type Props = HTMLAttributes<"section"> & {
   title: string;
   description: string;
-  page: Page<CollectionEntry<"projects">>;
+  page: Page<CollectionEntry<"posts">>;
 };
 
 const { description, page, title } = Astro.props;
 ---
 
 <section class="mt-8 mb-4 flex flex-col gap-4 sm:mt-16 sm:mb-8 sm:gap-8">
-  <header class="mx-auto flex max-w-xl flex-col gap-4 sm:mb-4">
+  <header class="flex flex-col gap-4 sm:mb-4">
     <h1 class="text-2xl font-bold lowercase">{title}</h1>
     <p class="lowercase">{description}</p>
   </header>
@@ -23,16 +24,15 @@ const { description, page, title } = Astro.props;
   {
     page.data.length > 0 ? (
       <>
-        <ol
-          class="mx-auto mb-4 grid gap-4 sm:mb-8 sm:grid-cols-2 sm:gap-8"
-          aria-label="projects, recently updated first"
-        >
-          {page.data.map((project) => (
+        <ol class="mb-4 grid gap-4 sm:mb-8 sm:gap-8" aria-label="posts, most recent first">
+          {page.data.map((post) => (
             <Card
-              description={project.data.description}
-              heading={project.data.title}
-              github={project.data.github}
-              preview={project.data.preview}
+              date={post.data.pubDate}
+              description={post.data.description}
+              heading={post.data.title}
+              href={`${siteConfig.url}${collectionsConfig.permalink_posts_entry}${post.data.slug}`}
+              image={post.data.image}
+              loading="eager"
             />
           ))}
         </ol>

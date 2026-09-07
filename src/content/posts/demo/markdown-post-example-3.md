@@ -4,7 +4,7 @@ title: "Markdown post example 3"
 description: "Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida."
 pubDate: "2025-03-23T12:21:42.000Z"
 image:
-  src: "~/images/jpg/hayden-walker-ihiEd-_4TNY-unsplash.jpg"
+  src: "~/assets/jpg/hayden-walker-ihiEd-_4TNY-unsplash.jpg"
   alt: "Person's right hand near newspaper"
 category: "Markdown"
 tags: ["example", "example", "third", "image"]

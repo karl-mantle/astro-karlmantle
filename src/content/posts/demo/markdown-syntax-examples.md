@@ -4,7 +4,7 @@ title: "Markdown syntax examples"
 description: "Examples of basic Markdown syntax that can be used when writing content."
 pubDate: "2025-08-30T06:21:02.000Z"
 image:
-  src: "~/images/jpg/hayden-walker-ihiEd-_4TNY-unsplash.jpg"
+  src: "~/assets/jpg/hayden-walker-ihiEd-_4TNY-unsplash.jpg"
   alt: "Person's right hand near newspaper"
 category: "Markdown"
 tags: ["markdown", "style guide"]

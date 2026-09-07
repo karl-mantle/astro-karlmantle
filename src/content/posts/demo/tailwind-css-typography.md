@@ -5,7 +5,7 @@ description: "What follows from here is just a bunch of absolute nonsense I've w
 pubDate: "2025-09-10T12:40:00.000Z"
 updatedDate: "2025-09-14T12:42:00.000Z"
 image:
-  src: "~/images/jpg/mick-nsenga-50XwniKxiXI-unsplash.jpg"
+  src: "~/assets/jpg/mick-nsenga-50XwniKxiXI-unsplash.jpg"
   alt: "Greyscale photo of glass window"
 category: "Markdown"
 tags: ["tailwind", "plugin", "typography", "markdown", "style guide"]

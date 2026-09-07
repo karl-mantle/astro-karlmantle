@@ -4,7 +4,7 @@ import type { CollectionEntry } from "astro:content";
 import { collectionsConfig } from "~/site.config";
 import { getPosts } from "~/lib/collections/posts";
 import Base from "~/layouts/Base.astro";
-import BlogListing from "~/layouts/BlogListing.astro";
+import PostsArchive from "~/layouts/PostsArchive.astro";
 
 type Props = {
   page: Page<CollectionEntry<"posts">>;
@@ -30,7 +30,7 @@ const { page } = Astro.props;
     : "There are currently no posts to show."}
   page={page}
 >
-  <BlogListing
+  <PostsArchive
     title="Viewing all posts"
     description={page.data.length > 0
       ? `Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.

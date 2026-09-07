@@ -15,7 +15,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
 // https://astro.build/config
 export default defineConfig({
   site: siteConfig.url,
-  adapter: netlify(),
+  //  adapter: netlify(),
   integrations: [
     favicons({
       name: siteConfig.name,
@@ -50,7 +50,7 @@ export default defineConfig({
       version: "1.0.0",
     }),
     icon({
-      iconDir: "src/images/svg",
+      iconDir: "src/assets/svg",
       include: {
         "simple-icons": ["linkedin", "github"],
         "material-symbols": [

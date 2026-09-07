@@ -6,7 +6,7 @@ slug: "this-isnt-the-slug-youre-looking-for"
 pubDate: "2025-02-22T11:35:03.000Z"
 updatedDate: "2025-02-26T17:23:25.000Z"
 image:
-  src: "~/images/jpg/dylann-hendricks-67c1geZr1eE-unsplash.jpg"
+  src: "~/assets/jpg/dylann-hendricks-67c1geZr1eE-unsplash.jpg"
   alt: "Greyscale photo of a ferris wheel"
 category: "Markdown"
 tags: ["example", "markdown", "image", "second", "faq"]

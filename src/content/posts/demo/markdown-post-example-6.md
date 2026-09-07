@@ -5,7 +5,7 @@ description: "Eget magna fermentum iaculis eu non diam phasellus vestibulum lore
 pubDate: "2025-07-26T12:02:33.000Z"
 author: "lorem-ipsum"
 image:
-  src: "~/images/jpg/dylann-hendricks-67c1geZr1eE-unsplash.jpg"
+  src: "~/assets/jpg/dylann-hendricks-67c1geZr1eE-unsplash.jpg"
   alt: "Greyscale photo of a ferris wheel"
 category: "Markdown"
 tags: ["example", "markdown", "sixth", "image", "lorem ipsum"]

@@ -6,7 +6,7 @@ slug: "draft-example-post"
 pubDate: "2024-12-29T11:35:03.000Z"
 updatedDate: "2024-12-29T17:23:25.000Z"
 image:
-  src: "~/images/jpg/hayden-walker-ihiEd-_4TNY-unsplash.jpg"
+  src: "~/assets/jpg/hayden-walker-ihiEd-_4TNY-unsplash.jpg"
   alt: "Person's right hand near newspaper"
 tags: ["example", "draft", "post"]
 ---
