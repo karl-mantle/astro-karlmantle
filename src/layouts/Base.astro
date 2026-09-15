@@ -16,9 +16,12 @@ type Props = {
   description: string;
   entry?: DataEntryMap[keyof DataEntryMap][string];
   page?: Page;
+  load?: {
+    turnstile?: boolean;
+  };
 };
 
-const { type, title, description, entry, page } = Astro.props;
+const { type, title, description, entry, page, load } = Astro.props;
 
 const url = new URL(Astro.url.pathname, Astro.site);
 
@@ -27,7 +30,7 @@ const schema = createSchema(type, url, title, description, entry, page);
 
 <!doctype html>
 <html lang={siteConfig.language}>
-  <Head description={description} entry={entry} title={title}>
+  <Head description={description} entry={entry} title={title} load={load}>
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
   </Head>
 

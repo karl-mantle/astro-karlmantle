@@ -11,9 +11,12 @@ type Props = {
   description: string;
   entry?: DataEntryMap[keyof DataEntryMap][string];
   title: string;
+  load?: {
+    turnstile?: boolean;
+  };
 };
 
-const { description, entry, title } = Astro.props;
+const { description, entry, title, load } = Astro.props;
 
 const opengraphImage = entry?.data.image?.src ?? opengraphImageSrc;
 
@@ -51,7 +54,7 @@ const metadata = {
 
   <slot />
 
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+  {load?.turnstile && <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer />}
 
   <MeasurementHeadEnd />
 </head>
