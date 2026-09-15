@@ -1,9 +1,8 @@
-draft: true
-title: "Pokedex"
-description: "An interactive Pokédex built with React and PokeAPI. Includes search, region/type filtering, evolutions, stats, learnsets and more."
-pubDate: "2024-09-20T11:35:03.000Z"
-updatedDate: "2025-12-20T11:35:03.000Z"
-github: https://github.com/karl-mantle/react-pokedex
-preview: https://karl-mantle.github.io/react-pokedex/
-category: "Web App"
-tags: ["react", "pokeapi", "pokeapi-pokedex", "vite"]
+title: "Astro Starter Blog: Mikado"
+description: "An accessible, SEO-friendly starter template for building an Astro blog hosted on a Cloudflare Worker."
+pubDate: "2024-09-11T00:00:00.000Z"
+updatedDate: "2026-08-09T00:00:00.000Z"
+github: https://github.com/karl-mantle/astro-starter-blog-mikado
+preview: https://mikado.karlmantle.workers.dev/
+category: "Theme"
+tags: ["astro", "cloudflare-workers", "mdx", "tailwindcss", "typescript", "blog"]

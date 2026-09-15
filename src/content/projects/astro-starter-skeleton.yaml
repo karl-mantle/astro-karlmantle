@@ -1,9 +1,9 @@
-draft: true
-title: "Pokedex"
-description: "An interactive Pokédex built with React and PokeAPI. Includes search, region/type filtering, evolutions, stats, learnsets and more."
-pubDate: "2024-09-20T11:35:03.000Z"
-updatedDate: "2025-12-20T11:35:03.000Z"
-github: https://github.com/karl-mantle/react-pokedex
-preview: https://karl-mantle.github.io/react-pokedex/
-category: "Web App"
-tags: ["react", "pokeapi", "pokeapi-pokedex", "vite"]
+title: "Astro Starter Skeleton"
+description: "A batteries-included Astro starter theme for building clean, accessible, SEO-friendly sites with MDX."
+pubDate: "2025-09-19T00:00:00.000Z"
+updatedDate: "2026-07-12T00:00:00.000Z"
+github: https://github.com/karl-mantle/astro-skeleton
+preview: https://karl-mantle.github.io/astro-skeleton/
+category: "Theme"
+tags:
+  ["astro", "mdx", "tailwindcss", "typescript", "github-pages", "leaflet", "github-actions", "a11y"]

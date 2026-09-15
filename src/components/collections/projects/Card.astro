@@ -1,26 +1,33 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<"li"> & {
+interface Props extends HTMLAttributes<"li"> {
   description: string;
   heading: string;
-  preview?: URL;
-  github: URL;
-  version: string;
-};
+  preview?: string;
+  github: string;
+}
 
-const { description, heading, github, preview, version } = Astro.props;
+const { description, heading, github, preview } = Astro.props;
 ---
 
-<li>
-  <a class:list={["group/card flex grow gap-2 sm:gap-4"]} href={github}>
-    <span aria-hidden="true">&gt;&gt;</span>
+<li class="group/card flex flex-col gap-2 border border-white p-4 text-sm sm:gap-4">
+  <h2 class="text-bold text-lg group-hover/card:underline">
+    {heading}
+  </h2>
+  <p>{description}</p>
 
-    <div class="flex grow flex-col gap-2 text-sm">
-      <h2 class="text-bold text-lg group-hover/card:underline">
-        {heading}
-      </h2>
-      <p>{description}</p>
-    </div>
-  </a>
+  <div class="mt-auto">
+    <a href={github} class="underline hover:no-underline">GitHub</a>
+    {
+      preview && (
+        <>
+          {" | "}
+          <a href={preview} class="underline hover:no-underline">
+            Preview
+          </a>
+        </>
+      )
+    }
+  </div>
 </li>
