@@ -26,3 +26,9 @@
     content: none;
   }
 }
+
+@layer utilities {
+  .prose {
+    max-width: 70ch;
+  }
+}

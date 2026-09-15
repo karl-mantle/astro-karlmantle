@@ -25,7 +25,7 @@ const { page } = Astro.props;
   type="collectionPage"
   title={page.data.length > 0 ? `All posts ~ Page ${page.currentPage}` : "All posts"}
   description={page.data.length > 0
-    ? `Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.
+    ? `Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} total.
 `
     : "There are currently no posts to show."}
   page={page}
@@ -33,7 +33,7 @@ const { page } = Astro.props;
   <PostsArchive
     title="Viewing all posts"
     description={page.data.length > 0
-      ? `Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} posts.
+      ? `Now displaying ${page.start + 1} to ${page.end + 1} posts out of ${page.total} total.
 `
       : "There are currently no posts to show"}
     page={page}
