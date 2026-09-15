@@ -70,8 +70,8 @@ const { page, term } = Astro.props;
       ? `“${term.label}” category archive page ${page.currentPage}`
       : `“${term.label}” tag archive page ${page.currentPage}`}
     description={term.type === "category"
-      ? `View all posts in the category “${term.label}”.`
-      : `View all posts tagged with “${term.label}”.`}
+      ? `View all posts in the category “${term.label}”`
+      : `View all posts tagged with “${term.label}”`}
     page={page}
   />
 </Base>

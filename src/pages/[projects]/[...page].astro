@@ -33,7 +33,7 @@ const { page } = Astro.props;
   <ProjectsArchive
     title="Viewing all projects"
     description={page.data.length > 0
-      ? `Now displaying ${page.start + 1} to ${page.end + 1} projects out of ${page.total} total.
+      ? `Now displaying ${page.start + 1} to ${page.end + 1} projects out of ${page.total} total
 `
       : "There are currently no projects to show"}
     page={page}

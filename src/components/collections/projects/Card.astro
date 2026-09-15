@@ -18,12 +18,19 @@ const { description, heading, github, preview } = Astro.props;
   <p>{description}</p>
 
   <div class="mt-auto">
-    <a href={github} class="underline hover:no-underline">GitHub</a>
+    <a href={github} class="underline hover:no-underline" target="_blank" rel="noopener noreferrer"
+      >GitHub</a
+    >
     {
       preview && (
         <>
           {" | "}
-          <a href={preview} class="underline hover:no-underline">
+          <a
+            href={preview}
+            class="underline hover:no-underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Preview
           </a>
         </>
